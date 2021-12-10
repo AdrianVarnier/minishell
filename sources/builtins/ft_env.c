@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 18:02:56 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/10 17:25:38 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/10 17:32:08 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "minishell.h"
 
-typedef struct    s_env
+void	ft_env(t_env *env)
 {
-    char		*key;
-    char		*value;
-    struct s_env	*next;
-    struct s_env	*prev;
-}   		t_env;
-
-#endif
+	while(env != NULL)
+	{
+		ft_putstr_fd(env->key, 0);
+		ft_putstr_fd("=", 0);
+		ft_putstr_fd(env->value, 0);
+		ft_putstr_fd("\n", 0);
+		env = env->next;
+	}
+}

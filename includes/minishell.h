@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 13:16:02 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/10 18:31:03 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,18 @@
 
 //builtins
 
-void	pwd(void);
+void	ft_pwd(void);
+void	ft_cd(char *path, t_env *env);
+void	ft_env(t_env *env);
+void	ft_unset(char *name, t_env *env);
+void	ft_export(char *s, t_env *env);
 
 //env
 
 char	*get_env(char *name, t_env *env);
 void	set_env(char *name, char *content, t_env *env);
+int	is_in_env(char *name, t_env *env);
+void	add_to_env(char *name, char *content, t_env *env);
 
 //utils
 
@@ -34,5 +40,8 @@ void	ft_putstr_fd(char *s, int fd);
 int	ft_strcmp(char *s1, char *s2);
 void	*ft_memcpy(void *dst, void *src, int len);
 char	*ft_strdup(char *s);
+int	ft_strlcpy(char *dst, char *src, int len);
+int	ft_strlcat(char *dst, char *src, int len);
+char	*ft_strjoin3(char *s1, char *s2, char *s3);
 
 #endif

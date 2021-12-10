@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   add_to_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 18:02:56 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/10 14:59:13 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/10 18:03:42 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "minishell.h"
 
-typedef struct    s_env
+void	add_to_env(char *name, char *content, t_env *env)
 {
-    char		*key;
-    char		*value;
-    struct s_env	*next;
-    struct s_env	*prev;
-}   		t_env;
+	t_env	*new;
 
-#endif
+	new = (t_env *)malloc(sizeof(t_env));
+	if (new == NULL)
+		return ;
+	while (env->next != NULL)
+		env = env->next;
+	new->next = NULL;
+	new->prev = env;
+	new->key = ft_strdup(name);
+	new->value = ft_strdup(content);
+	env->next = new;
+}

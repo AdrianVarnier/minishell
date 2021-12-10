@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   is_in_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 18:02:56 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/10 14:54:57 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/10 15:15:03 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "minishell.h"
 
-typedef struct    s_env
+int	is_in_env(char *name, t_env *env)
 {
-    char		*key;
-    char		*value;
-    struct s_env	*next;
-    struct s_env	*prev;
-}   		t_env;
-
-#endif
+	while (env != NULL)
+	{
+		if (ft_strcmp(name, env->key) == 0)
+			return (1);
+		env = env->next;
+	}
+	return (0);
+}

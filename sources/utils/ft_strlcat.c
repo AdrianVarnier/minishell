@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:14:23 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 12:19:06 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/10 17:04:56 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/10 17:05:53 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd(void)
+int	ft_strlcat(char *dst, char *src, int len)
 {
-	char	path[PATH_MAX];
+	int	i;
 
-	getcwd(path, PATH_MAX);
-	ft_putstr_fd(path, 0);
+	i = ft_strlen(dst);
+	if (i >= len)
+		return (len + ft_strlen(src));
+	ft_strlcpy(dst + i, src, len - i);
+	return (i + ft_strlen(src));
 }

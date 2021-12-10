@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   ft_strjoin3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 18:02:56 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/10 16:56:50 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/10 17:04:34 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "minishell.h"
 
-typedef struct    s_env
+char	*ft_strjoin3(char *s1, char *s2, char *s3)
 {
-    char		*key;
-    char		*value;
-    struct s_env	*next;
-    struct s_env	*prev;
-}   		t_env;
+	int	i;
+	char	*s;
 
-#endif
+	i = 0;
+	s = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + 1));
+	if (s == NULL)
+		return (NULL);
+	ft_strlcpy(s, s1, ft_strlen(s1) + 1);
+	ft_strlcat(s, s2, ft_strlen(s) + ft_strlen(s2) + 1);
+	ft_strlcat(s, s3, ft_strlen(s) + ft_strlen(s3) + 1);
+	return (s);
+}

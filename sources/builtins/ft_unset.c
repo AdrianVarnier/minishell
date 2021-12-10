@@ -1,24 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 18:02:56 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/10 17:35:32 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/10 18:08:23 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "minishell.h"
 
-typedef struct    s_env
+void	ft_unset(char *name, t_env *env)
 {
-    char		*key;
-    char		*value;
-    struct s_env	*next;
-    struct s_env	*prev;
-}   		t_env;
+	t_env	*tmp1;
+	t_env	*tmp2;
 
-#endif
+	while (env != NULL)
+	{
+		if (ft_strcmp(name, env->key) == 0)
+		{
+			tmp1 = env->prev;
+			tmp2 = env->next;
+			if (tmp1 != NULL)
+				tmp1->next = tmp2;
+			if (tmp2 != NULL)
+				tmp2->prev = tmp1;
+			free(env->key);
+			free(env->value);
+			free(env);
+			return ;
+		}
+		env = env->next;
+	}
+}
