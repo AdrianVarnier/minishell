@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:59:13 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 12:12:38 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/11 15:03:05 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_env	*add_to_env(char *name, char *content, t_env *env)
 	t_env	*new;
 	t_env	*tmp;
 
+	new = NULL;
+	tmp = NULL;
 	if (env == NULL)
 		return (new_env(name, content));
 	tmp = env;
