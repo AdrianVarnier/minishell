@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 09:25:19 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/11 11:32:01 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ typedef struct	s_cmd
 	char		*arg;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
-}
+}		t_cmd;
 
 typedef struct s_shell
 {
 	struct s_env	*env;
 	struct s_cmd	*cmd;
-}
+}		t_shell;
 
 #endif

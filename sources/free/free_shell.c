@@ -1,13 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   free_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
+/*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 09:09:39 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 09:09:48 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/11 12:16:24 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/11 12:17:22 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_shell(t_shell *shell)
+{
+	free_env(shell->env);
+	free_cmd(shell->cmd);
+	free(shell);
+}

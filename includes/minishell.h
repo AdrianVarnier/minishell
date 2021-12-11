@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 18:31:03 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/11 12:50:56 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,18 @@ void	ft_export(char *s, t_env *env);
 char	*get_env(char *name, t_env *env);
 void	set_env(char *name, char *content, t_env *env);
 int	is_in_env(char *name, t_env *env);
-void	add_to_env(char *name, char *content, t_env *env);
+t_env	*add_to_env(char *name, char *content, t_env *env);
+
+//exec
+
+int	is_builtin(char *name);
+int	is_supported(char *name, char *option);
+
+//free
+
+void	free_env(t_env *env);
+void	free_cmd(t_cmd *cmd);
+void	free_shell(t_shell *shell);
 
 //utils
 
