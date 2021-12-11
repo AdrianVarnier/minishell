@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 17:46:56 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:56:12 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 //builtins
 
 void	ft_pwd(void);
-void	ft_cd(char *path, t_env *env);
+void	ft_cd(char *path, t_env **env);
 void	ft_cd_here(t_env *env);
 void	ft_cd_oldpwd(t_env *env);
 void	ft_cd_home(t_env *env);
 void	ft_cd_back(t_env *env);
 void	ft_env(t_env *env);
 void	ft_unset(char *name, t_env *env);
-void	ft_export(char *s, t_env *env);
+void	ft_export(char *s, t_env **env);
 void	ft_echo(char *s, int mode);
 
 //env
@@ -40,7 +40,7 @@ void	ft_echo(char *s, int mode);
 char	*get_env(char *name, t_env *env);
 void	set_env(char *name, char *content, t_env *env);
 int	is_in_env(char *name, t_env *env);
-t_env	*add_to_env(char *name, char *content, t_env *env);
+void	add_to_env(char *name, char *content, t_env **env);
 
 //exec
 

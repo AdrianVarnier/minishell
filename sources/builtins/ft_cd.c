@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:27:50 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 17:40:05 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:33:43 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ void	ft_cd_home(t_env *env)
 {
 	char	*path;
 
-	path = get_env("HOME");
+	path = get_env("HOME", env);
 	if (path == NULL)
 	{
-		ft_putstr_fd("minishell: cd: HOME not set\n");
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		return ;
 	}
-	ft_cd(path, env);
+	ft_cd(path, &env);
 }
 
 void	ft_cd_oldpwd(t_env *env)
@@ -56,7 +56,7 @@ void	ft_cd_oldpwd(t_env *env)
 		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
 		return ;
 	}
-	ft_cd(path, env);
+	ft_cd(path, &env);
 }
 
 void	ft_cd_here(t_env *env)
@@ -65,12 +65,12 @@ void	ft_cd_here(t_env *env)
 
 	getcwd(new_path,PATH_MAX);
 	if (is_in_env("OLDPWD", env) == 0)
-		add_to_env("OLDPWD", new_path, env);
+		add_to_env("OLDPWD", new_path, &env);
 	else
 		set_env("OLDPWD", new_path, env);
 }
 
-void	ft_cd(char *path, t_env *env)
+void	ft_cd(char *path, t_env **env)
 {
 	char	new_path[PATH_MAX];
 	char	old_path[PATH_MAX];
@@ -81,12 +81,12 @@ void	ft_cd(char *path, t_env *env)
 	if (chdir(path) == -1)
 		return ;
 	getcwd(new_path, PATH_MAX);
-	if (is_in_env("PWD", env) == 0)
+	if (is_in_env("PWD", *env) == 0)
 		add_to_env("PWD", new_path, env);
 	else
-		set_env("PWD", new_path, env);
-	if (is_in_env("OLDPWD", env) == 0)
+		set_env("PWD", new_path, *env);
+	if (is_in_env("OLDPWD", *env) == 0)
 		add_to_env("OLDPWD", old_path, env);
 	else
-		set_env("OLDPWD", old_path, env);
+		set_env("OLDPWD", old_path, *env);
 }

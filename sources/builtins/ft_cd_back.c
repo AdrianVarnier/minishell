@@ -6,13 +6,13 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 17:40:37 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 17:57:32 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:39:55 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_path_size(char *path)
+int	get_path_size(char *path)
 {
 	int	i;
 
@@ -48,6 +48,8 @@ void	ft_cd_back(t_env *env)
 	char	old_path[PATH_MAX];
 	char	*new_path;
 
-	getcwd(oldpath, PATH_MAX);
+	getcwd(old_path, PATH_MAX);
 	new_path = get_back_path(old_path);
+	ft_cd(new_path, &env);
+	free(new_path);
 }

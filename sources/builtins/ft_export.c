@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:12:10 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 18:31:33 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/11 23:55:50 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static char	*get_value(char *s)
 	return (value);
 }
 
-void	ft_export(char *s, t_env *env)
+void	ft_export(char *s, t_env **env)
 {
 	char	*key;
 	char	*value;
@@ -79,10 +79,10 @@ void	ft_export(char *s, t_env *env)
 		return ;
 	key = get_key(s);
 	value = get_value(s);
-	if (is_in_env(key, env) == 0)
+	if (is_in_env(key, *env) == 0)
 		add_to_env(key, value, env);
 	else
-		set_env(key, value, env);
+		set_env(key, value, *env);
 	free(key);
 	free(value);
 }
