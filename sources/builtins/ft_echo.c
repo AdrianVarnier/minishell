@@ -1,39 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 09:25:19 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/11 09:05:24 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/11 09:08:48 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "minishell.h"
 
-typedef struct    s_env
+void	ft_echo(char *s, int mode)
 {
-    char		*key;
-    char		*value;
-    struct s_env	*next;
-    struct s_env	*prev;
-}   		t_env;
-
-typedef struct	s_cmd
-{
-	char		*name;
-	char		*option;
-	char		*arg;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	ft_putstr_fd(s, 0);
+	if (mode == 0)
+		ft_putstr_fd("\n", 0);
 }
-
-typedef struct s_shell
-{
-	struct s_env	*env;
-	struct s_cmd	*cmd;
-}
-
-#endif

@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   is_supported.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 09:25:19 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/11 09:17:49 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/11 09:21:18 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "minishell.h"
 
-typedef struct    s_env
+int	is_supported(char *name, char *option)
 {
-    char		*key;
-    char		*value;
-    struct s_env	*next;
-    struct s_env	*prev;
-}   		t_env;
-
-typedef struct	s_cmd
-{
-	char		*name;
-	char		*option;
-	char		*arg;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	if (option == NULL)
+		return (1);
+	if (ft_strcmp(name, "echo") == 0)
+		if (ft_strcmp(option, "-n") == 0)
+			return (1);
+	return (0);
 }
-
-typedef struct s_shell
-{
-	struct s_env	*env;
-	struct s_cmd	*cmd;
-}
-
-#endif

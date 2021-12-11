@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 09:25:19 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/11 09:11:09 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/11 09:15:57 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "minishell.h"
 
-typedef struct    s_env
+int	is_builtin(char	*name)
 {
-    char		*key;
-    char		*value;
-    struct s_env	*next;
-    struct s_env	*prev;
-}   		t_env;
-
-typedef struct	s_cmd
-{
-	char		*name;
-	char		*option;
-	char		*arg;
-	struct s_cmd	*next;
-	struct s_cmd	*prev;
+	if (ft_strcmp(name, "echo") == 0 || ft_strcmp(name, "cd") == 0
+		|| ft_strcmp(name, "pwd") == 0 || ft_strcmp(name, "export") == 0
+		|| ft_strcmp(name, "unset") == 0 || ft_strcmp(name, "unset") == 0
+		|| ft_strcmp(name, "env") == 0 || ft_strcmp(name, "exit") == 0)
+		return (1);
+	return (0);
 }
-
-typedef struct s_shell
-{
-	struct s_env	*env;
-	struct s_cmd	*cmd;
-}
-
-#endif
