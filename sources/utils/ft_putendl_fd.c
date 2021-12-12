@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:14:23 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/12 12:08:03 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/12 12:24:22 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/12 12:28:40 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(void)
+void	ft_putendl_fd(char *s, int fd)
 {
-	char	path[PATH_MAX];
-
-	getcwd(path, PATH_MAX);
-	ft_putendl_fd(path, 1);
+	if (s == NULL)
+		return ;
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }

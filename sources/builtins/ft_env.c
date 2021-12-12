@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:25:38 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 17:32:08 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/12 12:07:12 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ void	ft_env(t_env *env)
 {
 	while(env != NULL)
 	{
-		ft_putstr_fd(env->key, 0);
-		ft_putstr_fd("=", 0);
-		ft_putstr_fd(env->value, 0);
-		ft_putstr_fd("\n", 0);
+		ft_putstr_fd(env->key, 1);
+		ft_putstr_fd("=", 1);
+		ft_putendl_fd(env->value, 1);
 		env = env->next;
 	}
 }

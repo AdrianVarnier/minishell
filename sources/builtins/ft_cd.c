@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:27:50 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 23:33:43 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/12 12:04:34 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static int	check_path(char *path)
 
 	if (access(path, F_OK) == -1)
 	{
-		err_msg = ft_strjoin3("minishell: cd: ", path, ": No such file or directory\n");
-		ft_putstr_fd(err_msg, 2);
+		err_msg = ft_strjoin3("minishell: cd: ", path, ": No such file or directory");
+		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
 		return(-1);
 	}
 	else if (access(path, X_OK) == -1)
 	{
-		err_msg = ft_strjoin3("minishell: cd: ", path, ": Permission denied\n");
-		ft_putstr_fd(err_msg, 2);
+		err_msg = ft_strjoin3("minishell: cd: ", path, ": Permission denied");
+		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
 		return (-1);
 	}
@@ -40,7 +40,7 @@ void	ft_cd_home(t_env *env)
 	path = get_env("HOME", env);
 	if (path == NULL)
 	{
-		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+		ft_putendl_fd("minishell: cd: HOME not set", 2);
 		return ;
 	}
 	ft_cd(path, &env);
@@ -53,7 +53,7 @@ void	ft_cd_oldpwd(t_env *env)
 	path = get_env("OLDPWD", env);
 	if (path == NULL)
 	{
-		ft_putstr_fd("minishell: cd: OLDPWD not set\n", 2);
+		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
 		return ;
 	}
 	ft_cd(path, &env);

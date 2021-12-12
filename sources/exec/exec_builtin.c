@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/12 00:20:17 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/12 12:02:02 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	exec_builtin(t_cmd *cmd, t_env *env)
 	if (is_supported(cmd->name, cmd->option) == 0)
 	{
 		err_msg = ft_strjoin5("minishell: ", cmd->name, ": ",
-				cmd->option, ": invalid option\n");
-		ft_putstr_fd(err_msg, 2);
+				cmd->option, ": invalid option");
+		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
 		return ;
 	}
