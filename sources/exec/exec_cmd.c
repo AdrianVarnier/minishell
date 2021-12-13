@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:54:07 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/12 15:49:50 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/13 18:19:34 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,34 +57,42 @@ static char	*check_path(char **path, t_cmd *cmd)
 			}
 			return (full_path);
 		}
+		free(full_path);
 		i++;
 	}
 	send_err_msg(cmd->name, full_path, path, 'F');
 	return (NULL);
 }
 
-void	exec_cmd(t_cmd *cmd, t_env *env, char **envp)
+void	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell)
 {
 	char	*tmp;
 	char	**path;
+	char	**arg;
 
+	redir_pipe(cmd);
 	if (is_builtin(cmd->name) == 1)
-	{
-		exec_builtin(cmd, env);
-		return ;
-	}
-	tmp = get_env("PATH", env);;
+		exec_builtin(cmd, env, shell);
+	tmp = get_env("PATH", env);
 	if (tmp == NULL)
 	{
 		tmp = ft_strjoin3("minishell: ", cmd->name, ": PATH not set");
 		ft_putstr_fd(tmp, 2);
 		free(tmp);
-		return ;
+		free_shell(shell);
+		exit(1);
 	}
 	path = ft_split(tmp, ':');
 	tmp = check_path(path, cmd);
 	if (tmp != NULL)
-		execve(tmp, NULL, envp);
-	ft_putendl_fd("exec done", 1);
+	{
+		free_char2(path);
+		path = env_to_char2(env);
+		arg = cmd_to_char2(cmd);
+		free_shell(shell);
+		execve(tmp, arg, path);
+	}
 	send_err_msg(NULL, tmp, path, '\0');
+	free_shell(shell);
+	exit(1);
 }

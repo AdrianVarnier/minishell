@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 11:32:01 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:51:03 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct	s_cmd
 	char		*name;
 	char		*option;
 	char		*arg;
+	int		input;
+	int		output;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }		t_cmd;

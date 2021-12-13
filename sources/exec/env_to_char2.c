@@ -1,31 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmd.c                                         :+:      :+:    :+:   */
+/*   env_to_char2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:30:22 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 14:25:44 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/13 11:40:54 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/13 12:43:32 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmd(t_cmd	*cmd)
+static int	env_size(t_env *env)
 {
-	t_cmd	*tmp;
+	int	i;
 
-	while (cmd != NULL)
+	i = 0;
+	while (env != NULL)
 	{
-		tmp = cmd->next;
-		if (cmd->name != NULL)
-			free(cmd->name);
-		if (cmd->option != NULL)
-			free(cmd->option);
-		if (cmd->arg != NULL)
-			free(cmd->arg);
-		free(cmd);
-		cmd = tmp;
+		i++;
+		env = env->next;
 	}
+	return (i);
+}
+
+char	**env_to_char2(t_env *env)
+{
+	int	i;
+	char	**ret;
+
+	if (env == NULL)
+		return (NULL);
+	i = 0;
+	ret = (char **)malloc(sizeof(char *) * (env_size(env) + 1));
+	while (env != NULL)
+	{
+		ret[i] = ft_strjoin3(env->key, "=", env->value);
+		i++;
+		env = env->next;
+	}
+	ret[i] = NULL;
+	return (ret);
 }

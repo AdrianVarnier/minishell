@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmd.c                                         :+:      :+:    :+:   */
+/*   create_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:30:22 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 14:25:44 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/13 15:48:49 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/13 18:37:49 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmd(t_cmd	*cmd)
+void	create_pipe(t_cmd *cmd, t_env *env, t_shell *shell)
 {
-	t_cmd	*tmp;
+	int	fd[2];
+	pid_t	pid;
 
-	while (cmd != NULL)
+	if (pipe(fd) == -1)
 	{
-		tmp = cmd->next;
-		if (cmd->name != NULL)
-			free(cmd->name);
-		if (cmd->option != NULL)
-			free(cmd->option);
-		if (cmd->arg != NULL)
-			free(cmd->arg);
-		free(cmd);
-		cmd = tmp;
+		ft_putendl_fd("minishell: pipe failed", 2);
+		return ;
 	}
+	cmd->output = fd[1];
+	cmd->next->input = fd[0];
 }

@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmd.c                                         :+:      :+:    :+:   */
+/*   redir_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:30:22 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 14:25:44 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/13 17:37:18 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/13 18:07:54 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmd(t_cmd	*cmd)
-{
-	t_cmd	*tmp;
+#include <stdio.h>
 
-	while (cmd != NULL)
+void	redir_pipe(t_cmd *cmd)
+{
+	if (cmd == NULL)
+		return ;
+	if (cmd->input != 0)
 	{
-		tmp = cmd->next;
-		if (cmd->name != NULL)
-			free(cmd->name);
-		if (cmd->option != NULL)
-			free(cmd->option);
-		if (cmd->arg != NULL)
-			free(cmd->arg);
-		free(cmd);
-		cmd = tmp;
+		dup2(cmd->input, STDIN_FILENO);
+		close(cmd->input);
+	}
+	if (cmd->output != 1)
+	{
+		dup2(cmd->output, STDOUT_FILENO);
+		close(cmd->output);
 	}
 }

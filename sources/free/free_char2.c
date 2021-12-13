@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmd.c                                         :+:      :+:    :+:   */
+/*   free_char2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:30:22 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 14:25:44 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/13 11:33:15 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/13 12:26:08 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmd(t_cmd	*cmd)
+void	free_char2(char **to_free)
 {
-	t_cmd	*tmp;
+	int	i;
 
-	while (cmd != NULL)
+	i = 0;
+	while (to_free[i] != NULL)
 	{
-		tmp = cmd->next;
-		if (cmd->name != NULL)
-			free(cmd->name);
-		if (cmd->option != NULL)
-			free(cmd->option);
-		if (cmd->arg != NULL)
-			free(cmd->arg);
-		free(cmd);
-		cmd = tmp;
+		free(to_free[i]);
+		i++;
 	}
+	free(to_free);
 }

@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/12 12:02:02 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/13 18:22:04 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	exec_echo(t_cmd *cmd)
 		ft_echo(cmd->arg, 1);
 }
 
-void	exec_builtin(t_cmd *cmd, t_env *env)
+void	exec_builtin(t_cmd *cmd, t_env *env, t_shell *shell)
 {
 	char	*err_msg;
 
@@ -44,7 +44,8 @@ void	exec_builtin(t_cmd *cmd, t_env *env)
 				cmd->option, ": invalid option");
 		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
-		return ;
+		free_shell(shell);
+		exit(1);
 	}
 	if (ft_strcmp(cmd->name, "echo") == 0)
 		exec_echo(cmd);
@@ -59,5 +60,9 @@ void	exec_builtin(t_cmd *cmd, t_env *env)
 	if (ft_strcmp(cmd->name, "env") == 0)
 		ft_env(env);
 	if (ft_strcmp(cmd->name, "exit") == 0)
-		return ;
+	{
+		free_shell(shell);
+		exit(0);
+	}
+	free_shell(shell);
 }
