@@ -6,13 +6,16 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/14 14:46:55 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/14 16:06:03 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/types.h>
@@ -81,12 +84,12 @@ char	**ft_split(char *s, char c);
 int	ft_num_cmd(char **strs);
 int	ft_next_cmd(char **strs);
 int	ft_pass_cmd(char **strs);
-void	ft_cpy_cmd(t_command *cmd, char **strs);
-t_command	*ft_stock_cmd(char **strs);
+void	ft_add_cmd(t_cmd **cmd, char **strs);
+t_cmd	*ft_stock_cmd(char **strs);
 int	ft_is_file(char **strs, int index);
-t_env	*add_to_env(char *name, char *content, t_env **env);
-int	ft_count_words(char *str);
-int	ft_wordlen(char *str);
+void	ft_place_cmd(t_cmd **cmd, t_cmd *new);
+int	ft_count_words_line(char *str);
+int	ft_wordlen_line(char *str);
 char	*ft_copy_word(char *str);
 void	ft_fill(char **strs, char *str, int size);
 char	**ft_splitline(char *str);

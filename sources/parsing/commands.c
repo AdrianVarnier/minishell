@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:39:31 by ali               #+#    #+#             */
-/*   Updated: 2021/12/13 14:10:56 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/14 15:58:21 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,51 +55,48 @@ int	ft_pass_cmd(char **strs)
 	return (i);
 }
 
-void	ft_cpy_cmd(t_command *cmd, char **strs)
+void	ft_add_cmd(t_cmd **cmd, char **strs)
 {
-	int	i;
-	int	args;
+	int		i;
+	t_cmd	*new;
 
-	cmd->cmd = strs[0];
-	args = 0;
-	while (strs[args + 1] && !ft_is_separator(strs[args + 1][0]))
-		args++;
-	cmd->arg = malloc(sizeof(char *) * (args + 1));
-	if (!cmd->arg)
+	new = malloc(sizeof(t_cmd));
+	if (!new)
 		return ;
-	i = 1;
-	while (strs[i] && !ft_is_separator(strs[i][0]))
+	i = 0;	
+	while (strs[i] && !ft_is_separator(strs[i + 1][0]))
+		i++;
+	new->args = malloc(sizeof(char *) * (i + 1));
+	if (!new->args)
+		return ;
+	i = 0;
+	while (strs[i] && !ft_is_separator(strs[i + 1][0]))
 	{
-		cmd->arg[i - 1] = strs[i];
+		new->args[i] = strs[i];
 		i++;
 	}
-	cmd->arg[i - 1] = NULL;
+	new->args[i] = NULL;
+	ft_place_cmd(cmd, new);
 }
 
-t_command	*ft_stock_cmd(char **strs)
+t_cmd	*ft_stock_cmd(char **strs)
 {
-	int			size;
-	int			i;
-	int			j;
-	t_command	*cmds;
+	int		size;
+	int		i;
+	int		j;
+	t_cmd	*cmd;
 
 	if (strs[0] == NULL)
 		return (NULL);
 	size = ft_num_cmd(strs);
-	cmds = malloc(sizeof(t_command) * (size + 1));
-	if (!cmds)
-		return (NULL);
 	i = 0;
 	j = 0;
 	while (i < size)
 	{
 		j += ft_next_cmd(&strs[j]);
-		ft_cpy_cmd(&cmds[i], &strs[j]);
-		if (cmds[i].cmd)
+		ft_add_cmd(&cmd, &strs[j]);
 		j += ft_pass_cmd(&strs[j]);
 		i++;
 	}
-	cmds[i].cmd = NULL;
-	cmds[i].arg = NULL;
-	return (cmds);
+	return (cmd);
 }

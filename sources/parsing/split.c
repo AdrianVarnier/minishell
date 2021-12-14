@@ -6,13 +6,13 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 17:38:19 by ali               #+#    #+#             */
-/*   Updated: 2021/12/14 14:38:18 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/14 16:05:32 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_count_words(char *str)
+int	ft_count_words_line(char *str)
 {
 	int	i;
 	int	words;
@@ -27,7 +27,7 @@ int	ft_count_words(char *str)
 	return (words);
 }
 
-int	ft_wordlen(char *str)
+int	ft_wordlen_line(char *str)
 {
 	int	i;
 
@@ -50,7 +50,7 @@ char	*ft_copy_word(char *str)
 
 	if (!str)
 		return (NULL);
-	size = ft_wordlen(str);
+	size = ft_wordlen_line(str);
 	word = malloc(sizeof(char) * (size + 1));
 	i = 0;
 	while (i < size)
@@ -95,7 +95,7 @@ char	**ft_splitline(char *str)
 	}
 	while (*str && *str == ' ')
 		str++;
-	size = ft_count_words(str);
+	size = ft_count_words_line(str);
 	strs = malloc(sizeof(char *) * (size + 1));
 	if (!strs)
 		return (NULL);
