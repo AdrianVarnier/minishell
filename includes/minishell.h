@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/14 16:06:03 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/14 19:21:46 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,18 @@ char	**ft_split(char *s, char c);
 
 //parsing
 
-int	ft_num_cmd(char **strs);
-int	ft_next_cmd(char **strs);
-int	ft_pass_cmd(char **strs);
 void	ft_add_cmd(t_cmd **cmd, char **strs);
+int		ft_next_cmd(char **strs);
 t_cmd	*ft_stock_cmd(char **strs);
 int	ft_is_file(char **strs, int index);
 void	ft_place_cmd(t_cmd **cmd, t_cmd *new);
+void	ft_output_type(t_cmd *cmd, char **strs);
+void	ft_input_type(t_cmd *cmd, char **strs, int index);
+int		ft_filetype(t_cmd *cmd, char **strs, int index);
+int	ft_end_error(char **strs);
+int	ft_pipe_nocmd(char **strs);
+int	ft_conjoin_error(char **strs);
+int	ft_parse_error(char **strs);
 int	ft_count_words_line(char *str);
 int	ft_wordlen_line(char *str);
 char	*ft_copy_word(char *str);
