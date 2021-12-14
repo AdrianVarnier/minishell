@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 15:51:03 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/14 15:19:03 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ typedef struct    s_env
 
 typedef struct	s_cmd
 {
-	char		*name;
-	char		*option;
-	char		*arg;
+	char	**args;
 	int		input;
 	int		output;
+	int		input_type;
+	int		output_type;
+	char	*infile;
+	char	*outfile;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }		t_cmd;

@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define.h                                           :+:      :+:    :+:   */
+/*   commands_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
+/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 12:05:59 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/14 15:14:48 by ali              ###   ########.fr       */
+/*   Created: 2021/12/13 14:03:09 by ali               #+#    #+#             */
+/*   Updated: 2021/12/13 14:09:12 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINE_H
-# define DEFINE_H
+#include "minishell.h"
 
-# define PATH_MAX 1024
-
-# define PIPE 1 
-# define APPEND 2
-# define REPLACE 3
-# define INFILE 4
-# define HEREDOC 5
-
-#endif
+int	ft_is_file(char **strs, int index)
+{
+	if (index == 0)
+		return (0);
+	if (strs[-1][0] == '<' || strs[-1][0] == '>')
+		return (1);
+	return (0);
+}

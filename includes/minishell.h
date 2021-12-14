@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 18:15:37 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/14 14:46:55 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,35 @@ int	ft_strlcat(char *dst, char *src, int len);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
 char	*ft_strjoin5(char *s1,char *s2, char *s3, char *s4, char *s5);
 char	**ft_split(char *s, char c);
+
+//parsing
+
+int	ft_num_cmd(char **strs);
+int	ft_next_cmd(char **strs);
+int	ft_pass_cmd(char **strs);
+void	ft_cpy_cmd(t_command *cmd, char **strs);
+t_command	*ft_stock_cmd(char **strs);
+int	ft_is_file(char **strs, int index);
+t_env	*add_to_env(char *name, char *content, t_env **env);
+int	ft_count_words(char *str);
+int	ft_wordlen(char *str);
+char	*ft_copy_word(char *str);
+void	ft_fill(char **strs, char *str, int size);
+char	**ft_splitline(char *str);
+int	ft_is_separator(char c);
+int	ft_pass_sep(char *str);
+int	ft_next_word(char *str);
+int	ft_pass_quote(char *str);
+int	ft_pass_word(char *str);
+int	ft_size_sub(char *str, t_env **env);
+int	ft_sub(char *sub, char *str, t_env **env);
+void	ft_fill_sub(char *str, char *sub, int size, t_env **env);
+char	*ft_replace(char *str, t_env **env);
+void	ft_variables(char **strs, t_env **env);
+int		ft_strcmp(char *s1, char *s2);
+char	*ft_get_varname(char *str);
+char	*ft_get_var(char *str, t_env **env);
+int	ft_variable_size(char *str, t_env **env);
+int	ft_pass_variable(char *str);
 
 #endif
