@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_cmd.c                                         :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 12:30:22 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 18:07:25 by ali              ###   ########.fr       */
+/*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
+/*   Updated: 2021/12/15 18:01:26 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_cmd(t_cmd	*cmd)
+t_cmd	*ft_parse_line(char *line, t_env **env)
 {
-	t_cmd	*tmp;
+	char	**strs;
+	t_cmd	*cmd;
 
-	while (cmd != NULL)
+	cmd = NULL;
+	strs = ft_splitline(line);
+	if (ft_parse_error(strs))
 	{
-		tmp = cmd->next;
-		if (cmd->args != NULL)
-			free_char2(cmd->args);
-		if (cmd->infile != NULL)
-			free(cmd->infile);
-		if (cmd->outfile != NULL)
-			free(cmd->outfile);
-		free(cmd);
-		cmd = tmp;
+		free_char2(strs);
+		return (NULL);
 	}
+	ft_variables(strs, env);
+	cmd = ft_stock_cmd(strs);
+	free_char2(strs);
+	return (cmd);
 }

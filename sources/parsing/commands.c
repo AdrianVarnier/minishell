@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:39:31 by ali               #+#    #+#             */
-/*   Updated: 2021/12/15 17:31:59 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/15 17:49:31 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_add_cmd(t_cmd **cmd, char **strs)
 	i = 0;
 	while (strs[i] && !ft_is_separator(strs[i][0]))
 	{
-		new->args[i] = strs[i];
+		new->args[i] = ft_strdup(strs[i]);
 		i++;
 	}
 	new->args[i] = NULL;

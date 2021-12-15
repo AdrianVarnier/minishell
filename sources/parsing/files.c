@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 16:44:05 by ali               #+#    #+#             */
-/*   Updated: 2021/12/15 17:20:12 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/15 18:02:46 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	ft_output_type(t_cmd *cmd, char **strs)
 	else if (strs[i][0] == '>' && !strs[i][1])
 	{
 		cmd->output_type = REPLACE;
-		cmd->outfile = strs[i + 1];
+		cmd->outfile = ft_strdup(strs[i + 1]);
 	}
 	else if (strs[i][0] == '>' && strs[i][1] == '>')
 	{
 		cmd->output_type = APPEND;
-		cmd->outfile = strs[i + 1];
+		cmd->outfile = ft_strdup(strs[i + 1]);
 	}
 	else if (strs[i][0] == '|')
 		cmd->output = PIPE;
@@ -47,12 +47,12 @@ void	ft_input_type(t_cmd *cmd, char **strs, int index)
 	else if (index > 1 && strs[i - 2][0] == '<' && !strs[i - 2][1])
 	{
 		cmd->input = INFILE;
-		cmd->infile = strs[i - 1];
+		cmd->infile = ft_strdup(strs[i - 1]);
 	}
 	else if (index > 1 && strs[i - 2][0] == '<' && strs[i - 2][1] == '<')
 	{
 		cmd->input = HEREDOC;
-		cmd->infile = strs[i - 1];
+		cmd->infile = ft_strdup(strs[i - 1]);
 	}
 }
 
