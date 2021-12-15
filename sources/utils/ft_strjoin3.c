@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 16:56:50 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 17:04:34 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/15 20:21:28 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	char	*s;
 
 	i = 0;
-	s = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + 1));
+	s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3) + 1));
 	if (s == NULL)
 		return (NULL);
 	ft_strlcpy(s, s1, ft_strlen(s1) + 1);

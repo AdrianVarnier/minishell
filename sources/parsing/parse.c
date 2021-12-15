@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_supported.c                                     :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
+/*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 09:17:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 09:21:18 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
+/*   Updated: 2021/12/15 18:01:26 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_supported(char *name, char *option)
+t_cmd	*ft_parse_line(char *line, t_env **env)
 {
-	if (option == NULL)
-		return (1);
-	if (ft_strcmp(name, "echo") == 0)
-		if (ft_strcmp(option, "-n") == 0)
-			return (1);
-	return (0);
+	char	**strs;
+	t_cmd	*cmd;
+
+	cmd = NULL;
+	strs = ft_splitline(line);
+	if (ft_parse_error(strs))
+	{
+		free_char2(strs);
+		return (NULL);
+	}
+	ft_variables(strs, env);
+	cmd = ft_stock_cmd(strs);
+	free_char2(strs);
+	return (cmd);
 }

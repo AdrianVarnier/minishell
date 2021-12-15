@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/14 19:21:46 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/15 21:49:55 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	ft_cd_oldpwd(t_env *env);
 void	ft_cd_home(t_env *env);
 void	ft_cd_back(t_env *env);
 void	ft_env(t_env *env);
-void	ft_unset(char *name, t_env *env);
-void	ft_export(char *s, t_env **env);
-void	ft_echo(char *s, int mode);
+void	ft_unset(char **arg, t_env *env);
+void	ft_export(char **arg, t_env **env);
+void	ft_echo(char **arg, int mode);
 
 //env
 
@@ -49,13 +49,11 @@ char	**env_to_char2(t_env *env);
 //exec
 
 int	is_builtin(char *name);
-int	is_supported(char *name, char *option);
 void	exec_builtin(t_cmd *cmd, t_env *env, t_shell *shell);
 void	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell);
 char	**env_to_char2(t_env *env);
 char	**cmd_to_char2(t_cmd *cmd);
 void	create_pipe(t_cmd *cmd, t_env *env, t_shell *shell);
-void	redir_pipe(t_cmd *cmd);
 
 //free
 
@@ -76,8 +74,8 @@ char	*ft_strdup(char *s);
 int	ft_strlcpy(char *dst, char *src, int len);
 int	ft_strlcat(char *dst, char *src, int len);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
-char	*ft_strjoin5(char *s1,char *s2, char *s3, char *s4, char *s5);
 char	**ft_split(char *s, char c);
+char	**char2_dup(char **arg);
 
 //parsing
 
@@ -93,6 +91,8 @@ int	ft_end_error(char **strs);
 int	ft_pipe_nocmd(char **strs);
 int	ft_conjoin_error(char **strs);
 int	ft_parse_error(char **strs);
+int	ft_quote_closed(char *str);
+char	*ft_remove_quote(char *str);
 int	ft_count_words_line(char *str);
 int	ft_wordlen_line(char *str);
 char	*ft_copy_word(char *str);
@@ -113,5 +113,6 @@ char	*ft_get_varname(char *str);
 char	*ft_get_var(char *str, t_env **env);
 int	ft_variable_size(char *str, t_env **env);
 int	ft_pass_variable(char *str);
+t_cmd	*ft_parse_line(char *line, t_env **env
 
 #endif

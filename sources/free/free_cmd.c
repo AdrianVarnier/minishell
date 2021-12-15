@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 12:30:22 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 14:25:44 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/15 21:34:30 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	free_cmd(t_cmd	*cmd)
 	while (cmd != NULL)
 	{
 		tmp = cmd->next;
-		if (cmd->name != NULL)
-			free(cmd->name);
-		if (cmd->option != NULL)
-			free(cmd->option);
-		if (cmd->arg != NULL)
-			free(cmd->arg);
+		if (cmd->args != NULL)
+			free_char2(cmd->args);
+		if (cmd->infile != NULL)
+			free(cmd->infile);
+		if (cmd->outfile != NULL)
+			free(cmd->outfile);
 		free(cmd);
 		cmd = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:06:23 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 13:07:09 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/15 20:20:25 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ char	*ft_strdup(char *s)
 	int		len;
 	char	*cpy;
 
+	if (s == NULL)
+		return (NULL);
 	i = 0;
 	len = ft_strlen(s) + 1;
-	if (!(cpy = (char *)malloc(sizeof(char) * len)))
-		return (0);
+	cpy = malloc(sizeof(char *) * len);
+	if (cpy == NULL)
+		return (NULL);
 	ft_memcpy(cpy, s, len);
 	return (cpy);
 }

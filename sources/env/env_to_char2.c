@@ -1,31 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir_pipe.c                                       :+:      :+:    :+:   */
+/*   env_to_char2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 17:37:18 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 18:07:54 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/13 11:40:54 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/15 21:06:40 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#include <stdio.h>
-
-void	redir_pipe(t_cmd *cmd)
+static int	env_size(t_env *env)
 {
-	if (cmd == NULL)
-		return ;
-	if (cmd->input != 0)
+	int	i;
+
+	i = 0;
+	while (env != NULL)
 	{
-		dup2(cmd->input, STDIN_FILENO);
-		close(cmd->input);
+		i++;
+		env = env->next;
 	}
-	if (cmd->output != 1)
+	return (i);
+}
+
+char	**env_to_char2(t_env *env)
+{
+	int	i;
+	char	**ret;
+
+	env = env->next;
+	if (env == NULL)
+		return (NULL);
+	i = 0;
+	ret = (char **)malloc(sizeof(char *) * (env_size(env) + 1));
+	while (env != NULL)
 	{
-		dup2(cmd->output, STDOUT_FILENO);
-		close(cmd->output);
+		ret[i] = ft_strjoin3(env->key, "=", env->value);
+		i++;
+		env = env->next;
 	}
+	ret[i] = NULL;
+	return (ret);
 }

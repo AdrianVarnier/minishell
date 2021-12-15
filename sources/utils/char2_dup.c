@@ -1,45 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_to_char2.c                                     :+:      :+:    :+:   */
+/*   char2_dup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 11:40:54 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/13 12:43:32 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/15 12:20:06 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/15 13:22:15 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	env_size(t_env *env)
+static int	char2_size(char **arg)
 {
 	int	i;
 
 	i = 0;
-	while (env != NULL)
-	{
+	while (arg[i] != NULL)
 		i++;
-		env = env->next;
-	}
 	return (i);
 }
 
-char	**env_to_char2(t_env *env)
+char	**char2_dup(char **arg)
 {
 	int	i;
-	char	**ret;
+	int	size;
+	char	**cpy;
 
-	if (env == NULL)
-		return (NULL);
 	i = 0;
-	ret = (char **)malloc(sizeof(char *) * (env_size(env) + 1));
-	while (env != NULL)
+	size = char2_size(arg);
+	cpy = malloc(sizeof(char *) * (size + 1));
+	if (cpy == NULL)
+		return (NULL);
+	while (i < size)
 	{
-		ret[i] = ft_strjoin3(env->key, "=", env->value);
+		cpy[i] = ft_strdup(arg[i]);
 		i++;
-		env = env->next;
 	}
-	ret[i] = NULL;
-	return (ret);
+	cpy[i] = NULL;
+	return (cpy);
 }

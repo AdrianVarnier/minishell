@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:09:33 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/12 15:34:11 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/15 20:21:09 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	**ft_split(char *s, char c)
 		return (0);
 	i = 0;
 	words = ft_count_words(s, c);
-	tab = (char **)malloc(sizeof(char *) * (words + 1));
+	tab = malloc(sizeof(char *) * (words + 1));
 	if (tab == NULL)
 		return (0);
 	while (i < words)
