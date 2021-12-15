@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:39:31 by ali               #+#    #+#             */
-/*   Updated: 2021/12/14 19:22:03 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/15 17:31:59 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,17 @@ int		ft_next_cmd(char **strs)
 	int	i;
 
 	i = 0;
+	if (strs[i][0] == '<')
+	{
+		while (strs[i] && (ft_is_file(&strs[i], i) || ft_is_separator(strs[i][0])))
+			i++;
+		return (i);
+	}
 	while (strs[i] && strs[i][0] != '|')
 	   i++;
 	if (!strs[i])
 		return (i);
-	while (ft_is_separator(strs[i][0]) || ft_is_file(&strs[i], i))
+	while (strs[i] && (ft_is_separator(strs[i][0]) || ft_is_file(&strs[i], i)))
 		i++;
 	return (i);
 }
@@ -63,7 +69,6 @@ t_cmd	*ft_stock_cmd(char **strs)
 	i = 0;
 	while (strs[i])
 	{
-		printf("strs[%d] = %s\n", i, strs[i]);
 		if (strs[i] && !ft_is_separator(strs[i][0]))
 		{
 			ft_add_cmd(&cmd, &strs[i]);

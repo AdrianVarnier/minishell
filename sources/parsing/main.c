@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:51:33 by ali               #+#    #+#             */
-/*   Updated: 2021/12/14 18:37:44 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/15 17:18:49 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(void)
 				printf("arg:%s\n", cmds->args[i]);
 				i++;
 			}
+			printf("infile = %s\noutfile = %s\n", cmds->infile, cmds->outfile);
 			cmds = cmds->next;
 		}
 		free(ret);
