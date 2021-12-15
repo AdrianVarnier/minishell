@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/14 19:21:46 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/15 15:57:49 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int	ft_end_error(char **strs);
 int	ft_pipe_nocmd(char **strs);
 int	ft_conjoin_error(char **strs);
 int	ft_parse_error(char **strs);
+int	ft_quote_closed(char *str);
+char	*ft_remove_quote(char *str);
 int	ft_count_words_line(char *str);
 int	ft_wordlen_line(char *str);
 char	*ft_copy_word(char *str);
