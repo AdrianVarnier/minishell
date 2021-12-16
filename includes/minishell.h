@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/16 14:45:59 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:34:33 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ char	**env_to_char2(t_env *env);
 //exec
 
 int	is_builtin(char *name);
-void	exec_builtin(t_cmd *cmd, t_env *env, t_shell *shell);
-void	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell);
+void	exec_builtin(t_cmd *cmd, t_env *env);
+void	exec_cmd(t_cmd *cmd, t_env *env);
 char	**env_to_char2(t_env *env);
 char	**cmd_to_char2(t_cmd *cmd);
-void	create_pipe(t_cmd *cmd, t_env *env, t_shell *shell);
+void	create_pipe(t_cmd *cmd, t_env *env);
 void	redir(t_cmd *cmd);
 
 //free
 
 void	free_env(t_env *env);
 void	free_cmd(t_cmd *cmd);
-void	free_shell(t_shell *shell);
 void	free_char2(char **to_free);
+void	free_shell(t_env *env, t_cmd *cmd);
 
 //utils
 

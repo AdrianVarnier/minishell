@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:54:07 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/16 14:46:10 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:31:29 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static void	send_err_msg(char *name, char *full_path, char **path, char mode)
 		free(path[i]);
 		i++;
 	}
-	free(path);
-	free(full_path);
+	if (path != NULL)
+		free(path);
+	if (full_path != NULL)
+		free(full_path);
 	if (mode == 'F')
 	{
 		err_msg = ft_strjoin3("minishell: ", name, ": command not found");
@@ -60,11 +62,11 @@ static char	*check_path(char **path, char *name)
 		free(full_path);
 		i++;
 	}
-	send_err_msg(name, full_path, path, 'F');
+	send_err_msg(name, NULL, path, 'F');
 	return (NULL);
 }
 
-void	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell)
+void	exec_cmd(t_cmd *cmd, t_env *env)
 {
 	char	*tmp;
 	char	**path;
@@ -72,14 +74,14 @@ void	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell)
 
 	redir(cmd);
 	if (is_builtin(cmd->args[0]) == 1)
-		exec_builtin(cmd, env, shell);
+		exec_builtin(cmd, env);
 	tmp = get_env("PATH", env);
 	if (tmp == NULL)
 	{
 		tmp = ft_strjoin3("minishell: ", cmd->args[0], ": PATH not set");
 		ft_putstr_fd(tmp, 2);
 		free(tmp);
-		free_shell(shell);
+		free_shell(env, cmd);
 		exit(1);
 	}
 	path = ft_split(tmp, ':');
@@ -89,10 +91,10 @@ void	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell)
 		free_char2(path);
 		path = env_to_char2(env);
 		arg = char2_dup(cmd->args);
-		free_shell(shell);
+		free_shell(env, cmd);
 		execve(tmp, arg, path);
 	}
 	send_err_msg(NULL, tmp, path, '\0');
-	free_shell(shell);
+	free_shell(env, cmd);
 	exit(1);
 }

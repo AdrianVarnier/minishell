@@ -6,15 +6,14 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 12:16:24 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 12:17:22 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:27:37 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_shell(t_shell *shell)
+void	free_shell(t_env *env, t_cmd *cmd)
 {
-	free_env(shell->env);
-	free_cmd(shell->cmd);
-	free(shell);
+	free_env(env);
+	free_cmd(cmd);
 }
