@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:18:57 by ali               #+#    #+#             */
-/*   Updated: 2021/12/14 18:41:59 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/16 15:25:25 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,21 @@ int	ft_conjoin_error(char **strs)
 	return (0);
 }
 
+int	ft_quote_error(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i])
+	{
+		if ((strs[i][0] == '\"' || strs[i][0] == '\'')
+			&& !ft_quote_closed(strs[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	ft_parse_error(char **strs)
 {
 	if (ft_conjoin_error(strs))
@@ -72,6 +87,11 @@ int	ft_parse_error(char **strs)
 	}
 	if (ft_end_error(strs) || strs[0]
 		&& (strs[0][0] == '>' || strs[0][0] == '<') && !strs[1])
+	{
+		ft_putendl_fd("minishell: syntax error", 2);
+		return (1);
+	}
+	if (ft_quote_error(strs))
 	{
 		ft_putendl_fd("minishell: syntax error", 2);
 		return (1);
