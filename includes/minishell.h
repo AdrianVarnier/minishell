@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 22:02:23 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/16 14:45:59 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell);
 char	**env_to_char2(t_env *env);
 char	**cmd_to_char2(t_cmd *cmd);
 void	create_pipe(t_cmd *cmd, t_env *env, t_shell *shell);
+void	redir(t_cmd *cmd);
 
 //free
 

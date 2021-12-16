@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 10:54:07 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 21:42:25 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/16 14:46:10 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	exec_cmd(t_cmd *cmd, t_env *env, t_shell *shell)
 	char	**path;
 	char	**arg;
 
-	redir_pipe(cmd);
+	redir(cmd);
 	if (is_builtin(cmd->args[0]) == 1)
 		exec_builtin(cmd, env, shell);
 	tmp = get_env("PATH", env);
