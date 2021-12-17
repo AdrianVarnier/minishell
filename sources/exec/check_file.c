@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 14:01:28 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 00:50:29 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,13 @@ static int	check_outfile(char *outfile, t_cmd *cmd)
 {
 	int	fd;
 
-	if (access(outfile, F_OK) == -1)
+	if (access(outfile, F_OK) == 0)
 	{
-		send_err_msg(outfile, 'F');
-		return (0);
-	}
-	if (access(outfile, W_OK) == -1)
-	{
-		send_err_msg(outfile, 'W');
-		return (0);
+		if (access(outfile, W_OK) == -1)
+		{
+			send_err_msg(outfile, 'W');
+			return (0);
+		}
 	}
 	if (cmd->output_type == APPEND)
 		fd = open(outfile, O_WRONLY | O_APPEND | O_CREAT);
