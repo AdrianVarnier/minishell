@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 13:45:44 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/17 22:23:06 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_echo(char **arg, int mode);
 
 char	*get_env(char *name, t_env *env);
 void	set_env(char *name, char *content, t_env *env);
-int	is_in_env(char *name, t_env *env);
+int		is_in_env(char *name, t_env *env);
 void	add_to_env(char *name, char *content, t_env **env);
 char	**env_to_char2(t_env *env);
 char	*ft_get_key(char *envp);
@@ -51,7 +51,7 @@ t_env	*ft_parse_env(char **envp);
 
 //exec
 
-int	is_builtin(char *name);
+int		is_builtin(char *name);
 void	exec_builtin(t_cmd *cmd, t_env *env);
 void	exec_cmd(t_cmd *cmd, t_env *env);
 char	**env_to_char2(t_env *env);
@@ -59,6 +59,7 @@ char	**cmd_to_char2(t_cmd *cmd);
 void	create_pipe(t_cmd *cmd, t_env *env);
 void	redir(t_cmd *cmd);
 int		check_file(t_cmd *cmd);
+void	exec_all_cmd(t_cmd *cmd, t_env *env);
 
 //free
 
@@ -69,15 +70,15 @@ void	free_shell(t_env *env, t_cmd *cmd);
 
 //utils
 
-int	ft_strlen(char *s);
+int		ft_strlen(char *s);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-int	ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
 void	*ft_memcpy(void *dst, void *src, int len);
 char	*ft_strdup(char *s);
-int	ft_strlcpy(char *dst, char *src, int len);
-int	ft_strlcat(char *dst, char *src, int len);
+int		ft_strlcpy(char *dst, char *src, int len);
+int		ft_strlcat(char *dst, char *src, int len);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
 char	**ft_split(char *s, char c);
 char	**char2_dup(char **arg);

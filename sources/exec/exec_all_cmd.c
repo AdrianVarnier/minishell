@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   exec_all_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 14:15:20 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 23:44:59 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/17 23:46:36 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#include <fcntl.h>
-
-void	redir(t_cmd *cmd)
+void	exec_all_cmd(t_cmd *cmd, t_env *env)
 {
-	if (cmd->input_type == PIPE)
-		close(cmd->prev->output);
-	if (cmd->output_type == PIPE)
-		close(cmd->next->input);
-	if (cmd->input != 0)
+	pid_t	pid;
+
+	check_file(cmd);
+	while (cmd != NULL)
 	{
-		dup2(cmd->input, STDIN_FILENO);
-		close(cmd->input);
-	}
-	if (cmd->output != 1)
-	{
-		dup2(cmd->output, STDOUT_FILENO);
-		close(cmd->output);
+		if (cmd->output_type == PIPE)
+			create_pipe(cmd, env);
+		pid = fork();
+		if (pid == 0)
+			exec_cmd(cmd, env);
+		if (cmd->input_type == PIPE)
+		{
+			close(cmd->input);
+			close(cmd->prev->output);
+		}
+		cmd = cmd->next;
 	}
 }
