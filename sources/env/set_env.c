@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:45:16 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 13:06:11 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/15 21:07:12 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	set_env(char *name, char *content, t_env *env)
 {
+	env = env->next;
 	while (env != NULL)
 	{
 		if (ft_strcmp(name, env->key) == 0)

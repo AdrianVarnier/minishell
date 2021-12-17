@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_supported.c                                     :+:      :+:    :+:   */
+/*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 09:17:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/11 09:21:18 by avarnier         ###   ########.fr       */
+/*   Created: 2021/12/16 14:15:20 by avarnier          #+#    #+#             */
+/*   Updated: 2021/12/16 14:24:37 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_supported(char *name, char *option)
+static void	close_fd(t_cmd *cmd)
 {
-	if (option == NULL)
-		return (1);
-	if (ft_strcmp(name, "echo") == 0)
-		if (ft_strcmp(option, "-n") == 0)
-			return (1);
-	return (0);
+	if (cmd->input_type == PIPE)
+		close(cmd->prev->output);
+	if (cmd->output_type == PIPE)
+		close(cmd->next->input);
+}
+
+void	redir(t_cmd *cmd)
+{
+	close_fd(cmd);
+	if (cmd->input != 0)
+	{
+		dup2(cmd->input, STDIN_FILENO);
+		close(cmd->input);
+	}
+	if (cmd->output != 1)
+	{
+		dup2(cmd->output, STDOUT_FILENO);
+		close(cmd->output);
+	}
 }

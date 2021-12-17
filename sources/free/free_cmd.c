@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 12:30:22 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 18:07:25 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/16 16:32:49 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	free_cmd(t_cmd	*cmd)
 {
 	t_cmd	*tmp;
 
+	while (cmd->prev != NULL)
+		cmd = cmd->prev;
 	while (cmd != NULL)
 	{
 		tmp = cmd->next;

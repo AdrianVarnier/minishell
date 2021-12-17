@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 12:26:51 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/12 12:27:38 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/15 16:00:43 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 }

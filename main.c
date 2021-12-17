@@ -1,73 +1,64 @@
 #include "minishell.h"
-#include <stdio.h>
 
 int main(int argc, char **argv, char **envp)
 {
-	t_cmd	*cmd;
-
-	cmd = malloc(sizeof(t_cmd));
-	cmd->name = ft_strdup("echo");
-	cmd->option = NULL;
-	cmd->arg = ft_strdup("avarnier login 42 test");
-	cmd->input = 0;
-	cmd->output = 1;
-	cmd->next = NULL;
-	cmd->prev = NULL;
-
-	t_cmd	*cmd2;
-
-	cmd2 = malloc(sizeof(t_cmd));
-	cmd2->name = ft_strdup("grep");
-	cmd2->option = NULL;
-	cmd2->arg = ft_strdup("login");
-	cmd2->input = 0;
-	cmd2->output = 1;
-	cmd2->next = NULL;
-	cmd2->prev = cmd;
-	cmd->next = cmd2;
-
-	t_cmd *cmd3;
-
-	cmd3 = malloc(sizeof(t_cmd));
-	cmd3->name = ft_strdup("grep");
-	cmd3->option = ft_strdup("-o");
-	cmd3->option = ft_strdup("avarnier");
-	cmd3->input = 0;
-	cmd3->output = 1;
-	cmd3->next = NULL;
-	cmd3->prev = cmd2;
-	cmd2->next = cmd3;
-
 	t_env	*env;
 
 	env = NULL;
+	
+	add_to_env(NULL, NULL, &env);
+	add_to_env("PWD", getenv("PWD"), &env);
+	add_to_env("OLDPWD", getenv("OLDPWD"), &env);
+	add_to_env("HOME", getenv("HOME"), &env);
 	add_to_env("PATH", getenv("PATH"), &env);
 
-	t_shell *shell;
+	t_cmd	*cmd1;
+	char	*arg1[] = {"ls", NULL};
 
-	shell = malloc(sizeof(t_shell));
-	shell->cmd  = cmd;
-	shell->env = env;
+	cmd1 = malloc(sizeof(t_cmd));
+	cmd1->args = char2_dup(arg1);
+	cmd1->input = 0;
+	cmd1->output = 1;
+	cmd1->input_type = 0;
+	cmd1->output_type = 0;
+	cmd1->infile = NULL;
+	cmd1->outfile = NULL;
 
-	create_pipe(cmd, env, shell);
-	create_pipe(cmd2, env, shell);
+	t_cmd	*cmd2;
+	char	*arg2[] = {"grep", "PWD", NULL};
+
+	cmd2 = malloc(sizeof(t_cmd));
+	cmd2->args = char2_dup(arg2);
+	cmd2->input = 0;
+	cmd2->output = 1;
+	cmd2->input_type = PIPE;
+	cmd2->output_type = PIPE;
+	cmd2->infile = NULL;
+	cmd2->outfile = NULL;
+
+	t_cmd	*cmd3;
+	char	*arg3[] = {"grep", "-o", "arg2", NULL};
+
+	cmd3 = malloc(sizeof(t_cmd));
+	cmd3->args = char2_dup(arg3);
+	cmd3->input = 0;
+	cmd3->output = 1;
+	cmd3->input_type = PIPE;
+	cmd3->output_type = 0;
+	cmd3->infile = NULL;
+	cmd3->outfile = NULL;
+
+	cmd1->next = cmd2;
+	cmd1->prev = NULL;
+	cmd2->next = cmd3;
+	cmd2->prev = cmd1;
+	cmd3->next = NULL;
+	cmd3->prev = cmd2;
+
 	pid_t pid = fork();
-
 	if (pid == 0)
-		exec_cmd(cmd, env, shell);
-	pid = fork();
-	if (pid == 0)
-		exec_cmd(cmd2, env, shell);
-//	pid = fork();
-//	if (pid == 0)
-//		exec_cmd(cmd3, env, shell);
-	int i = 0;
-	wait(&i);
-	free_shell(shell);
-//	pid_t pid = fork();
-//	if (pid == 0)
-//		exec_cmd(cmd, env, shell);
-//	if (pid > 0)
-//		free_shell(shell);
+		exec_cmd(cmd1, env);
+	wait(NULL);
+	free_shell(env, cmd1);
 	return(0);
 }
