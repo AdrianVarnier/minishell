@@ -13,19 +13,19 @@ int main(int argc, char **argv, char **envp)
 	add_to_env("PATH", getenv("PATH"), &env);
 
 	t_cmd	*cmd1;
-	char	*arg1[] = {"echo", "avarnier est mon login sources",NULL};
+	char	*arg1[] = {"grep", "robot",NULL};
 
 	cmd1 = malloc(sizeof(t_cmd));
 	cmd1->args = char2_dup(arg1);
 	cmd1->input = 0;
 	cmd1->output = 1;
-	cmd1->input_type = 0;
+	cmd1->input_type = INFILE;
 	cmd1->output_type = PIPE;
-	cmd1->infile = NULL;
+	cmd1->infile = ft_strdup("depart");
 	cmd1->outfile = NULL;
 
 	t_cmd	*cmd2;
-	char	*arg2[] = {"grep", "sources", NULL};
+	char	*arg2[] = {"grep", "-o", "robot", NULL};
 
 	cmd2 = malloc(sizeof(t_cmd));
 	cmd2->args = char2_dup(arg2);
@@ -37,16 +37,16 @@ int main(int argc, char **argv, char **envp)
 	cmd2->outfile = NULL;
 
 	t_cmd	*cmd3;
-	char	*arg3[] = {"grep", "-o", "avarnier", NULL};
+	char	*arg3[] = {"grep", "-o", "t", NULL};
 
 	cmd3 = malloc(sizeof(t_cmd));
 	cmd3->args = char2_dup(arg3);
 	cmd3->input = 0;
 	cmd3->output = 1;
 	cmd3->input_type = PIPE;
-	cmd3->output_type = 0;
+	cmd3->output_type = REPLACE;
 	cmd3->infile = NULL;
-	cmd3->outfile = NULL;
+	cmd3->outfile = ft_strdup("fin");
 
 	cmd1->next = cmd2;
 	cmd1->prev = NULL;
