@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 11:40:37 by ali              ###   ########.fr       */
+/*   Updated: 2021/12/17 12:19:41 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void	set_env(char *name, char *content, t_env *env);
 int	is_in_env(char *name, t_env *env);
 void	add_to_env(char *name, char *content, t_env **env);
 char	**env_to_char2(t_env *env);
+char	*ft_get_key(char *envp);
+char	*ft_get_value(char *envp);
+t_env	*ft_parse_env(char **envp);
 
 //exec
 
@@ -115,5 +118,9 @@ char	*ft_get_var(char *str, t_env **env);
 int	ft_variable_size(char *str, t_env **env);
 int	ft_pass_variable(char *str);
 t_cmd	*ft_parse_line(char *line, t_env **env);
+
+//readline
+
+void	ft_readline(t_env *env);
 
 #endif
