@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 14:33:36 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/17 20:38:46 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	exec_builtin(t_cmd *cmd, t_env *env)
 		ft_env(env);
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 		return ;
-	free_shell(env, cmd);
-	exit(0);
+	if (cmd->input_type == PIPE || cmd->output_type == PIPE)
+	{
+		free_shell(env, cmd);
+		exit(0);
+	}
 }

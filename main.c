@@ -13,7 +13,7 @@ int main(int argc, char **argv, char **envp)
 	add_to_env("PATH", getenv("PATH"), &env);
 
 	t_cmd	*cmd1;
-	char	*arg1[] = {"echo", "-n", "test de new line", NULL};
+	char	*arg1[] = {"cd", "sources", NULL};
 
 	cmd1 = malloc(sizeof(t_cmd));
 	cmd1->args = char2_dup(arg1);
@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **envp)
 	cmd1->outfile = NULL;
 
 	t_cmd	*cmd2;
-	char	*arg2[] = {"grep", "-o", "avarnier", NULL};
+	char	*arg2[] = {"grep", "-o", "sources", NULL};
 
 	cmd2 = malloc(sizeof(t_cmd));
 	cmd2->args = char2_dup(arg2);
@@ -60,17 +60,28 @@ int main(int argc, char **argv, char **envp)
 		free_shell(env, cmd1);
 		return (0);
 	}
-//	create_pipe(cmd1, env);
-//	pid_t pid = fork();
-//	if (pid == 0)
+	create_pipe(cmd1, env);
+
+/*	pid_t pid = fork();
+	if (pid == 0)
 		exec_cmd(cmd1, env);
-//	pid = fork();
-//	if (pid == 0)
-//		exec_cmd(cmd2, env);
-	
 	int	status;
-	wait(&status);
-//	printf("%i\n", status);
+	waitpid(pid, &status, 0);
+	printf("status = %i\n", status);
+	int	es;
+	es = status >> 8;
+	printf("exit status = %i\n", es);
+	printf("%s", get_env("OLDPWD", env));*/
+
+	exec_builtin(cmd1, env);
+	pid_t pid = fork();
+	if (pid == 0)
+		exec_cmd(cmd2, env);
+/*	waitpid(pid, &status, 0);
+	printf("status = %i\n", status);
+	es = status >> 8;
+	printf("exit status = %i\n", es);*/
+
 	free_shell(env, cmd1);
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 14:22:35 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/17 20:36:28 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,21 @@ void	exec_cmd(t_cmd *cmd, t_env *env)
 	else
 		tmp = get_path(cmd, env);
 	if (tmp == NULL)
+	{
 		free_shell(env, cmd);
+		exit(1);
+	}
 	else
 	{
 		env_tmp = env_to_char2(env);
 		args_tmp = char2_dup(cmd->args);
 		free_shell(env, cmd);
-		execve(tmp, args_tmp, env_tmp);
+		if (execve(tmp, args_tmp, env_tmp) == -1)
+		{
+			free(tmp);
+			free_char2(args_tmp);
+			free_char2(env_tmp);
+			exit(1);
+		}
 	}
 }
