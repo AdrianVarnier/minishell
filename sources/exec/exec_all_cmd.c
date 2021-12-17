@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 00:09:27 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 00:28:27 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	exec_all_cmd(t_cmd *cmd, t_env *env)
 {
+	int		status;
 	pid_t	pid;
 
 	if (check_file(cmd) == 0)
@@ -30,6 +31,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 			if (pid == 0)
 				exec_cmd(cmd, env);
 		}
+		waitpid(pid, &status, 0);
 		if (cmd->input_type == PIPE)
 		{
 			close(cmd->input);
