@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/16 21:57:13 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/17 14:22:35 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static char	*get_path(t_cmd *cmd, t_env *env)
 	}
 	while (path[i] != NULL)
 	{
-		full_path = ft_strjoin3(path[i], "/", cmd->args[0]);
+		full_path = ft_strjoin3(path[i++], "/", cmd->args[0]);
 		if (check_path(cmd->args[0], full_path) == -1)
 		{
 			free(full_path);
@@ -90,7 +90,6 @@ static char	*get_path(t_cmd *cmd, t_env *env)
 		}
 		if (check_path(cmd->args[0], full_path) == 1)
 			return (full_path);
-		i++;
 		free(full_path);
 	}
 	send_err_msg(cmd->args[0], 'C');
