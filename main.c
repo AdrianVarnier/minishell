@@ -58,7 +58,10 @@ int main(int argc, char **argv, char **envp)
 	pid_t pid = fork();
 	if (pid == 0)
 		exec_cmd(cmd1, env);
-	wait(NULL);
+	
+//	int	status;
+//	wait(&status);
+//	printf("%i\n", status);
 	free_shell(env, cmd1);
 	return(0);
 }

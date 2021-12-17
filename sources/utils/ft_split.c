@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:09:33 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 20:21:09 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:55:30 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ char	**ft_split(char *s, char c)
 	int		words;
 	char	**tab;
 
-	if (!s)
-		return (0);
+	if (s == NULL)
+		return (NULL);
 	i = 0;
 	words = ft_count_words(s, c);
 	tab = malloc(sizeof(char *) * (words + 1));
 	if (tab == NULL)
-		return (0);
+		return (NULL);
 	while (i < words)
 	{
 		tab[i] = ft_substr(s, ft_getword(s, c, i), ft_wordlen(s, c, i));
@@ -119,10 +119,10 @@ char	**ft_split(char *s, char c)
 			while (i > 0)
 				free(tab[i--]);
 			free(tab);
-			return (0);
+			return (NULL);
 		}
 		i++;
 	}
-	tab[i] = 0;
+	tab[i] = NULL;
 	return (tab);
 }
