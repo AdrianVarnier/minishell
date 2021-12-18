@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:12:10 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 16:34:19 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 04:25:15 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*get_value(char *s)
 
 void	ft_export(char **arg, t_env **env)
 {
-	int	i;
+	int		i;
 	char	*key;
 	char	*value;
 

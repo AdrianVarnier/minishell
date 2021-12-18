@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:40:54 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 21:06:40 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 04:20:56 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	**env_to_char2(t_env *env)
 	int	i;
 	char	**ret;
 
-	env = env->next;
 	if (env == NULL)
 		return (NULL);
 	i = 0;

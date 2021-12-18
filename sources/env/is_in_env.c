@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:54:57 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 21:05:26 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 04:22:14 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	is_in_env(char *name, t_env *env)
 {
-	env = env->next;
 	while (env != NULL)
 	{
 		if (ft_strcmp(name, env->key) == 0)

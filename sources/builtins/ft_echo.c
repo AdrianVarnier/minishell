@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 09:05:24 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 14:44:57 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 04:19:13 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	ft_echo(char **arg, int mode)
 		ft_putstr_fd(arg[i], 1);
 		if (arg[i + 1] != NULL)
 			ft_putchar_fd(' ', 1);
-//		if (arg[i + 1] == NULL && mode == 0)
-//			ft_putchar_fd('\n', 1);
 		i++;
 	}
 	if (mode == 0)
