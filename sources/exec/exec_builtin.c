@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 20:38:46 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 05:08:28 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	exec_builtin(t_cmd *cmd, t_env *env)
 	if (ft_strcmp(cmd->args[0], "export") == 0)
 		ft_export(cmd->args, &env);
 	if (ft_strcmp(cmd->args[0], "unset") == 0)
-		ft_unset(cmd->args, env);
+		ft_unset(cmd->args, &env);
 	if (ft_strcmp(cmd->args[0], "env") == 0)
 		ft_env(env);
 	if (ft_strcmp(cmd->args[0], "exit") == 0)

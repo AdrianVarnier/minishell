@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 12:16:24 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 02:51:08 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 05:23:36 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_shell(t_env *env, t_cmd *cmd)
 {
-	rl_clear_history();
 	free_env(env);
 	free_cmd(cmd);
 }

@@ -78,7 +78,7 @@ int main()
  	cmd3->prev = cmd2;
 
 	int status = 0;
- 	exec_all_cmd(cmd1, env, &status);
+	exec_all_cmd(cmd1, env, &status);
 	printf("%i\n", status >> 8);
 
  	free_shell(env, cmd1);

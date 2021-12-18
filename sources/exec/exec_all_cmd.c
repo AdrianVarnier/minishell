@@ -6,35 +6,16 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 01:39:33 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 05:26:56 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	cmd_size(t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	if (cmd == NULL)
-		return (0);
-	while (cmd != NULL)
-	{
-		if (!(is_builtin(cmd->args[0]) == 1 && cmd->output_type != PIPE))
-			i++;
-		cmd = cmd->next;
-	}
-	return (i);
-}
-
 void	exec_all_cmd(t_cmd *cmd, t_env *env, int *exit_status)
 {
-	int		i;
 	int		status;
-	pid_t	pid[cmd_size(cmd)];
 
-	i = 0;
 	if (check_file(cmd) == 0)
 		return ;
 	while (cmd != NULL)
@@ -42,20 +23,19 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env, int *exit_status)
 		if (cmd->output_type == PIPE)
 			create_pipe(cmd, env);
 		if (is_builtin(cmd->args[0]) == 1 && cmd->output_type != PIPE)
-			exec_builtin(cmd, env);
+			exec_builtin(cmd, env, exit_status);
 		else
 		{
-			pid[i] = fork();
-			if (pid[i] == 0)
+			cmd->pid = fork();
+			if (cmd->pid == 0)
 				exec_cmd(cmd, env);
-			i++;
 		}
 		if (cmd->input_type == PIPE)
 		{
 			close(cmd->input);
 			close(cmd->prev->output);
 		}
-		waitpid(pid[i], exit_status, 0);
+		waitpid(cmd->pid, exit_status, 0);
 		cmd = cmd->next;
 	}
 }
