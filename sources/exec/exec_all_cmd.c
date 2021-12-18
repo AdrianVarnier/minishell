@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 01:37:17 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/18 01:39:33 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	cmd_size(t_cmd *cmd)
 	return (i);
 }
 
-void	exec_all_cmd(t_cmd *cmd, t_env *env)
+void	exec_all_cmd(t_cmd *cmd, t_env *env, int *exit_status)
 {
 	int		i;
 	int		status;
@@ -55,7 +55,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 			close(cmd->input);
 			close(cmd->prev->output);
 		}
-		waitpid(pid[i], &status, 0);
+		waitpid(pid[i], exit_status, 0);
 		cmd = cmd->next;
 	}
 }
