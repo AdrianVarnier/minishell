@@ -35,15 +35,15 @@ int main()
  	add_to_env("PATH", getenv("PATH"), &env);
 
  	t_cmd	*cmd1;
- 	char	*arg1[] = {"grep", "robot",NULL};
+ 	char	*arg1[] = {"grep", "robot", NULL};
 
  	cmd1 = malloc(sizeof(t_cmd));
  	cmd1->args = char2_dup(arg1);
  	cmd1->input = 0;
  	cmd1->output = 1;
- 	cmd1->input_type = INFILE;
- 	cmd1->output_type = PIPE;
- 	cmd1->infile = ft_strdup("depart");
+ 	cmd1->input_type = HEREDOC;
+ 	cmd1->output_type = 0;
+ 	cmd1->infile = ft_strdup("end");
  	cmd1->outfile = NULL;
 
  	t_cmd	*cmd2;
@@ -70,7 +70,7 @@ int main()
  	cmd3->infile = NULL;
  	cmd3->outfile = ft_strdup("fin");
 
- 	cmd1->next = cmd2;
+ 	cmd1->next = NULL;
  	cmd1->prev = NULL;
  	cmd2->next = cmd3;
  	cmd2->prev = cmd1;

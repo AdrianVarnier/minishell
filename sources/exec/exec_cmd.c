@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 00:03:33 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/20 22:56:13 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	exec_cmd(t_cmd *cmd, t_env *env)
 	char	**args_tmp;
 
 	tmp = NULL;
+	create_heredoc(cmd, env);
 	redir(cmd);
 	if (is_builtin(cmd->args[0]) == 1)
 	{

@@ -6,13 +6,13 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:48:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 22:40:51 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/20 18:05:07 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	create_pipe(t_cmd *cmd, t_env *env)
+void	create_pipe(t_cmd *cmd)
 {
 	int	fd[2];
 

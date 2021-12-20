@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 00:50:29 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/20 22:48:56 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int	check_file(t_cmd *cmd)
 {
 	while (cmd != NULL)
 	{
-		if (cmd->infile != NULL)
+		if (cmd->infile != NULL && cmd->input_type != HEREDOC)
 			if (check_infile(cmd->infile, cmd) == 0)
 				return (0);
-		if (cmd->outfile != NULL)
+		if (cmd->outfile != NULL && cmd->output_type != HEREDOC)
 			if (check_outfile(cmd->outfile, cmd) == 0)
 				return (0);
 		cmd = cmd->next;
