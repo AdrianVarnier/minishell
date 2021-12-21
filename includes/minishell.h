@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/20 22:55:49 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/21 21:42:43 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ void	ft_env(t_env *env);
 void	ft_unset(char **arg, t_env **env);
 void	ft_export(char **arg, t_env **env);
 void	ft_echo(char **arg, int mode);
+void	ft_exit(t_cmd *cmd, t_env *env);
+int		is_str(char *s);
+int		is_too_large(char *s);
 
 //env
 
@@ -54,7 +57,7 @@ t_env	*ft_parse_env(char **envp);
 int		is_builtin(char *name);
 void	exec_builtin(t_cmd *cmd, t_env *env);
 void	exec_cmd(t_cmd *cmd, t_env *env);
-void	exec_all_cmd(t_cmd *cmd, t_env *env, int *exit_status);
+void	exec_all_cmd(t_cmd *cmd, t_env *env);
 
 //redir
 
@@ -72,18 +75,21 @@ void	free_shell(t_env *env, t_cmd *cmd);
 
 //utils
 
-int		ft_strlen(char *s);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putendl_fd(char *s, int fd);
-int		ft_strcmp(char *s1, char *s2);
-void	*ft_memcpy(void *dst, void *src, int len);
-char	*ft_strdup(char *s);
-int		ft_strlcpy(char *dst, char *src, int len);
-int		ft_strlcat(char *dst, char *src, int len);
-char	*ft_strjoin3(char *s1, char *s2, char *s3);
-char	**ft_split(char *s, char c);
-char	**char2_dup(char **arg);
+int			ft_strlen(char *s);
+void		ft_putchar_fd(char c, int fd);
+void		ft_putstr_fd(char *s, int fd);
+void		ft_putendl_fd(char *s, int fd);
+int			ft_strcmp(char *s1, char *s2);
+void		*ft_memcpy(void *dst, void *src, int len);
+char		*ft_strdup(char *s);
+int			ft_strlcpy(char *dst, char *src, int len);
+int			ft_strlcat(char *dst, char *src, int len);
+char		*ft_strjoin3(char *s1, char *s2, char *s3);
+char		**ft_split(char *s, char c);
+char		**char2_dup(char **arg);
+long long	ft_atoi(char *s);
+int			ft_isdigit(int c);
+char		*ft_itoa(int n);
 
 //parsing
 

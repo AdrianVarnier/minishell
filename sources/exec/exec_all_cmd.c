@@ -6,15 +6,23 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/20 18:07:23 by avarnier         ###   ########.fr       */
+/*   Updated: 2021/12/21 22:01:59 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_all_cmd(t_cmd *cmd, t_env *env, int *exit_status)
+static void	actualise_exit_status(int exit_status, t_env *env)
 {
-	int		status;
+	if (is_in_env("?", env) == 1)
+		set_env("?", ft_itoa(exit_status >> 8), env);
+	else
+		add_to_env("?", ft_itoa(exit_status >> 8), &env);
+}
+
+void	exec_all_cmd(t_cmd *cmd, t_env *env)
+{
+	int		exit_status;
 
 	if (check_file(cmd) == 0)
 		return ;
@@ -35,7 +43,8 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env, int *exit_status)
 			close(cmd->input);
 			close(cmd->prev->output);
 		}
-		waitpid(cmd->pid, exit_status, 0);
+		waitpid(cmd->pid, &exit_status, 0);
+		actualise_exit_status(exit_status, env);
 		cmd = cmd->next;
 	}
 }
