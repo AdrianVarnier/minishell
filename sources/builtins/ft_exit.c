@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 03:32:51 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/21 22:03:23 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:19:57 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,9 @@ static void	ft_exit_too_many_arg(t_cmd *cmd, t_env *env)
 {
 	ft_putendl_fd("exit", 1);
 	ft_putendl_fd("minishell: exit: too many arguments", 2);
-	if (is_in_env("?", env) == 1)
-		set_env("?", "1", env);
-	else
-		add_to_env("?", "1", &env);
-	return ;
 }
 
-void	ft_exit(t_cmd *cmd, t_env *env)
+int	ft_exit(t_cmd *cmd, t_env *env)
 {
 	long long	ret;
 
@@ -58,7 +53,10 @@ void	ft_exit(t_cmd *cmd, t_env *env)
 	else if (is_str(cmd->args[1]) == 1)
 		ft_exit_str(cmd, env);
 	else if (is_str(cmd->args[1]) == 0 && cmd->args[2] != NULL)
+	{
 		ft_exit_too_many_arg(cmd, env);
+		return (1);
+	}
 	else if (is_too_large(cmd->args[1]) == 1)
 		ft_exit_str(cmd, env);
 	else
@@ -68,4 +66,5 @@ void	ft_exit(t_cmd *cmd, t_env *env)
 		ft_putendl_fd("exit", 1);
 		exit(ret % 256);
 	}
+	return (0);
 }

@@ -6,11 +6,19 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:12:10 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 04:25:15 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 19:05:10 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	check_invalid_id(char *s)
+{
+	if (s[0] == '?' && s[1] == '=')
+		return (1);
+	else
+		return (0);
+}
 
 static int	check_equal(char *s)
 {
@@ -70,7 +78,7 @@ static char	*get_value(char *s)
 	return (value);
 }
 
-void	ft_export(char **arg, t_env **env)
+int	ft_export(char **arg, t_env **env)
 {
 	int		i;
 	char	*key;
@@ -79,8 +87,13 @@ void	ft_export(char **arg, t_env **env)
 	i = 1;
 	while (arg[i] != NULL)
 	{
+		if (check_invalid_id(arg[i]) == 1)
+		{
+			ft_putendl_fd("minishell: export: invalid identifier", 2);
+			return (1);
+		}
 		if (check_equal(arg[i]) == 0)
-			return ;
+			return (0);
 		key = get_key(arg[i]);
 		value = get_value(arg[i]);
 		if (is_in_env(key, *env) == 0)
@@ -91,4 +104,5 @@ void	ft_export(char **arg, t_env **env)
 		free(value);
 		i++;
 	}
+	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:35:32 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 04:45:56 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 19:06:10 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_unset(char **arg, t_env **env)
+int	ft_unset(char **arg, t_env **env)
 {
 	int	i;
 	t_env	*tmp1;
@@ -23,7 +23,7 @@ void	ft_unset(char **arg, t_env **env)
 	{
 		while (arg[i] != NULL)
 		{
-			if (ft_strcmp(arg[i], (*env)->key) == 0)
+			if (ft_strcmp(arg[i], (*env)->key) == 0 && ft_strcmp(arg[i], "?") != 0)
 			{
 				tmp1 = (*env)->prev;
 				tmp2 = (*env)->next;
@@ -43,4 +43,5 @@ void	ft_unset(char **arg, t_env **env)
 		if (*env != NULL)
 			*env = (*env)->next;
 	}
+	return (0);
 }

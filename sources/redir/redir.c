@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:15:20 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 23:44:59 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:42:19 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 #include <fcntl.h>
 
-void	redir(t_cmd *cmd)
+void	redir(t_cmd *cmd, t_file *infile, t_file *outfile)
 {
-	if (cmd->input_type == PIPE)
+	while (infile->next != NULL)
+		infile = infile->next;
+	while (outfile->next != NULL)
+		outfile = outfile->next;
+	if (infile->type == PIPE)
 		close(cmd->prev->output);
-	if (cmd->output_type == PIPE)
+	if (outfile->type == PIPE)
 		close(cmd->next->input);
 	if (cmd->input != 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/21 21:42:43 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:16:57 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@
 
 //builtins
 
-void	ft_pwd(void);
-void	ft_cd(char *path, t_env **env);
-void	ft_cd_here(t_env *env);
-void	ft_cd_oldpwd(t_env *env);
-void	ft_cd_home(t_env *env);
-void	ft_cd_back(t_env *env);
-void	ft_env(t_env *env);
-void	ft_unset(char **arg, t_env **env);
-void	ft_export(char **arg, t_env **env);
-void	ft_echo(char **arg, int mode);
-void	ft_exit(t_cmd *cmd, t_env *env);
-int		is_str(char *s);
-int		is_too_large(char *s);
+int	ft_pwd(void);
+int	ft_cd(char *path, t_env **env);
+int	ft_cd_here(t_env *env);
+int	ft_cd_oldpwd(t_env *env);
+int	ft_cd_home(t_env *env);
+int	ft_cd_back(t_env *env);
+int	ft_env(t_env *env);
+int	ft_unset(char **arg, t_env **env);
+int	ft_export(char **arg, t_env **env);
+int	ft_echo(char **arg, int mode);
+int	ft_exit(t_cmd *cmd, t_env *env);
+int	is_str(char *s);
+int	is_too_large(char *s);
 
 //env
 
@@ -55,16 +55,16 @@ t_env	*ft_parse_env(char **envp);
 //exec
 
 int		is_builtin(char *name);
-void	exec_builtin(t_cmd *cmd, t_env *env);
+void	exec_builtin(t_cmd *cmd, t_env *env, t_file *infile, t_file *outfile);
 void	exec_cmd(t_cmd *cmd, t_env *env);
 void	exec_all_cmd(t_cmd *cmd, t_env *env);
 
 //redir
 
 void	create_pipe(t_cmd *cmd);
-void	redir(t_cmd *cmd);
+void	redir(t_cmd *cmd, t_file *infile, t_file *outfile);
 int		check_file(t_cmd *cmd);
-void	create_heredoc(t_cmd *cmd, t_env *env);
+void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env);
 
 //free
 
@@ -72,6 +72,7 @@ void	free_env(t_env *env);
 void	free_cmd(t_cmd *cmd);
 void	free_char2(char **to_free);
 void	free_shell(t_env *env, t_cmd *cmd);
+void	free_file(t_file *file);
 
 //utils
 

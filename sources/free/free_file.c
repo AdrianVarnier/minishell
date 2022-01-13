@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   free_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 17:25:38 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 19:09:06 by avarnier         ###   ########.fr       */
+/*   Created: 2022/01/12 17:07:43 by avarnier          #+#    #+#             */
+/*   Updated: 2022/01/12 17:10:00 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_env *env)
+void	free_file(t_file *file)
 {
-	while(env != NULL)
+	t_file	*tmp;
+
+	while (file != NULL)
 	{
-		if (ft_strcmp(env->key, "?") != 0)
-		{
-			ft_putstr_fd(env->key, 1);
-			ft_putstr_fd("=", 1);
-			ft_putendl_fd(env->value, 1);
-		}
-		env = env->next;
+		tmp = file->next;
+		free(file->name);
+		free(file);
+		file = tmp;
 	}
-	return (0);
 }

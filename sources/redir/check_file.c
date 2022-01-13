@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/20 22:48:56 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:39:14 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,52 +31,77 @@ static void	send_err_msg(char *name, char mode)
 	}
 }
 
-static int	check_infile(char *infile, t_cmd *cmd)
+static int	check_infile(t_file *infile, t_cmd *cmd)
 {
 	int	fd;
 
-	if (access(infile, F_OK) == -1)
+	if (access(infile->name, F_OK) == -1)
 	{
-		send_err_msg(infile, 'F');
+		send_err_msg(infile->name, 'F');
 		return (0);
 	}
-	if (access(infile, R_OK) == -1)
+	if (access(infile->name, R_OK) == -1)
 	{
-		send_err_msg(infile, 'R');
+		send_err_msg(infile->name, 'R');
 		return (0);
 	}
-	fd = open(infile, O_RDONLY);
+	fd = open(infile->name, O_RDONLY);
 	if (fd == -1)
 	{
-		send_err_msg(infile, 'O');
+		send_err_msg(infile->name, 'O');
 		return (0);
 	}
-	cmd->input = fd;
+	if (infile->next == NULL)
+		cmd->input = fd;
+	else
+		close(fd);
 	return (1);
 }
 
-static int	check_outfile(char *outfile, t_cmd *cmd)
+static int	check_outfile(t_file *outfile, t_cmd *cmd)
 {
 	int	fd;
 
-	if (access(outfile, F_OK) == 0)
+	if (access(outfile->name, F_OK) == 0)
 	{
-		if (access(outfile, W_OK) == -1)
+		if (access(outfile->name, W_OK) == -1)
 		{
-			send_err_msg(outfile, 'W');
+			send_err_msg(outfile->name, 'W');
 			return (0);
 		}
 	}
-	if (cmd->output_type == APPEND)
-		fd = open(outfile, O_WRONLY | O_APPEND | O_CREAT);
-	if (cmd->output_type == REPLACE)
-		fd = open(outfile, O_WRONLY | O_TRUNC | O_CREAT);
+	if (outfile->type == APPEND)
+		fd = open(outfile->name, O_WRONLY | O_APPEND | O_CREAT);
+	if (outfile->type == REPLACE)
+		fd = open(outfile->name, O_WRONLY | O_TRUNC | O_CREAT);
 	if (fd == -1)
 	{
-		send_err_msg(outfile, 'O');
+		send_err_msg(outfile->name, 'O');
 		return (0);
 	}
-	cmd->output = fd;
+	if (outfile->next == NULL)
+		cmd->output = fd;
+	else
+		close(fd);
+	return (1);
+}
+
+static int	check_all(t_file *infile, t_file *outfile, t_cmd *cmd)
+{
+	while (infile != NULL)
+	{
+		if (infile->type != HEREDOC && infile->type != PIPE)
+			if (check_infile(infile, cmd) == 0)
+				return (0);
+		infile = infile->next;
+	}
+	while (outfile != NULL)
+	{
+		if (outfile->type != HEREDOC && outfile->type != PIPE)
+			if (check_outfile(outfile, cmd) == 0)
+				return (0);
+		outfile = outfile->next;
+	}
 	return (1);
 }
 
@@ -84,12 +109,8 @@ int	check_file(t_cmd *cmd)
 {
 	while (cmd != NULL)
 	{
-		if (cmd->infile != NULL && cmd->input_type != HEREDOC)
-			if (check_infile(cmd->infile, cmd) == 0)
-				return (0);
-		if (cmd->outfile != NULL && cmd->output_type != HEREDOC)
-			if (check_outfile(cmd->outfile, cmd) == 0)
-				return (0);
+		if (check_all(cmd->infile, cmd->outfile, cmd) == 0)
+			return (0);
 		cmd = cmd->next;
 	}
 	return (1);

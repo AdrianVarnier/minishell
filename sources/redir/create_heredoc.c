@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 21:18:25 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/20 23:33:18 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:41:20 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,20 @@ static void	send_heredoc(char *heredoc, t_cmd *cmd, t_env *env)
 	close(fd[1]);
 }
 
-void	create_heredoc(t_cmd *cmd, t_env *env)
+void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env)
 {
 	char	*line;
 	char	*heredoc;
 
 	heredoc = NULL;
-	if (cmd->input_type != HEREDOC)
+	while (infile->next != NULL)
+		infile = infile->next;
+	if (infile->type != HEREDOC)
 		return ;
 	line = readline("> ");
 	while (line != NULL)
 	{
-		if (ft_strcmp(line, cmd->infile) == 0)
+		if (ft_strcmp(line, infile->name) == 0)
 		{
 			free(line);
 			break ;

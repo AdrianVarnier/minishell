@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/20 21:00:35 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:13:53 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,21 @@ typedef struct    s_env
     struct s_env	*prev;
 }   		t_env;
 
+typedef struct	s_file
+{
+	int		type;
+	char	*name;
+	struct s_file	*next;
+	struct s_file	*prev;
+}				t_file;
+
 typedef struct	s_cmd
 {
 	char	**args;
 	int		input;
 	int		output;
-	int		input_type;
-	int		output_type;
-	char	*infile;
-	char	*outfile;
+	struct s_file	*infile;
+	struct s_file	*outfile;
 	pid_t	pid;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

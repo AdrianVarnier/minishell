@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 09:05:24 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 04:19:13 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 17:54:27 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **arg, int mode)
+int	ft_echo(char **arg, int mode)
 {
 	int	i;
 
@@ -28,4 +28,5 @@ void	ft_echo(char **arg, int mode)
 	}
 	if (mode == 0)
 		ft_putchar_fd('\n', 1);
+	return (0);
 }

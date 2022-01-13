@@ -6,55 +6,73 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/21 18:45:20 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/13 18:52:41 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	exec_cd(t_cmd *cmd, t_env *env)
+static int	exec_cd(t_cmd *cmd, t_env *env)
 {
+	int	ret;
+
 	if (ft_strcmp(cmd->args[1], "-") == 0)
-		ft_cd_oldpwd(env);
+		ret = ft_cd_oldpwd(env);
 	else if (ft_strcmp(cmd->args[1], "..") == 0)
-		ft_cd_back(env);
+		ret = ft_cd_back(env);
 	else if (ft_strcmp(cmd->args[1], ".") == 0)
-		ft_cd_here(env);
+		ret = ft_cd_here(env);
 	else if (cmd->args[1] == NULL)
-		ft_cd_home(env);
+		ret = ft_cd_home(env);
 	else
-		ft_cd(cmd->args[1], &env);
+		ret = ft_cd(cmd->args[1], &env);
+	return (ret);
 }
 
-static void	exec_echo(t_cmd *cmd)
+static int	exec_echo(t_cmd *cmd)
 {
+	int	ret;
+
 	if (ft_strcmp(cmd->args[1], "-n") == 0)
-		ft_echo(cmd->args, 1);
+		ret = ft_echo(cmd->args, 1);
 	else
-		ft_echo(cmd->args, 0);
+		ret = ft_echo(cmd->args, 0);
+	return (ret);
 }
 
-void	exec_builtin(t_cmd *cmd, t_env *env)
+void	exec_builtin(t_cmd *cmd, t_env *env, t_file *infile, t_file *outfile)
 {
+	int		ret;
 	char	*err_msg;
 
 	if (ft_strcmp(cmd->args[0], "echo") == 0)
-		exec_echo(cmd);
+		ret = exec_echo(cmd);
 	if (ft_strcmp(cmd->args[0], "cd") == 0)
-		exec_cd(cmd, env);
+		ret = exec_cd(cmd, env);
 	if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		ft_pwd();
+		ret = ft_pwd();
 	if (ft_strcmp(cmd->args[0], "export") == 0)
-		ft_export(cmd->args, &env);
+		ret = ft_export(cmd->args, &env);
 	if (ft_strcmp(cmd->args[0], "unset") == 0)
-		ft_unset(cmd->args, &env);
+		ret = ft_unset(cmd->args, &env);
 	if (ft_strcmp(cmd->args[0], "env") == 0)
-		ft_env(env);
+		ret = ft_env(env);
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
-		ft_exit(cmd, env);
-	if (cmd->input_type == PIPE || cmd->output_type == PIPE)
+		ret = ft_exit(cmd, env);
+	while (infile->next != NULL)
+		infile = infile->next;
+	while (outfile->next != NULL)
+		outfile = outfile->next;
+	if (infile->type == PIPE || outfile->type == PIPE)
 	{
 		free_shell(env, cmd);
-		exit(0);
+		exit(ret);
+	}
+	else
+	{
+		if (is_in_env("?", env) == 1)
+			set_env("?", ft_itoa(ret), env);
+		else
+			add_to_env("?", ft_itoa(ret), &env);
 	}
 }
