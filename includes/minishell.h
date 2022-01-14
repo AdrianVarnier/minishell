@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 18:16:57 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/14 15:20:40 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env);
 void	create_pipe(t_cmd *cmd);
 void	redir(t_cmd *cmd, t_file *infile, t_file *outfile);
 int		check_file(t_cmd *cmd);
-void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env);
+void	create_all_heredoc(t_cmd *cmd, t_file *infile, t_env *env);
 
 //free
 

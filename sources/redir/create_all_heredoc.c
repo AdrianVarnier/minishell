@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_heredoc.c                                   :+:      :+:    :+:   */
+/*   create_all_heredoc.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 21:18:25 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 16:41:20 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/14 15:21:54 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	send_heredoc(char *heredoc, t_cmd *cmd, t_env *env)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		ft_putstr_fd(heredoc, STDOUT_FILENO);
+		free(heredoc);
 		free_shell(env, cmd);
 		exit(0);
 	}
@@ -70,16 +71,12 @@ static void	send_heredoc(char *heredoc, t_cmd *cmd, t_env *env)
 	close(fd[1]);
 }
 
-void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env)
+static void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env, int mode)
 {
 	char	*line;
 	char	*heredoc;
 
 	heredoc = NULL;
-	while (infile->next != NULL)
-		infile = infile->next;
-	if (infile->type != HEREDOC)
-		return ;
 	line = readline("> ");
 	while (line != NULL)
 	{
@@ -92,5 +89,24 @@ void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env)
 		free(line);
 		line = readline("> ");
 	}
-	send_heredoc(heredoc, cmd, env);
+	if (mode == 1)
+		send_heredoc(heredoc, cmd, env);
+	free(heredoc);
+}
+
+void	create_all_heredoc(t_cmd *cmd, t_file *infile, t_env *env)
+{
+	while (infile != NULL)
+	{
+		if (infile->type == HEREDOC && infile->next == NULL)
+			create_heredoc(cmd, infile, env, 1);
+		if (infile->next != NULL)
+		{
+			if (infile->type == HEREDOC && infile->next->type == PIPE)
+				create_heredoc(cmd, infile, env, 1);
+			if (infile->type == HEREDOC && (infile->next->type == HEREDOC || infile->next->type == INFILE))
+				create_heredoc(cmd, infile, env, 0);
+		}
+		infile = infile->next;
+	}
 }

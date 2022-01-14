@@ -42,10 +42,14 @@ int main(int argc, char **argv, char **envp)
  	cmd1->input = 0;
  	cmd1->output = 1;
 	cmd1->infile = malloc(sizeof(t_file));
-	cmd1->infile->type = INFILE;
-	cmd1->infile->name = ft_strdup("test1");
-	cmd1->infile->next = NULL;
+	cmd1->infile->type = HEREDOC;
+	cmd1->infile->name = ft_strdup("eof");
+	cmd1->infile->next = malloc(sizeof(t_file));
 	cmd1->infile->prev = NULL;
+	cmd1->infile->next->prev = cmd1->infile;
+	cmd1->infile->next->next = NULL;
+	cmd1->infile->next->type = HEREDOC;
+	cmd1->infile->next->name = ft_strdup("eof");
 	cmd1->outfile = malloc(sizeof(t_file));
 	cmd1->outfile->type = PIPE;
 	cmd1->outfile->name = NULL;
