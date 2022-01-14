@@ -6,35 +6,60 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:39:31 by ali               #+#    #+#             */
-/*   Updated: 2021/12/15 17:49:31 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/14 19:55:06 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int		ft_count_args(char **strs)
+{
+	int	i;
+	int	args_nb;
+
+	i = 0;
+	args_nb = 0;
+	while (strs[i] && strs[i][0] != '|')
+	{
+		if (!ft_is_separator(strs[i][0]) && !ft_is_file(&strs[i], i))
+			args_nb++;
+		i++;
+	}
+	return (args_nb);
+}
+
+void	ft_fill_args(char **strs, char **args)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (strs[i] && strs[i][0] != '|')
+	{
+		if (!ft_is_separator(strs[i][0]) && !ft_is_file(&strs[i], i))
+		{
+			args[j] = ft_strdup(strs[i]);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	ft_add_cmd(t_cmd **cmd, char **strs)
 {
-	int		i;
 	t_cmd	*new;
+	int		args_nb;
 
 	new = malloc(sizeof(t_cmd));
 	if (!new)
 		return ;
-	i = 0;	
-	while (strs[i] && !ft_is_separator(strs[i][0]))
-		i++;
-	if (strs[i] && !ft_is_separator(strs[i][0]))
-			i++;
-	new->args = malloc(sizeof(char *) * (i + 1));
+	args_nb = ft_count_args(strs);
+	new->args = malloc(sizeof(char *) * (args_nb + 1));
 	if (!new->args)
 		return ;
-	i = 0;
-	while (strs[i] && !ft_is_separator(strs[i][0]))
-	{
-		new->args[i] = ft_strdup(strs[i]);
-		i++;
-	}
-	new->args[i] = NULL;
+	ft_fill_args(strs, new->args);
+	new->args[args_nb] = NULL;
 	ft_place_cmd(cmd, new);
 }
 

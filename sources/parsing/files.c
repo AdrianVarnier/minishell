@@ -6,67 +6,117 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 16:44:05 by ali               #+#    #+#             */
-/*   Updated: 2021/12/28 19:02:55 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/14 19:56:47 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_output_type(t_cmd *cmd, char **strs)
+void	ft_add_file(t_file **files, int type, char *name)
+{
+	t_file	*new;
+	t_file	*index;
+
+	new = malloc(sizeof(t_file));
+	if (new == NULL)
+		return ;
+	new->type = type;
+	new->name = ft_strdup(name);
+	if (*files == NULL)
+	{
+		new->next = NULL;
+		new->prev = NULL;
+		*files = new;
+	}
+	else
+	{
+		index = *files;
+		while (index->next != NULL)
+			index = index->next;
+		new->next = NULL;
+		new->prev = index;
+		index->next = new;
+	}
+}
+
+void	ft_before_cmd(t_cmd *cmd, char **strs, int index)
 {
 	int	i;
-	
+
 	i = 0;
-	while (strs[i] && !ft_is_separator(strs[i][0]))
+	while (i < index)
+	{
+		if (!ft_is_separator(strs[i][0]) && ft_is_file(strs + i, i))
+		{
+			if (strs[i - 1][0] == '<')
+			{
+				if (strs[i - 1][1] && strs[i - 1][1] == '<')
+					ft_add_file(&cmd->infile, HEREDOC, strs[i]);
+				else
+					ft_add_file(&cmd->infile, INFILE, strs[i]);
+			}
+			if (strs[i - 1][0] == '>')
+			{
+				if (strs[i - 1][1] && strs[i - 1][1] == '>')
+					ft_add_file(&cmd->outfile, APPEND, strs[i]);
+				else
+					ft_add_file(&cmd->outfile, REPLACE, strs[i]);
+			}
+		}
 		i++;
-	if (!strs[i])
-		cmd->output_type = 0;
-	else if (strs[i][0] == '>' && !strs[i][1])
-	{
-		cmd->output_type = REPLACE;
-		cmd->outfile = ft_strdup(strs[i + 1]);
 	}
-	else if (strs[i][0] == '>' && strs[i][1] == '>')
-	{
-		cmd->output_type = APPEND;
-		cmd->outfile = ft_strdup(strs[i + 1]);
-	}
-	else if (strs[i][0] == '|')
-		cmd->output_type = PIPE;
 }
 
-void	ft_input_type(t_cmd *cmd, char **strs, int index)
+void	ft_after_cmd(t_cmd *cmd, char **strs)
 {
 	int	i;
 
 	i = 0;
-	if (index == 0)
-		cmd->input_type = 0;
-	else if (strs[i - 1][0] == '|')
-		cmd->input_type = PIPE;
-	else if (index > 1 && strs[i - 2][0] == '<' && !strs[i - 2][1])
+	while (strs[i] && strs[i][0] != '|')
 	{
-		cmd->input_type = INFILE;
-		cmd->infile = ft_strdup(strs[i - 1]);
-	}
-	else if (index > 1 && strs[i - 2][0] == '<' && strs[i - 2][1] == '<')
-	{
-		cmd->input_type = HEREDOC;
-		cmd->infile = ft_strdup(strs[i - 1]);
+		if (!ft_is_separator(strs[i][0]) && ft_is_file(strs + i, i))
+		{
+			if (strs[i - 1][0] == '<')
+			{
+				if (strs[i - 1][1] && strs[i - 1][1] == '<')
+					ft_add_file(&cmd->infile, HEREDOC, strs[i]);
+				else
+					ft_add_file(&cmd->infile, INFILE, strs[i]);
+			}
+			if (strs[i - 1][0] == '>')
+			{
+				if (strs[i - 1][1] && strs[i - 1][1] == '>')
+					ft_add_file(&cmd->outfile, APPEND, strs[i]);
+				else
+					ft_add_file(&cmd->outfile, REPLACE, strs[i]);
+			}
+		}
+		i++;
 	}
 }
 
-int		ft_filetype(t_cmd *cmd, char **strs, int index)
+int	ft_filetype(t_cmd *cmd, char **strs, int index)
 {
 	int	i;
-
+	int	j;
+	t_file *infile;
+	t_file *outfile;
+	
+	infile = NULL;
+	outfile = NULL;
 	i = 0;
+	j = 0;
 	while (cmd->next != NULL)
 		cmd = cmd->next;
-	cmd->infile = NULL;
-	cmd->outfile = NULL;
-	ft_output_type(cmd, strs);
-	ft_input_type(cmd, strs, index);
+	cmd->infile = infile;
+	cmd->outfile = outfile;
+	while (index > 0 && strs[j][0] != '|')
+	{
+		j--;
+		index--;
+	}
+	ft_before_cmd(cmd, &strs[j], -j);
+	ft_after_cmd(cmd, &strs[i]);
 	while (strs[i] && !ft_is_separator(strs[i][0]))
 		i++;
 	return (i);
