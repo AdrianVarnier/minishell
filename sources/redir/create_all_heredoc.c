@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 21:18:25 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/17 17:16:34 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/17 17:32:51 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static void	send_heredoc(char *heredoc, t_cmd *cmd, t_env *env)
 		free_shell(env, cmd);
 		exit(0);
 	}
+	if (pid > 0)
+		free(heredoc);
 	waitpid(pid, NULL, 0);
 	close(fd[1]);
 }
@@ -91,7 +93,8 @@ static void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env, int mode)
 	}
 	if (mode == 1)
 		send_heredoc(heredoc, cmd, env);
-	free(heredoc);
+	else
+		free(heredoc);
 }
 
 void	create_all_heredoc(t_cmd *cmd, t_file *infile, t_env *env)
