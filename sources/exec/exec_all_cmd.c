@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 18:49:47 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/17 16:54:19 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	actualise_exit_status(int exit_status, t_env *env)
 
 static int	is_pipe(t_file *file)
 {
+	if (file == NULL)
+		return (0);
 	while (file->next != NULL)
 		file = file->next;
 	if (file->type == PIPE)
