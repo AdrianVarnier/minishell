@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 16:39:14 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:53:25 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static int	check_outfile(t_file *outfile, t_cmd *cmd)
 		}
 	}
 	if (outfile->type == APPEND)
-		fd = open(outfile->name, O_WRONLY | O_APPEND | O_CREAT);
+		fd = open(outfile->name, O_WRONLY | O_APPEND | O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (outfile->type == REPLACE)
-		fd = open(outfile->name, O_WRONLY | O_TRUNC | O_CREAT);
+		fd = open(outfile->name, O_WRONLY | O_TRUNC | O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (fd == -1)
 	{
 		send_err_msg(outfile->name, 'O');

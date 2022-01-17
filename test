@@ -1,0 +1,18 @@
+<< eof cat
+<< eof << eof cat
+
+< infile1 cat
+< infile1 <  infile2 cat
+
+cat test > res1
+cat test > res1 > res2
+
+cat test >> res1
+cat test >> res1 >> res2
+
+< infile1 < infile1 cat
+
+cat test >> res1 >> res1
+cat test >> res1 > res1
+cat test > res1 >> res1
+cat test > res1 > res1
