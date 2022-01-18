@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 16:44:05 by ali               #+#    #+#             */
-/*   Updated: 2022/01/14 19:56:47 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/18 18:15:08 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,19 @@ void	ft_after_cmd(t_cmd *cmd, char **strs)
 	}
 }
 
+void	ft_set_pipe(t_cmd *cmd, char **strs, int index)
+{
+	int	i;
+
+	i = 0;
+	if (cmd->infile == NULL && index != 0)
+		ft_add_file(&cmd->infile, PIPE, NULL);
+	while (strs[i] && strs[i][0] != '|')
+		i++;
+	if (cmd->outfile == NULL && strs[i])
+		ft_add_file(&cmd->outfile, PIPE, NULL);
+}
+
 int	ft_filetype(t_cmd *cmd, char **strs, int index)
 {
 	int	i;
@@ -117,6 +130,7 @@ int	ft_filetype(t_cmd *cmd, char **strs, int index)
 	}
 	ft_before_cmd(cmd, &strs[j], -j);
 	ft_after_cmd(cmd, &strs[i]);
+	ft_set_pipe(cmd, strs, index);
 	while (strs[i] && !ft_is_separator(strs[i][0]))
 		i++;
 	return (i);
