@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 14:03:09 by ali               #+#    #+#             */
-/*   Updated: 2021/12/14 15:59:08 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/19 17:25:35 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	ft_place_cmd(t_cmd **cmd, t_cmd *new)
 			index = index->next;
 		new->next = NULL;
 		index->next = new;
+		new->prev = index;
 	}
 }
