@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 18:52:41 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:01:54 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,27 @@ void	exec_builtin(t_cmd *cmd, t_env *env, t_file *infile, t_file *outfile)
 		ret = ft_env(env);
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 		ret = ft_exit(cmd, env);
-	while (infile->next != NULL)
-		infile = infile->next;
-	while (outfile->next != NULL)
-		outfile = outfile->next;
-	if (infile->type == PIPE || outfile->type == PIPE)
+	if (outfile != NULL)
+		while (outfile->next != NULL)
+			outfile = outfile->next;
+	if (outfile != NULL)
 	{
-		free_shell(env, cmd);
-		exit(ret);
+		if (outfile->type == PIPE)
+		{
+			free_shell(env, cmd);
+			exit(ret);
+		}
 	}
+	 if (infile != NULL)
+	{
+		if (infile->type == PIPE)
+		{
+			free_shell(env, cmd);
+			exit(ret);
+		}
+	}	
+	if (is_in_env("?", env) == 1)
+		set_env("?", ft_itoa(ret), env);
 	else
-	{
-		if (is_in_env("?", env) == 1)
-			set_env("?", ft_itoa(ret), env);
-		else
-			add_to_env("?", ft_itoa(ret), &env);
-	}
+		add_to_env("?", ft_itoa(ret), &env);
 }

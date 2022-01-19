@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/17 16:54:19 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:07:18 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 	{
 		if (is_pipe(cmd->outfile) == 1)
 			create_pipe(cmd);
-		if (is_builtin(cmd->args[0]) == 1 && is_pipe(cmd->outfile) == 0)
+		if (is_builtin(cmd->args[0]) == 1 && is_pipe(cmd->outfile) == 0 && is_pipe(cmd->infile) == 0)
 			exec_builtin(cmd, env, cmd->infile, cmd->outfile);
 		else
 		{
@@ -55,7 +55,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 			close(cmd->input);
 			close(cmd->prev->output);
 		}
-		if (!(is_builtin(cmd->args[0]) == 1 && is_pipe(cmd->outfile) == 0))
+		if (!(is_builtin(cmd->args[0]) == 1 && is_pipe(cmd->outfile) == 0 && is_pipe(cmd->infile) == 0))
 		{
 			waitpid(cmd->pid, &exit_status, 0);
 			actualise_exit_status(exit_status, env);
