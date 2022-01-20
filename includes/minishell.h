@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/20 11:11:17 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/20 18:26:00 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 
 //exit status
 
-extern int	g_status;
+extern int	g_exit;
+extern int	g_line;
 
 //builtins
 
@@ -138,6 +139,7 @@ t_cmd	*ft_parse_line(char *line, t_env **env);
 // signals
 
 void	ft_handler(int sig);
+void	ft_signal(void);
 
 //readline
 

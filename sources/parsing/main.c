@@ -6,11 +6,14 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:51:33 by ali               #+#    #+#             */
-/*   Updated: 2022/01/20 11:30:39 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/20 18:28:24 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit;
+int	g_line;
 
 void	ft_print_cmd(t_cmd *cmd)
 {
