@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:59:23 by ali               #+#    #+#             */
-/*   Updated: 2022/01/20 18:30:10 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/20 23:48:08 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,31 @@
 
 void	ft_handler(int sig)
 {
-	if (sig == SIGINT)
-		g_exit = 130;
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT && g_line == 1)
 	{
 		g_exit = 131;
 		write(1, "Quit (core dumped)", 18);
-	}
-	rl_replace_line("", 1);
-	write(1, "\n", 1);
-	rl_on_new_line();
-	if (g_line == 0)
-		rl_redisplay();
-	if (g_line == 1)
+		rl_replace_line("", 1);
+		write(1, "\n", 1);
+		rl_on_new_line();
 		g_line = 0;
+	}
+	else if (sig == SIGQUIT && g_line == 0)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else if (sig == SIGINT)
+	{
+		g_exit = 130;
+		rl_replace_line("", 1);
+		write(1, "\n", 1);
+		rl_on_new_line();
+		if (g_line == 0)
+			rl_redisplay();
+		if (g_line == 1)
+			g_line = 0;
+	}
 }
 
 void	ft_signal(void)
