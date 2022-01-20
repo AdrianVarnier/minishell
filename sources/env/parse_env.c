@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 15:27:15 by ali               #+#    #+#             */
-/*   Updated: 2021/12/17 12:13:26 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/20 15:56:01 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,19 @@ char	*ft_get_value(char *envp)
 t_env	*ft_parse_env(char **envp)
 {
 	t_env	*env;
+	char	*key;
+	char	*value;
 	int		i;
 
 	env = NULL;
 	i = 0;
 	while (envp[i])
 	{
-		add_to_env(ft_get_key(envp[i]), ft_get_value(envp[i]), &env);
+		key = ft_get_key(envp[i]);
+		value = ft_get_value(envp[i]);
+		add_to_env(key, value, &env);
+		free(key);
+		free(value);
 		if (env == NULL)
 			return (NULL);
 		i++;

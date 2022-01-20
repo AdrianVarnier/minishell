@@ -12,6 +12,7 @@ int	main(int ac, char **av, char **envp)
 	env = NULL;
 	env = ft_parse_env(envp);
 	ret = readline("minishell>$");
+//	signal(SIGINT, ft_handler);
 	while (ret)
 	{
 		add_history(ret);
