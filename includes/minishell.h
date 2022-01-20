@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/14 15:20:40 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/20 11:11:17 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,13 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <signal.h>
 # include "define.h"
 # include "struct.h"
+
+//exit status
+
+extern int	g_status;
 
 //builtins
 
@@ -129,6 +134,10 @@ char	*ft_get_var(char *str, t_env **env);
 int	ft_variable_size(char *str, t_env **env);
 int	ft_pass_variable(char *str);
 t_cmd	*ft_parse_line(char *line, t_env **env);
+
+// signals
+
+void	ft_handler(int sig);
 
 //readline
 
