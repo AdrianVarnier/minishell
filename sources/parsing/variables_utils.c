@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 17:45:20 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 18:38:37 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ char	*ft_get_varname(char *str)
 	if (*str == '{')
 		str++;
 	i = 0;
-	while (str[i] && str[i] != '}' && str[i] != ' ')
+	while (str[i] && str[i] != '}' && str[i] != ' ' && str[i] != '\''
+		&& str[i] != '\"')
 		i++;
 	varname = malloc(sizeof(char) * (i + 1));
 	if (!varname)
 		return (NULL);
 	i = 0;
-	while (str[i] && str[i] != '}' && str[i] != ' ')
+	while (str[i] && str[i] != '}' && str[i] != ' ' && str[i] != '\''
+		&& str[i] != '\"')
 	{
 		varname[i] = str[i];
 		i++;
@@ -67,7 +69,8 @@ int	ft_pass_variable(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '}')
+	while (str[i] && str[i] != ' ' && str[i] != '}' && str[i] != '\''
+		&& str[i] != '\"')
 		i++;
 	return (i);
 }
