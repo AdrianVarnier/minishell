@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/20 17:00:09 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 12:49:32 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ void	exec_builtin(t_cmd *cmd, t_env *env, t_file *infile, t_file *outfile)
 			free_shell(env, cmd);
 			exit(ret);
 		}
-	}	
-	if (is_in_env("?", env) == 1)
-		set_env("?", ft_itoa(ret), env);
-	else
-		add_to_env("?", ft_itoa(ret), &env);
+	}
+	g_exit = ret;
 }

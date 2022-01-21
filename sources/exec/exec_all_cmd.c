@@ -6,19 +6,11 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/20 16:52:46 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 12:53:55 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	actualise_exit_status(int exit_status, t_env *env)
-{
-	if (is_in_env("?", env) == 1)
-		set_env("?", ft_itoa(exit_status >> 8), env);
-	else
-		add_to_env("?", ft_itoa(exit_status >> 8), &env);
-}
 
 static int	is_pipe(t_file *file)
 {
@@ -58,7 +50,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 		if (!(is_builtin(cmd->args[0]) == 1 && is_pipe(cmd->outfile) == 0 && is_pipe(cmd->infile) == 0))
 		{
 			waitpid(cmd->pid, &exit_status, 0);
-			actualise_exit_status(exit_status, env);
+			g_exit = exit_status >> 8;
 		}
 		cmd = cmd->next;
 	}
