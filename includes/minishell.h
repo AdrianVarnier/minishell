@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 13:02:50 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 17:02:20 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,9 @@ void	ft_signal(int line);
 //readline
 
 void	ft_readline(t_env *env);
+
+//debug
+
+void	ft_print_cmd(t_cmd *cmd);
 
 #endif
