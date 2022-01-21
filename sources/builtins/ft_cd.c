@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:27:50 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 17:53:37 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:26:59 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 static int	check_path(char *path)
 {
-	char *err_msg;
+	char	*err_msg;
 
 	if (access(path, F_OK) == -1)
 	{
-		err_msg = ft_strjoin3("minishell: cd: ", path, ": No such file or directory");
+		err_msg = ft_strjoin3("minishell: cd: ", path,
+				": No such file or directory");
 		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
-		return(-1);
+		return (-1);
 	}
 	else if (access(path, X_OK) == -1)
 	{
@@ -67,7 +68,7 @@ int	ft_cd_here(t_env *env)
 {
 	char	new_path[PATH_MAX];
 
-	getcwd(new_path,PATH_MAX);
+	getcwd(new_path, PATH_MAX);
 	if (is_in_env("OLDPWD", env) == 0)
 		add_to_env("OLDPWD", new_path, &env);
 	else

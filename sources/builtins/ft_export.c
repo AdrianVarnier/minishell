@@ -6,11 +6,25 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:12:10 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 12:56:17 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 18:48:25 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	check_invalid(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0' && s[i] != '=')
+	{
+		if (s[i] == '?')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static int	check_equal(char *s)
 {
@@ -79,6 +93,8 @@ int	ft_export(char **arg, t_env **env)
 	i = 1;
 	while (arg[i] != NULL)
 	{
+		if (check_invalid(arg[i]) == 0)
+			return (1);
 		if (check_equal(arg[i]) == 0)
 			return (0);
 		key = get_key(arg[i]);

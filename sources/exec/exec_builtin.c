@@ -6,11 +6,29 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 12:49:32 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:45:26 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	is_n(char *s)
+{
+	int	i;
+
+	i = 1;
+	if (s[0] == '-')
+	{
+		while (s[i] != '\0')
+		{
+			if (s[i] != 'n')
+				return (0);
+			i++;
+		}
+		return (1);
+	}
+	return (0);
+}
 
 static int	exec_cd(t_cmd *cmd, t_env *env)
 {
@@ -33,7 +51,7 @@ static int	exec_echo(t_cmd *cmd)
 {
 	int	ret;
 
-	if (ft_strcmp(cmd->args[1], "-n") == 0)
+	if (is_n(cmd->args[1]) == 1)
 		ret = ft_echo(cmd->args, 1);
 	else
 		ret = ft_echo(cmd->args, 0);

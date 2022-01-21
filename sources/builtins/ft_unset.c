@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:35:32 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 12:56:38 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:28:28 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_unset(char **arg, t_env **env)
 {
-	int	i;
+	int		i;
 	t_env	*tmp1;
 	t_env	*tmp2;
 

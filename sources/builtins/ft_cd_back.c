@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 17:40:37 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 18:17:56 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:27:18 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	get_path_size(char *path)
 
 static char	*get_back_path(char *old_path)
 {
-	int	i;
+	int		i;
 	char	*new_path;
 
 	i = get_path_size(old_path);
