@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:23:13 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 15:44:36 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 18:47:49 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_size_sub(char *str, t_env **env)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != '$' || (str[i + 1] && str[i + 1] == ' ') || !str[i + 1])
+		if (!ft_is_variable(&str[i]))
 		{
 			i++;
 			size++;
@@ -61,7 +61,7 @@ void	ft_fill_sub(char *str, char *sub, int size, t_env **env)
 	j = 0;
 	while (j < size)
 	{
-		if (str[i] != '$' || (str[i + 1] && str[i + 1] == ' ') || !str[i + 1])
+		if (!ft_is_variable(&str[i]))
 		{
 			sub[j] = str[i];
 			i++;
@@ -94,17 +94,20 @@ void	ft_variables(char **strs, t_env **env)
 	int		i;
 	int		j;
 	char	*tmp;
+	int		novar;
 
-	i = 0;
-	while (strs[i])
+	novar = 0;
+	i = -1;
+	while (strs[++i])
 	{
-		if (strs[i][0] != '\'')
+		j = -1;
+		while (strs[i][++j])
 		{
-			j = 0;
-			while (strs[i][j] && (strs[i][j] != '$' || (strs[i][j + 1]
-				&& strs[i][j + 1] == ' ') || !strs[i][j + 1]))
-				j++;
-			if (strs[i][j])
+			if (strs[i][j] == '\'' && novar == 0)
+				novar = 1;
+			else if (strs[i][j] == '\'' && novar == 1)
+				novar = 0;
+			if (novar == 0  && strs[i][j] && ft_is_variable(&strs[i][j]))
 			{
 				tmp = ft_replace(strs[i], env);
 				free(strs[i]);
@@ -112,6 +115,5 @@ void	ft_variables(char **strs, t_env **env)
 			}
 		}
 		strs[i] = ft_remove_quote(strs[i]);
-		i++;
 	}
 }

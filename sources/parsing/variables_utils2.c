@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   variables_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 18:46:07 by ali              ###   ########.fr       */
+/*   Created: 2022/01/21 18:26:23 by ali               #+#    #+#             */
+/*   Updated: 2022/01/21 18:48:21 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_cmd	*ft_parse_line(char *line, t_env **env)
+int	ft_is_variable(char *str)
 {
-	char	**strs;
-	t_cmd	*cmd;
+	int	i;
 
-	cmd = NULL;
-	strs = ft_splitline(line);
-	if (ft_parse_error(strs))
-	{
-		free_char2(strs);
-		return (NULL);
-	}
-	if (!get_env("?", *env))
-		add_to_env("?", ft_itoa(g_exit), env);
-	else
-		set_env("?", ft_itoa(g_exit), *env);
-	ft_variables(strs, env);
-	cmd = ft_stock_cmd(strs);
-	free_char2(strs);
-	return (cmd);
+	i = 0;
+	if (str[i] == '$' && str[i + 1] && str[i + 1] != ' ' && str[i + 1] != '\''
+		&& str[i + 1] != '\"')
+		return (1);
+	return (0);
 }
