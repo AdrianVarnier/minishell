@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 22:15:57 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 22:18:54 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ char	*ft_get_var(char *str, t_env **env);
 int	ft_variable_size(char *str, t_env **env);
 int	ft_pass_variable(char *str);
 t_cmd	*ft_parse_line(char *line, t_env **env);
+int	ft_is_variable(char *str);
 
 // signals
 

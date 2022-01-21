@@ -1,6 +1,8 @@
 #include "minishell.h"
 
-void	ft_print_cmd(t_cmd *cmd)
+int	g_exit;
+
+/*void	ft_print_cmd(t_cmd *cmd)
 {
 	char	**args;
 	t_file	*infile;
@@ -32,7 +34,7 @@ void	ft_print_cmd(t_cmd *cmd)
 		printf("\n");
 		cmd = cmd->next;
 	}
-}
+}*/
 
 int	main(int ac, char **av, char **envp)
 {
