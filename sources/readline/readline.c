@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:18:03 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 03:32:58 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 15:39:39 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	ft_readline(t_env *env)
 			signal(SIGQUIT, ft_handler2);
 			signal(SIGINT, ft_handler2);
 			cmd = ft_parse_line(ret, &env);
+			ft_print_cmd(cmd);
 			to_free = cmd;
-			exec_all_cmd(cmd, env);
+			//exec_all_cmd(cmd, env);
 			free(ret);
 			free_cmd(to_free);
 			signal(SIGQUIT, ft_handler);
