@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:23:13 by ali               #+#    #+#             */
-/*   Updated: 2021/12/15 15:37:12 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 15:44:36 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,7 @@ void	ft_variables(char **strs, t_env **env)
 				strs[i] = tmp;
 			}
 		}
-		if (strs[i][0] == '\'' || strs[i][0] == '\"')
-			strs[i] = ft_remove_quote(strs[i]);
+		strs[i] = ft_remove_quote(strs[i]);
 		i++;
 	}
 }

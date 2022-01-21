@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
-/*   Updated: 2021/12/14 16:06:43 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 17:45:20 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_variable_size(char *str, t_env **env)
 {
 	char	*var;
 	int		i;
-	
+
 	var = ft_get_var(str, env);
 	i = 0;
 	if (!var)

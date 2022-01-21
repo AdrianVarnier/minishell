@@ -6,8 +6,24 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 16:38:12 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/20 16:38:24 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 17:51:09 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit;
+
+int	main(int ac, char **av, char **envp)
+{
+	t_env	*env;
+	t_cmd	*cmd;
+	t_cmd	*to_free;
+
+	(void) ac;
+	(void) av;
+	env = NULL;
+	env = ft_parse_env(envp);
+	ft_readline(env);
+	free_env(env);
+}

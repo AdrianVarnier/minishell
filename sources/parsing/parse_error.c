@@ -6,16 +6,15 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:18:57 by ali               #+#    #+#             */
-/*   Updated: 2022/01/20 10:25:58 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 17:48:51 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 int	ft_end_error(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strs[i] && strs[i + 1])
@@ -28,7 +27,7 @@ int	ft_end_error(char **strs)
 int	ft_pipe_nocmd(char **strs)
 {
 	int	i;
-	
+
 	i = 0;
 	while (strs[i] && strs[i + 1])
 	{
@@ -61,13 +60,22 @@ int	ft_conjoin_error(char **strs)
 int	ft_quote_error(char **strs)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (strs[i])
 	{
-		if ((strs[i][0] == '\"' || strs[i][0] == '\'')
-			&& !ft_quote_closed(strs[i]))
-			return (1);
+		j = 0;
+		while (strs[i][j])
+		{
+			while (strs[i][j] && strs[i][j] != '\"' && strs[i][j] != '\'')
+				j++;
+			if (!strs[i][j])
+				break ;
+			if (!ft_quote_closed(&strs[i][j]))
+				return (1);
+			j += ft_pass_quote(&strs[i][j]);
+		}
 		i++;
 	}
 	return (0);

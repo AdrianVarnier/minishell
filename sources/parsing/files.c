@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 16:44:05 by ali               #+#    #+#             */
-/*   Updated: 2022/01/18 18:15:08 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 17:48:11 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,11 @@ void	ft_set_pipe(t_cmd *cmd, char **strs, int index)
 
 int	ft_filetype(t_cmd *cmd, char **strs, int index)
 {
-	int	i;
-	int	j;
-	t_file *infile;
-	t_file *outfile;
-	
+	int		i;
+	int		j;
+	t_file	*infile;
+	t_file	*outfile;
+
 	infile = NULL;
 	outfile = NULL;
 	i = 0;
