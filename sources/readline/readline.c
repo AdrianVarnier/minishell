@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:18:03 by ali               #+#    #+#             */
-/*   Updated: 2022/01/20 18:29:32 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 03:32:58 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,23 @@ void	ft_readline(t_env *env)
 	t_cmd	*to_free;
 	char	*ret;
 
-	ft_signal();
+	signal(SIGQUIT, ft_handler);
+	signal(SIGINT, ft_handler);
 	ret = readline("minishell>$");
 	while (ret)
 	{
 		add_history(ret);
 		if (ret[0])
 		{
-			g_line = 1;
+			signal(SIGQUIT, ft_handler2);
+			signal(SIGINT, ft_handler2);
 			cmd = ft_parse_line(ret, &env);
 			to_free = cmd;
 			exec_all_cmd(cmd, env);
 			free(ret);
 			free_cmd(to_free);
-			g_line = 0;
+			signal(SIGQUIT, ft_handler);
+			signal(SIGINT, ft_handler);
 		}
 		ret = readline("minishell>$");
 	}
