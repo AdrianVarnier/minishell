@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:51:33 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 03:33:28 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 17:51:11 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	g_exit;
 
 void	ft_print_cmd(t_cmd *cmd)
 {
@@ -47,18 +45,3 @@ void	ft_print_cmd(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 }
-
-int	main(int ac, char **av, char **envp)
-{
-	t_env	*env;
-	t_cmd	*cmd;
-	t_cmd	*to_free;
-
-	(void) ac;
-	(void) av;
-	env = NULL;
-	env = ft_parse_env(envp);
-	ft_readline(env);
-	free_env(env);
-}
-

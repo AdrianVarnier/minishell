@@ -6,13 +6,13 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:55:05 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 17:15:17 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 17:45:42 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_quote_closed(char *str)
+int	ft_quote_closed(char *str)
 {
 	int		i;
 	char	c;
@@ -30,7 +30,7 @@ void	ft_fill_unquote(char *sub, char *str, char c)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	j = 0;
 	while (str[j])

@@ -6,16 +6,15 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:18:57 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 17:29:38 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 17:48:51 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 int	ft_end_error(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (strs[i] && strs[i + 1])
@@ -28,7 +27,7 @@ int	ft_end_error(char **strs)
 int	ft_pipe_nocmd(char **strs)
 {
 	int	i;
-	
+
 	i = 0;
 	while (strs[i] && strs[i + 1])
 	{

@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 18:34:15 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 17:16:25 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 17:48:39 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	ft_pass_quote(char *str)
 int	ft_pass_word(char *str)
 {
 	int	i;
-	
-	i =	0;
+
+	i = 0;
 	while (str[i] == ' ')
 		i++;
 	if (ft_is_separator(str[i]))

@@ -6,13 +6,13 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:39:31 by ali               #+#    #+#             */
-/*   Updated: 2022/01/20 16:45:35 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 17:47:49 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_count_args(char **strs)
+int	ft_count_args(char **strs)
 {
 	int	i;
 	int	args_nb;
@@ -63,19 +63,20 @@ void	ft_add_cmd(t_cmd **cmd, char **strs)
 	ft_place_cmd(cmd, new);
 }
 
-int		ft_next_cmd(char **strs)
+int	ft_next_cmd(char **strs)
 {
 	int	i;
 
 	i = 0;
 	if (strs[i][0] == '<')
 	{
-		while (strs[i] && (ft_is_file(&strs[i], i) || ft_is_separator(strs[i][0])))
+		while (strs[i] && (ft_is_file(&strs[i], i)
+				|| ft_is_separator(strs[i][0])))
 			i++;
 		return (i);
 	}
 	while (strs[i] && strs[i][0] != '|')
-	   i++;
+		i++;
 	if (!strs[i])
 		return (i);
 	while (strs[i] && (ft_is_separator(strs[i][0]) || ft_is_file(&strs[i], i)))

@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/09 17:38:19 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 17:16:49 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/21 17:46:25 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_wordlen_line(char *str)
 
 	i = 0;
 	if (ft_is_separator(str[i]))
-		return(ft_pass_sep(str));
+		return (ft_pass_sep(str));
 	if (str[i] == '\'' || str[i] == '\"')
 		return (ft_pass_quote(str));
 	while (str[i] && str[i] != ' ' && !ft_is_separator(str[i]))
