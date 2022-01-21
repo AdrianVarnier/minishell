@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:59:13 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/15 21:10:47 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 20:07:56 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_to_env(char *name, char *content, t_env **env)
 	else
 	{
 		index = *env;
-		while(index->next != NULL)
+		while (index->next != NULL)
 			index = index->next;
 		new->next = NULL;
 		new->prev = index;

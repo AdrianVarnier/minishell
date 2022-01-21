@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 03:32:51 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/13 18:19:57 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 20:06:42 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	ft_exit_str(t_cmd *cmd, t_env *env)
 {
 	char	*err_msg;
 
-	err_msg = ft_strjoin3("minishell: exit: ", cmd->args[1], ": numeric argument required");
+	err_msg = ft_strjoin3("minishell: exit: ", cmd->args[1],
+			": numeric argument required");
 	ft_putendl_fd("exit", 1);
 	ft_putendl_fd(err_msg, 2);
 	free(err_msg);

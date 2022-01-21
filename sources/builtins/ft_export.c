@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:12:10 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 18:48:25 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 20:07:22 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_equal(char *s)
 
 static char	*get_key(char *s)
 {
-	int	i;
+	int		i;
 	char	*key;
 
 	i = 0;
@@ -61,8 +61,8 @@ static char	*get_key(char *s)
 
 static char	*get_value(char *s)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*value;
 
 	i = 0;

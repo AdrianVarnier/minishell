@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:40:54 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/18 04:20:56 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/21 20:07:42 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	env_size(t_env *env)
 
 char	**env_to_char2(t_env *env)
 {
-	int	i;
+	int		i;
 	char	**ret;
 
 	if (env == NULL)
