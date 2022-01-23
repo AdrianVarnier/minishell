@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 14:39:31 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 17:47:49 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/23 15:35:48 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_add_cmd(t_cmd **cmd, char **strs)
 		return ;
 	ft_fill_args(strs, new->args);
 	new->args[args_nb] = NULL;
+	new->input = 0;
+	new->output = 1;
 	ft_place_cmd(cmd, new);
 }
 
@@ -99,8 +101,6 @@ t_cmd	*ft_stock_cmd(char **strs)
 		{
 			ft_add_cmd(&cmd, &strs[i]);
 			ft_filetype(cmd, &strs[i], i);
-			cmd->input = 0;
-			cmd->output = 1;
 		}
 		i += ft_next_cmd(&strs[i]);
 	}
