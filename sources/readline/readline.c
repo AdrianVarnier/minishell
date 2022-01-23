@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:18:03 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 19:18:20 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/23 13:01:32 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_exec_line(t_cmd *cmd, t_env *env)
 
 	//ft_print_cmd(cmd);
 	to_free = cmd;
+	g_exit = 0;
 	exec_all_cmd(cmd, env);
 	free_cmd(to_free);
 }
