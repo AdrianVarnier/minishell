@@ -47,11 +47,9 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 			close(cmd->input);
 			close(cmd->prev->output);
 		}
-		if (!(is_builtin(cmd->args[0]) == 1 && is_pipe(cmd->outfile) == 0 && is_pipe(cmd->infile) == 0))
-		{
-			waitpid(cmd->pid, &exit_status, 0);
-			g_exit = exit_status >> 8;
-		}
 		cmd = cmd->next;
 	}
+	waitpid(-1, &exit_status, 0);
+	if (g_exit != 130 && g_exit != 131)
+		g_exit = exit_status >> 8;
 }
