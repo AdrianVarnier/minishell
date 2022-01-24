@@ -93,7 +93,7 @@ int	ft_export(char **arg, t_env **env)
 	i = 1;
 	while (arg[i] != NULL)
 	{
-		if (check_invalid(arg[i]) == 0)
+		if (check_invalid(arg[i]) == 1)
 			return (1);
 		if (check_equal(arg[i]) == 0)
 			return (0);
