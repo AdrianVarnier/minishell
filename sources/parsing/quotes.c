@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 15:55:05 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 17:45:42 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/25 00:54:58 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,19 @@ char	*ft_remove_quote(char *str)
 	ft_fill_unquote(sub, str, c);
 	free(str);
 	return (ft_remove_quote(sub));
+}
+
+void	ft_quotes(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i])
+	{
+		if (ft_has_no_quotes(strs[i]))
+			strs[i] = ft_no_spaces(strs[i]);
+		else
+			strs[i] = ft_remove_quote(strs[i]);
+		i++;
+	}
 }

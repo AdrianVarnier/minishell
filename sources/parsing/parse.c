@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
-/*   Updated: 2022/01/24 01:26:23 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/25 00:50:49 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_cmd	*ft_parse_line(char *line, t_env **env)
 		set_env("?", exit, *env);
 	free(exit);
 	ft_variables(strs, env);
+	ft_quotes(strs);
 	cmd = ft_stock_cmd(strs);
 	free_char2(strs);
 	return (cmd);
