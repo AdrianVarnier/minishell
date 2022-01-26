@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 02:21:59 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:53:25 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 		if (cmd->next != NULL)
 			create_pipe(cmd);
 		if (is_builtin(cmd->args[0]) == 1 && cmd->next == NULL && cmd->prev == NULL)
-			exec_builtin(cmd, env, cmd->infile, cmd->outfile);
+			exec_builtin(cmd, env, cmd->outfile);
 		else
 		{
 			cmd->pid = fork();

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 03:32:51 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 20:06:42 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:44:12 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	ft_exit_str(t_cmd *cmd, t_env *env)
 	exit(255);
 }
 
-static void	ft_exit_too_many_arg(t_cmd *cmd, t_env *env)
+static void	ft_exit_too_many_arg(void)
 {
 	ft_putendl_fd("exit", 1);
 	ft_putendl_fd("minishell: exit: too many arguments", 2);
@@ -48,7 +48,7 @@ int	ft_exit(t_cmd *cmd, t_env *env)
 		ft_exit_str(cmd, env);
 	else if (is_str(cmd->args[1]) == 0 && cmd->args[2] != NULL)
 	{
-		ft_exit_too_many_arg(cmd, env);
+		ft_exit_too_many_arg();
 		return (1);
 	}
 	else if (is_too_large(cmd->args[1]) == 1)

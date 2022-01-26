@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 00:45:09 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:46:38 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,9 @@ static int	exec_echo(t_cmd *cmd)
 	return (ret);
 }
 
-void	exec_builtin(t_cmd *cmd, t_env *env, t_file *infile, t_file *outfile)
+void	exec_builtin(t_cmd *cmd, t_env *env, t_file *outfile)
 {
 	int		ret;
-	char	*err_msg;
 
 	if (ft_strcmp(cmd->args[0], "echo") == 0)
 		ret = exec_echo(cmd);

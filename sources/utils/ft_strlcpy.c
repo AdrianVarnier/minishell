@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:06:00 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/10 17:06:36 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:49:54 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strlcpy(char *dst, char *src, int len)
 	size_t	srclen;
 
 	srclen = ft_strlen(src);
-	if (srclen + 1 < len)
+	if (srclen + 1 < (size_t)len)
 		ft_memcpy(dst, src, srclen + 1);
 	else if (len != 0)
 	{

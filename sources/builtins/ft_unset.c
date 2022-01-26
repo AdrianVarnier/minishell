@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:35:32 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 20:05:46 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:44:41 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static int	err_msg(void)
 int	ft_unset(char **arg, t_env **env)
 {
 	int		i;
-	t_env	*tmp1;
-	t_env	*tmp2;
 
 	i = 1;
 	while (*env != NULL)

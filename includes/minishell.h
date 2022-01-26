@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 01:40:08 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:46:58 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ t_env	*ft_parse_env(char **envp);
 //exec
 
 int		is_builtin(char *name);
-void	exec_builtin(t_cmd *cmd, t_env *env, t_file *infile, t_file *outfile);
+void	exec_builtin(t_cmd *cmd, t_env *env, t_file *outfile);
 void	exec_cmd(t_cmd *cmd, t_env *env);
 void	exec_all_cmd(t_cmd *cmd, t_env *env);
 
 //redir
 
 void	create_pipe(t_cmd *cmd);
-void	redir(t_cmd *cmd, t_file *infile, t_file *outfile);
+void	redir(t_cmd *cmd);
 int		check_file(t_cmd *cmd);
 void	create_all_heredoc(t_cmd *cmd, t_file *infile, t_env *env);
 

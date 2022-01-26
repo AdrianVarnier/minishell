@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:06:23 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/16 12:37:35 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:48:48 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 char	*ft_strdup(char *s)
 {
-	int		i;
 	int		len;
 	char	*cpy;
 
 	if (s == NULL)
 		return (NULL);
-	i = 0;
 	len = ft_strlen(s) + 1;
 	cpy = malloc(sizeof(char) * len);
 	if (cpy == NULL)

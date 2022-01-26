@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 01:41:50 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:47:43 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,10 @@ void	exec_cmd(t_cmd *cmd, t_env *env)
 	char	**args_tmp;
 
 	tmp = NULL;
-	redir(cmd, cmd->infile, cmd->outfile);
+	redir(cmd);
 	if (is_builtin(cmd->args[0]) == 1)
 	{
-		exec_builtin(cmd, env, cmd->infile, cmd->outfile);
+		exec_builtin(cmd, env, cmd->outfile);
 		free_shell(env, cmd);
 		exit(0);
 	}

@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:15:20 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 02:31:23 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:45:20 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	redir(t_cmd *cmd, t_file *infile, t_file *outfile)
+void	redir(t_cmd *cmd)
 {
 	if (cmd->prev != NULL)
 		close(cmd->prev->pipe_output);
