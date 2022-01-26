@@ -6,11 +6,23 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
-/*   Updated: 2022/01/26 22:10:47 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 00:51:52 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*ft_varname_exit(void)
+{
+	char	*varname;
+
+	varname = malloc(sizeof(char) * 2);
+	if (!varname)
+		return (NULL);
+	varname[0] = '?';
+	varname[1] = '\0';
+	return (varname);
+}
 
 char	*ft_get_varname(char *str)
 {
@@ -19,16 +31,16 @@ char	*ft_get_varname(char *str)
 
 	if (*str == '{')
 		str++;
+	if (*str == '?')
+		return (ft_varname_exit());
 	i = 0;
-	while (str[i] && str[i] != '}' && str[i] != ' ' && str[i] != '\''
-		&& str[i] != '\"')
+	while (str[i] && !ft_is_vardel(str[i], " ,.?/][}+=-*%$#@!\'\"\0"))
 		i++;
 	varname = malloc(sizeof(char) * (i + 1));
 	if (!varname)
 		return (NULL);
 	i = 0;
-	while (str[i] && str[i] != '}' && str[i] != ' ' && str[i] != '\''
-		&& str[i] != '\"')
+	while (str[i] && !ft_is_vardel(str[i], " ,.?/][}+=-*%$#@!\'\"\0"))
 	{
 		varname[i] = str[i];
 		i++;
@@ -68,9 +80,19 @@ int	ft_pass_variable(char *str)
 {
 	int	i;
 
-	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '}' && str[i] != '\''
-		&& str[i] != '\"')
+	i = 1;
+	if (str[i] == '?')
+		return (2);
+	if (str[i] == '{')
+	{
+		while (str[i] && str[i] != '}')
+			i++;
+		if (str[i])
+			return (i + 1);
+		return (i);
+	}
+		i++;
+	while (str[i] && !ft_is_vardel(str[i], " ,.?/][{}+=-*%$#@!\'\"\0"))
 		i++;
 	return (i);
 }

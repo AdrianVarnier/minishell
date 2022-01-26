@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 21:50:40 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/26 23:37:13 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ static int	exec_echo(t_cmd *cmd)
 {
 	int	ret;
 
+	if (!cmd->args[1])
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
 	if (is_n(cmd->args[1]) == 1)
 		ret = ft_echo(cmd->args, 1);
 	else
