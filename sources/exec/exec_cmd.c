@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 18:21:43 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:55:55 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ static char	*get_path(t_cmd *cmd, t_env *env)
 void	exec_cmd(t_cmd *cmd, t_env *env)
 {
 	char	*tmp;
-	char	**env_tmp;
-	char	**args_tmp;
 
 	tmp = NULL;
 	redir(cmd);

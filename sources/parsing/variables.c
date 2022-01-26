@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:23:13 by ali               #+#    #+#             */
-/*   Updated: 2022/01/26 18:27:06 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 22:09:57 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ char	*ft_replace(char *str, t_env **env)
 	if (!sub)
 		return (NULL);
 	ft_fill_sub(str, sub, size, env);
+	if (str)
+		free (str);
 	return (sub);
 }
 
@@ -93,7 +95,6 @@ void	ft_variables(char **strs, t_env **env)
 {
 	int		i;
 	int		j;
-	char	*tmp;
 	int		novar;
 
 	novar = 0;
@@ -108,11 +109,7 @@ void	ft_variables(char **strs, t_env **env)
 			else if (strs[i][j] == '\'' && novar == 1)
 				novar = 0;
 			if (novar == 0 && strs[i][j] && ft_is_variable(&strs[i][j]))
-			{
-				tmp = ft_replace(strs[i], env);
-				free(strs[i]);
-				strs[i] = tmp;
-			}
+				strs[i] = ft_replace(strs[i], env);
 		}
 	}
 }
