@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 00:51:17 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:36:54 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	send_err_msg(char *name, char mode)
 	char	*err_msg;
 
 	if (mode == 'F')
-		err_msg = ft_strjoin3("minishell: ", name, ": No such file or directory");
+		err_msg = ft_strjoin3("minishell: ",
+				name, ": No such file or directory");
 	if (mode == 'R')
 		err_msg = ft_strjoin3("minishell: ", name, ": Read permission denied");
 	if (mode == 'W')
@@ -71,19 +72,12 @@ static int	check_outfile(t_file *outfile, t_cmd *cmd)
 		}
 	}
 	if (outfile->type == APPEND)
-		fd = open(outfile->name, O_WRONLY | O_APPEND | O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		fd = open(outfile->name, O_WRONLY | O_APPEND | O_CREAT,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	if (outfile->type == REPLACE)
-		fd = open(outfile->name, O_WRONLY | O_TRUNC | O_CREAT , S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	if (fd == -1)
-	{
-		send_err_msg(outfile->name, 'O');
-		return (0);
-	}
-	if (outfile->next == NULL)
-		cmd->output = fd;
-	else
-		close(fd);
-	return (1);
+		fd = open(outfile->name, O_WRONLY | O_TRUNC | O_CREAT,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	return (stock_fd(fd, cmd, outfile));
 }
 
 static int	check_all(t_file *infile, t_file *outfile, t_cmd *cmd)

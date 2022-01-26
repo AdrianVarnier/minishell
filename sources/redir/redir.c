@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:15:20 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 15:45:20 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/26 18:41:29 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	redir(t_cmd *cmd)
+static void	close_fd(t_cmd *cmd)
 {
 	if (cmd->prev != NULL)
 		close(cmd->prev->pipe_output);
@@ -24,6 +24,10 @@ void	redir(t_cmd *cmd)
 	if (cmd->outfile != NULL)
 		if (cmd->outfile->type != PIPE && cmd->next != NULL)
 			close(cmd->pipe_output);
+}
+
+static void	redirect_input(t_cmd *cmd)
+{
 	if (cmd->infile != NULL)
 	{
 		if (cmd->infile->type == PIPE)
@@ -42,6 +46,10 @@ void	redir(t_cmd *cmd)
 		dup2(cmd->input, STDOUT_FILENO);
 		close(cmd->input);
 	}
+}
+
+static void	redirect_output(t_cmd *cmd)
+{
 	if (cmd->outfile != NULL)
 	{
 		if (cmd->outfile->type == PIPE)
@@ -60,4 +68,11 @@ void	redir(t_cmd *cmd)
 		dup2(cmd->output, STDOUT_FILENO);
 		close(cmd->output);
 	}
+}
+
+void	redir(t_cmd *cmd)
+{
+	close_fd(cmd);
+	redirect_input(cmd);
+	redirect_output(cmd);
 }

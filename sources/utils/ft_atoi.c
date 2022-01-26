@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 14:30:54 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/21 21:32:39 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:46:52 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 long long	ft_atoi(char *s)
 {
-	int	i;
+	int			i;
 	long long	x;
 	long long	signe;
 

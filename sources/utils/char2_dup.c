@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 12:20:06 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/17 14:35:37 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:46:37 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	char2_size(char **arg)
 
 char	**char2_dup(char **arg)
 {
-	int	i;
-	int	size;
+	int		i;
+	int		size;
 	char	**cpy;
 
 	i = 0;
