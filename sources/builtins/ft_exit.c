@@ -14,16 +14,9 @@
 
 static void	ft_exit_no_arg(t_cmd *cmd, t_env *env)
 {
-	int		exit_status;
-	char	*value;
-
-	exit_status = 0;
-	value = get_env("?", env);
-	if (value != NULL)
-		exit_status = ft_atoi(get_env("?", env));
 	free_shell(env, cmd);
 	ft_putendl_fd("exit", 1);
-	exit(exit_status);
+	exit(g_exit);
 }
 
 static void	ft_exit_str(t_cmd *cmd, t_env *env)

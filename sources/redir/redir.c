@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:15:20 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/19 17:27:43 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 02:31:23 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,48 @@
 
 void	redir(t_cmd *cmd, t_file *infile, t_file *outfile)
 {
-	if (infile != NULL)
+	if (cmd->prev != NULL)
+		close(cmd->prev->pipe_output);
+	if (cmd->next != NULL)
+		close(cmd->next->pipe_input);
+	if (cmd->infile != NULL)
+		if (cmd->infile->type != PIPE && cmd->prev != NULL)
+			close(cmd->pipe_input);
+	if (cmd->outfile != NULL)
+		if (cmd->outfile->type != PIPE && cmd->next != NULL)
+			close(cmd->pipe_output);
+	if (cmd->infile != NULL)
 	{
-		while (infile->next != NULL)
-			infile = infile->next;
-		if (infile->type == PIPE)
-			close(cmd->prev->output);
+		if (cmd->infile->type == PIPE)
+		{
+			dup2(cmd->pipe_input, STDIN_FILENO);
+			close(cmd->pipe_input);
+		}
+		else if (cmd->input != 0)
+		{
+			dup2(cmd->input, STDIN_FILENO);
+			close(cmd->input);
+		}
 	}
-	if (outfile != NULL)
+	else if (cmd->input != 0)
 	{
-		while (outfile->next != NULL)
-			outfile = outfile->next;
-		if (outfile->type == PIPE)
-			close(cmd->next->input);
-	}
-	if (cmd->input != 0)
-	{
-		dup2(cmd->input, STDIN_FILENO);
+		dup2(cmd->input, STDOUT_FILENO);
 		close(cmd->input);
 	}
-	if (cmd->output != 1)
+	if (cmd->outfile != NULL)
+	{
+		if (cmd->outfile->type == PIPE)
+		{
+			dup2(cmd->pipe_output, STDOUT_FILENO);
+			close(cmd->pipe_output);
+		}
+		else if (cmd->output != 1)
+		{
+			dup2(cmd->output, STDOUT_FILENO);
+			close(cmd->output);
+		}
+	}
+	else if (cmd->output != 1)
 	{
 		dup2(cmd->output, STDOUT_FILENO);
 		close(cmd->output);

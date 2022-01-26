@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/17 23:54:50 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 00:51:17 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	check_all(t_file *infile, t_file *outfile, t_cmd *cmd)
 	}
 	while (outfile != NULL)
 	{
-		if (outfile->type != HEREDOC && outfile->type != PIPE)
+		if (outfile->type != PIPE)
 			if (check_outfile(outfile, cmd) == 0)
 				return (0);
 		outfile = outfile->next;

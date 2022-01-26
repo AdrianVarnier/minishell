@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 14:45:26 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 00:45:09 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,10 @@ void	exec_builtin(t_cmd *cmd, t_env *env, t_file *infile, t_file *outfile)
 	if (outfile != NULL)
 		while (outfile->next != NULL)
 			outfile = outfile->next;
-	if (outfile != NULL)
+	if (cmd->next != NULL || cmd->prev != NULL)
 	{
-		if (outfile->type == PIPE)
-		{
-			free_shell(env, cmd);
-			exit(ret);
-		}
-	}
-	 if (infile != NULL)
-	{
-		if (infile->type == PIPE)
-		{
-			free_shell(env, cmd);
-			exit(ret);
-		}
+		free_shell(env, cmd);
+		exit(ret);
 	}
 	g_exit = ret;
 }

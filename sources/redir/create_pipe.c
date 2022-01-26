@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:48:49 by avarnier          #+#    #+#             */
-/*   Updated: 2021/12/20 18:05:07 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 01:14:07 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	create_pipe(t_cmd *cmd)
 		ft_putendl_fd("minishell: pipe failed", 2);
 		return ;
 	}
-	cmd->output = fd[1];
-	cmd->next->input = fd[0];
+	cmd->pipe_output = fd[1];
+	cmd->next->pipe_input = fd[0];
 }

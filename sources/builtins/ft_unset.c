@@ -29,6 +29,12 @@ static void	del_from_env(t_env **env)
 	*env = tmp2;
 }
 
+static int	err_msg(void)
+{
+	ft_putendl_fd("minishell: unset: ?: not a valid identifier", 2);
+	return (1);
+}
+
 int	ft_unset(char **arg, t_env **env)
 {
 	int		i;
@@ -40,6 +46,8 @@ int	ft_unset(char **arg, t_env **env)
 	{
 		while (arg[i] != NULL)
 		{
+			if (ft_strcmp(arg[i], "?") == 0)
+				return (err_msg());
 			if (ft_strcmp(arg[i], (*env)->key) == 0)
 			{
 				del_from_env(env);

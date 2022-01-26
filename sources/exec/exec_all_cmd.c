@@ -6,23 +6,11 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 12:53:55 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/26 02:21:59 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_pipe(t_file *file)
-{
-	if (file == NULL)
-		return (0);
-	while (file->next != NULL)
-		file = file->next;
-	if (file->type == PIPE)
-		return (1);
-	else
-		return (0);
-}
 
 void	exec_all_cmd(t_cmd *cmd, t_env *env)
 {
@@ -32,9 +20,9 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 		return ;
 	while (cmd != NULL)
 	{
-		if (is_pipe(cmd->outfile) == 1)
+		if (cmd->next != NULL)
 			create_pipe(cmd);
-		if (is_builtin(cmd->args[0]) == 1 && is_pipe(cmd->outfile) == 0 && is_pipe(cmd->infile) == 0)
+		if (is_builtin(cmd->args[0]) == 1 && cmd->next == NULL && cmd->prev == NULL)
 			exec_builtin(cmd, env, cmd->infile, cmd->outfile);
 		else
 		{
@@ -42,14 +30,14 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 			if (cmd->pid == 0)
 				exec_cmd(cmd, env);
 		}
-		if (is_pipe(cmd->infile) == 1)
+		if (cmd->prev != NULL)
 		{
-			close(cmd->input);
-			close(cmd->prev->output);
+			close(cmd->pipe_input);
+			close(cmd->prev->pipe_output);
 		}
 		cmd = cmd->next;
 	}
-	waitpid(-1, &exit_status, 0);
+	while (waitpid(-1, &exit_status, 0) > 0);
 	if (g_exit != 130 && g_exit != 131)
 		g_exit = exit_status >> 8;
 }
