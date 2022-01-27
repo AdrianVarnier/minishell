@@ -6,13 +6,52 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:59:23 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 19:16:14 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 15:11:14 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_handler(int sig)
+void	ft_handler_quit(int sig)
+{
+	if (sig == SIGQUIT && g_exit != -1)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		write(1, "  \b\b", 4);
+	}
+	else if (sig == SIGQUIT && g_exit == -1)
+		return ;
+}
+
+void	ft_handler_int(int sig)
+{
+	if (sig == SIGINT && g_exit != -1)
+	{
+		rl_replace_line("", 1);
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		g_exit = 130;
+	}
+	else if (sig == SIGINT && g_exit == -1)
+	{
+		rl_replace_line("", 1);
+		write(1, "\n", 1);
+		rl_on_new_line();
+		g_exit = 130;
+	}
+}
+
+void	ft_handler_child(int sig)
+{
+	if (sig == SIGQUIT)
+		exit(131);
+	else if (sig == SIGINT)
+		exit(130);
+}
+
+void	ft_handler_heredoc(int sig)
 {
 	if (sig == SIGQUIT)
 	{
@@ -20,39 +59,25 @@ void	ft_handler(int sig)
 		rl_redisplay();
 		write(1, "  \b\b", 4);
 	}
-	else if (sig == SIGINT)
-	{
-		rl_replace_line("", 1);
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		g_exit = 130;
-	}
+	if (sig == SIGINT)
+		exit(130);
 }
 
-void	ft_handler2(int sig)
+void	ft_signal(int mode)
 {
-	if (sig == SIGQUIT)
+	if (mode == 1)
 	{
-		write(1, "Quit (core dumped)", 18);
-		rl_replace_line("", 1);
-		write(1, "\n", 1);
-		rl_on_new_line();
-		g_exit = 131;
+		signal(SIGINT, ft_handler_int);
+		signal(SIGQUIT, ft_handler_quit);
 	}
-	else if (sig == SIGINT)
+	if (mode == 2)
 	{
-		rl_replace_line("", 1);
-		write(1, "\n", 1);
-		rl_on_new_line();
-		g_exit = 130;
+		signal(SIGINT, ft_handler_child);
+		signal(SIGQUIT, ft_handler_child);
 	}
-}
-
-void	ft_signal(int line)
-{
-	if (line == 0)
-		signal(SIGINT, ft_handler);
-	else
-		signal(SIGQUIT, ft_handler2);
+	if (mode == 3)
+	{
+		signal(SIGINT, ft_handler_heredoc);
+		signal(SIGQUIT, ft_handler_heredoc);
+	}
 }

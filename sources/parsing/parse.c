@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
-/*   Updated: 2022/01/26 23:02:24 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 17:28:20 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_cmd	*ft_parse_line(char *line, t_env **env)
 	exit = ft_itoa(g_exit);
 	set_env("?", exit, *env);
 	free(exit);
+	line = ft_variables_heredoc(line);
 	line = ft_unquoted_var(line, env);
 	strs = ft_splitline(line);
 	free(line);

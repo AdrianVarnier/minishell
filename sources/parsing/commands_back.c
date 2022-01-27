@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 17:42:46 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 17:54:53 by ali              ###   ########.fr       */
+/*   Created: 2021/12/10 14:39:31 by ali               #+#    #+#             */
+/*   Updated: 2022/01/27 17:42:27 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,28 @@ void	ft_add_cmd(t_cmd **cmd, char **strs)
 	ft_place_cmd(cmd, new);
 }
 
-t_cmd *ft_stock_cmd(char **strs)
+int	ft_next_cmd(char **strs)
+{
+	int	i;
+
+	i = 0;
+	if (strs[i][0] == '<')
+	{
+		while (strs[i] && (ft_is_file(&strs[i], i)
+				|| ft_is_separator(strs[i][0])))
+			i++;
+		return (i);
+	}
+	while (strs[i] && strs[i][0] != '|')
+		i++;
+	if (!strs[i])
+		return (i);
+	while (strs[i] && (ft_is_separator(strs[i][0]) || ft_is_file(&strs[i], i)))
+		i++;
+	return (i);
+}
+
+t_cmd	*ft_stock_cmd(char **strs)
 {
 	t_cmd	*cmd;
 	int		i;
@@ -78,12 +99,12 @@ t_cmd *ft_stock_cmd(char **strs)
 	i = 0;
 	while (strs[i])
 	{
-		ft_add_cmd(&cmd, &strs[i]);
-		ft_filetype(cmd, &strs[i], i);
-		while (strs[i] && strs[i][0] != '|')
-			i++;
-		if (strs[i])
-			i++;
+		if (strs[i] && !ft_is_separator(strs[i][0]))
+		{
+			ft_add_cmd(&cmd, &strs[i]);
+			ft_filetype(cmd, &strs[i], i);
+		}
+		i += ft_next_cmd(&strs[i]);
 	}
 	return (cmd);
 }

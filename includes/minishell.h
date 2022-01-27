@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 08:38:28 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/27 16:06:56 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,12 +143,11 @@ char	*ft_no_spaces(char *str);
 int	ft_nospaces_size(char *str);
 int	ft_has_no_quotes(char *str);
 void	ft_quotes(char **strs);
+char	*ft_variables_heredoc(char *str);
 
 // signals
 
-void	ft_handler(int sig);
-void	ft_handler2(int sig);
-void	ft_signal(int line);
+void	ft_signal(int mode);
 
 //readline
 
