@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 18:56:00 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/27 20:06:05 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	manage_cmd(t_cmd *cmd, t_env *env)
 	}
 }
 
-void	ft_exit_status(int	exit_status)
+void	ft_exit_status(int exit_status)
 {
 	if (exit_status == 2)
 		g_exit = 130;
@@ -45,7 +45,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 	while (cmd != NULL)
 	{
 		if (cmd->next != NULL)
-			create_pipe(cmd);	
+			create_pipe(cmd);
 		if (check_file(cmd->infile, cmd->outfile, cmd) == 1)
 		{
 			g_exit = -1;

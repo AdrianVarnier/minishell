@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:26:23 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 00:29:34 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 20:09:11 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_is_variable(char *str)
 	return (0);
 }
 
-int ft_is_vardel(char c, char *str)
+int	ft_is_vardel(char c, char *str)
 {
 	int	i;
 

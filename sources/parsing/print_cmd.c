@@ -6,13 +6,13 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 15:51:33 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 17:51:11 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 20:07:37 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_cmd(t_cmd *cmd)
+/*void	ft_print_cmd(t_cmd *cmd)
 {
 	char	**args;
 	t_file	*infile;
@@ -44,4 +44,4 @@ void	ft_print_cmd(t_cmd *cmd)
 		printf("\n");
 		cmd = cmd->next;
 	}
-}
+}*/

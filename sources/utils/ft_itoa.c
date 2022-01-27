@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 17:30:55 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 20:39:55 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 20:10:00 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		ft_filtoa(char *num, unsigned int nbr, int n, unsigned int div)
+static void	ft_filtoa(char *num, unsigned int nbr, int n, unsigned int div)
 {
 	int		i;
 
@@ -32,7 +32,7 @@ static void		ft_filtoa(char *num, unsigned int nbr, int n, unsigned int div)
 	num[i] = '\0';
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	unsigned int	div;
 	int				size;

@@ -6,12 +6,11 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 19:48:49 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 20:10:16 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 char	*ft_unquoted_var(char *str, t_env **env)
 {
@@ -22,7 +21,7 @@ char	*ft_unquoted_var(char *str, t_env **env)
 	c = '\0';
 	while (str[i])
 	{
-		if (str[i] =='\'' || str[i] == '\"')
+		if (str[i] == '\'' || str[i] == '\"')
 		{
 			c = str[i];
 			i++;
@@ -62,7 +61,7 @@ int	ft_variable_error(char *str)
 {
 	int		i;
 	int		simple;
-		
+
 	simple = 1;
 	while (str[i])
 	{

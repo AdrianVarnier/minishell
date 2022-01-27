@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:42:46 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 17:54:53 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 20:08:20 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_add_cmd(t_cmd **cmd, char **strs)
 	ft_place_cmd(cmd, new);
 }
 
-t_cmd *ft_stock_cmd(char **strs)
+t_cmd	*ft_stock_cmd(char **strs)
 {
 	t_cmd	*cmd;
 	int		i;
