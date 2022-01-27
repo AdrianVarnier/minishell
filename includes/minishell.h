@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 08:38:28 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:54:12 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void	ft_quotes(char **strs);
 
 void	ft_handler(int sig);
 void	ft_handler2(int sig);
-void	ft_signal(int line);
+void	ft_signal(int mode);
 
 //readline
 
