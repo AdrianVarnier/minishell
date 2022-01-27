@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 00:51:52 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 19:33:47 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ char	*ft_get_varname(char *str)
 	if (*str == '?')
 		return (ft_varname_exit());
 	i = 0;
-	while (str[i] && !ft_is_vardel(str[i], " ,.?/][}+=-*%$#@!\'\"\0"))
+	while (str[i] && !ft_is_vardel(str[i], " ,.?/][}+=-*%$#@!|><\'\"\0"))
 		i++;
 	varname = malloc(sizeof(char) * (i + 1));
 	if (!varname)
 		return (NULL);
 	i = 0;
-	while (str[i] && !ft_is_vardel(str[i], " ,.?/][}+=-*%$#@!\'\"\0"))
+	while (str[i] && !ft_is_vardel(str[i], " ,.?/][}+=-*%$#@!|<>\'\"\0"))
 	{
 		varname[i] = str[i];
 		i++;
@@ -92,7 +92,7 @@ int	ft_pass_variable(char *str)
 		return (i);
 	}
 		i++;
-	while (str[i] && !ft_is_vardel(str[i], " ,.?/][{}+=-*%$#@!\'\"\0"))
+	while (str[i] && !ft_is_vardel(str[i], " ,.?/][{}+=-*%$#@!|<>\'\"\0"))
 		i++;
 	return (i);
 }
