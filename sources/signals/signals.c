@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:59:23 by ali               #+#    #+#             */
-/*   Updated: 2022/01/21 19:16:14 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/27 13:55:09 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,36 @@ void	ft_handler2(int sig)
 	}
 }
 
-void	ft_signal(int line)
+void	ft_handler_heredoc(int sig)
 {
-	if (line == 0)
+	if (sig == SIGQUIT)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		write(1, "  \b\b", 4);
+	}
+	if (sig == SIGINT && g_exit == -1)
+	{
+		g_exit = 130;
+		exit(0);
+	}
+}
+
+void	ft_signal(int mode)
+{
+	if (mode == 1)
+	{
 		signal(SIGINT, ft_handler);
-	else
+		signal(SIGQUIT, ft_handler);
+	}
+	if (mode == 2)
+	{
+		signal(SIGINT, ft_handler2);
 		signal(SIGQUIT, ft_handler2);
+	}
+	if (mode == 3)
+	{
+		signal(SIGINT, ft_handler_heredoc);
+		signal(SIGQUIT, ft_handler_heredoc);
+	}
 }
