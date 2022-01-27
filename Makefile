@@ -6,7 +6,7 @@
 #    By: ali <ali@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/26 14:50:00 by ali               #+#    #+#              #
-#    Updated: 2022/01/26 20:34:10 by ali              ###   ########.fr        #
+#    Updated: 2022/01/27 02:59:01 by avarnier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ sources/parsing/commands.c        sources/utils/ft_strjoin3.c \
 sources/parsing/commands_utils.c  sources/utils/ft_strlcat.c \
 sources/parsing/files.c           sources/utils/ft_strlcpy.c \
 sources/parsing/nospaces.c        sources/utils/ft_strlen.c \
-sources/exec/exec_cmd_utils.c     sources/redir/check_file_utils.c
+sources/exec/exec_cmd_utils.c     sources/redir/check_file_utils.c \
+sources/create_all_heredoc.c \
 HEADER = ./includes/
 OBJS = $(SRCS:.c=.o)
 CC = gcc
