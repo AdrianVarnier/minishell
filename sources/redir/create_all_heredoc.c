@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 12:04:53 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/27 17:53:20 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static char	*ft_join(char *s1, char *s2)
 	ft_strlcat(new, s2, ft_strlen(new) + ft_strlen(s2) + 1);
 	new[size - 2] = '\n';
 	new[size - 1] = '\0';
+	free(s1);
 	return (new);
 }
 
