@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 03:06:51 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/27 12:04:53 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ void	create_all_heredoc(t_cmd *cmd, t_file *infile, t_env *env)
 		{
 			if (infile->type == HEREDOC && infile->next->type == PIPE)
 				create_heredoc(cmd, infile, env, 1);
-			else if (infile->type == HEREDOC && (infile->next->type == HEREDOC || infile->next->type == INFILE))
+			else if (infile->type == HEREDOC && (infile->next->type == HEREDOC
+					|| infile->next->type == INFILE))
 				create_heredoc(cmd, infile, env, 0);
 		}
 		infile = infile->next;

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 02:58:14 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/27 08:38:28 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ extern int	g_exit;
 
 int	ft_pwd(void);
 int	ft_cd(char *path, t_env **env);
-int	ft_cd_here(t_env *env);
-int	ft_cd_oldpwd(t_env *env);
-int	ft_cd_home(t_env *env);
-int	ft_cd_back(t_env *env);
+int	ft_cd_here(t_env **env);
+int	ft_cd_oldpwd(t_env **env);
+int	ft_cd_home(t_env **env);
+int	ft_cd_back(t_env **env);
 int	ft_env(t_env *env);
 int	ft_unset(char **arg, t_env **env);
 int	ft_export(char **arg, t_env **env);
@@ -45,6 +45,7 @@ int	ft_echo(char **arg, int mode);
 int	ft_exit(t_cmd *cmd, t_env *env);
 int	is_str(char *s);
 int	is_too_large(char *s);
+int	check_invalid(char *s, int mode);
 
 //env
 

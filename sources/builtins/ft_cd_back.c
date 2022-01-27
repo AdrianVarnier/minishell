@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 17:40:37 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/21 14:27:18 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/27 06:37:07 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*get_back_path(char *old_path)
 	return (new_path);
 }
 
-int	ft_cd_back(t_env *env)
+int	ft_cd_back(t_env **env)
 {
 	int		ret;
 	char	old_path[PATH_MAX];
@@ -51,7 +51,7 @@ int	ft_cd_back(t_env *env)
 
 	getcwd(old_path, PATH_MAX);
 	new_path = get_back_path(old_path);
-	ret = ft_cd(new_path, &env);
+	ret = ft_cd(new_path, env);
 	free(new_path);
 	return (ret);
 }
