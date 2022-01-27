@@ -6,19 +6,19 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 02:57:23 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/27 03:06:51 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
 static char	*ft_dup(char *s)
 {
-	int		i;
 	int		len;
 	char	*cpy;
 
 	if (s == NULL)
 		return (NULL);
-	i = 0;
 	len = ft_strlen(s) + 2;
 	cpy = malloc(sizeof(char) * len);
 	if (cpy == NULL)
@@ -49,7 +49,7 @@ static char	*ft_join(char *s1, char *s2)
 
 static void	send_heredoc(char *heredoc, t_cmd *cmd, t_env *env)
 {
-	int		*fd;
+	int		fd[2];
 	pid_t	pid;
 
 	pipe(fd);
