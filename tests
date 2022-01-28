@@ -21,7 +21,7 @@ export TE+S=T="" -> error msg + exit = 1
 export ""="" -> un seul error msg + exit = 1
 export 1TEST= -> exit = 1
 
-unset VARIABLE -> SEGFAULT
+unset NON_EXISTANT_VARIABLE -> SEGFAULT
 
 
 PARSING:
