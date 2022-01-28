@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 16:38:12 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 14:48:07 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 07:47:29 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,6 @@ int	main(int ac, char **av, char **envp)
 	ft_signal(1);
 	ft_readline(env);
 	free_env(env);
+	write(1, "exit\n", 5);
+	exit(g_exit);
 }
