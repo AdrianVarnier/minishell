@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 15:34:05 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 15:54:51 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 static void	manage_cmd(t_cmd *cmd, t_env *env)
 {
-	pid_t	parent;
-
-	parent = getpid();
-	cmd->parent = parent;
 	if (is_builtin(cmd->args[0]) == 1
 		&& cmd->next == NULL && cmd->prev == NULL)
 		exec_builtin(cmd, env, cmd->outfile);
@@ -55,6 +51,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 	exit_status = 0;
 	while (cmd != NULL)
 	{
+		cmd->parent = getpid();
 		if (cmd->next != NULL)
 			create_pipe(cmd);
 		if (check_file(cmd->infile, cmd->outfile, cmd) == 1)
