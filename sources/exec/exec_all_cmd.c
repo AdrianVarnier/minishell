@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 15:34:05 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 16:47:12 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	manage_cmd(t_cmd *cmd, t_env *env)
+static void	manage_cmd(t_cmd *cmd, t_env *env, int *builtin)
 {
 	pid_t	parent;
 
@@ -20,7 +20,10 @@ static void	manage_cmd(t_cmd *cmd, t_env *env)
 	cmd->parent = parent;
 	if (is_builtin(cmd->args[0]) == 1
 		&& cmd->next == NULL && cmd->prev == NULL)
+	{
 		exec_builtin(cmd, env, cmd->outfile);
+		*builtin = 1;
+	}
 	else
 	{
 		cmd->pid = fork();
@@ -32,7 +35,7 @@ static void	manage_cmd(t_cmd *cmd, t_env *env)
 	}
 }
 
-void	ft_exit_status(int exit_status)
+void	ft_exit_status(int exit_status, int builtin)
 {
 	if (exit_status == 2)
 		g_exit = 130;
@@ -44,15 +47,17 @@ void	ft_exit_status(int exit_status)
 		g_exit = 1;
 	else if (g_exit == -4)
 		g_exit = 126;
-	else
+	else if (builtin == 0)
 		g_exit = exit_status >> 8;
 }
 
 void	exec_all_cmd(t_cmd *cmd, t_env *env)
 {
 	int		exit_status;
+	int		builtin;
 
 	exit_status = 0;
+	builtin = 0;
 	while (cmd != NULL)
 	{
 		if (cmd->next != NULL)
@@ -60,7 +65,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 		if (check_file(cmd->infile, cmd->outfile, cmd) == 1)
 		{
 			g_exit = -1;
-			manage_cmd(cmd, env);
+			manage_cmd(cmd, env, &builtin);
 			ft_signal(1);
 			if (cmd->prev != NULL)
 			{
@@ -72,5 +77,5 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 	}
 	while (waitpid(-1, &exit_status, 0) > 0)
 		;
-	ft_exit_status(exit_status);
+	ft_exit_status(exit_status, builtin);
 }

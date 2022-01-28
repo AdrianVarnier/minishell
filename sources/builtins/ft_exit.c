@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 03:32:51 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/26 15:44:12 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 16:03:45 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_exit_str(t_cmd *cmd, t_env *env)
 	ft_putendl_fd(err_msg, 2);
 	free(err_msg);
 	free_shell(env, cmd);
-	exit(255);
+	exit(2);
 }
 
 static void	ft_exit_too_many_arg(void)
