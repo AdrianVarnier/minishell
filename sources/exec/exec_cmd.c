@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 09:32:59 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 11:11:48 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ static void	send_err_msg(char *name, char mode, pid_t parent)
 {
 	char	*err_msg;
 
-	kill(parent, SIGUSR1);
+	if (mode == 'X')
+		kill(parent, SIGUSR1);
+	else
+		kill(parent, SIGILL);
 	if (mode == 'C')
 		err_msg = ft_strjoin3("minishell: ", name, ": command not found");
 	if (mode == 'F')

@@ -2,6 +2,7 @@ EXEC:
 
 # non_existing_cmd -> exit = 127
 # cat < non_existing_file -> exit = 1
+# cmd_non_executable -> exit = 126
 
 
 BUILTINS:
@@ -14,6 +15,7 @@ cd wrong_path -> exit = 1
 
 echo test > outfile -> l'output doit être redirigé dans outfile
 echo -n -n -n test -> ne doit afficher que test
+echo -n -n test -n -> doit afficher test -n
 
 export -> doit afficher qqch
 export VARIABLE+=test -> doit ajouter "test" à la variable VARIABLE

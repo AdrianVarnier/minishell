@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 09:47:34 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 11:06:44 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_exit_status(int exit_status)
 		g_exit = 127;
 	else if (g_exit == -3)
 		g_exit = 1;
+	else if (g_exit == -4)
+		g_exit = 126;
 	else
 		g_exit = exit_status >> 8;
 }
