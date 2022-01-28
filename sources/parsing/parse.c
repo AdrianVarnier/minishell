@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 20:10:16 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 08:55:42 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	ft_variable_error(char *str)
 	int		simple;
 
 	simple = 1;
+	i = 0;
 	while (str[i])
 	{
 		while (str[i] && !ft_is_variable(&str[i]))
