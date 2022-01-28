@@ -1,7 +1,7 @@
 EXEC:
 
-non_existing_cmd -> exit = 127
-cat < non_existing_file -> exit = 1
+# non_existing_cmd -> exit = 127
+# cat < non_existing_file -> exit = 1
 
 
 BUILTINS:
@@ -26,5 +26,5 @@ unset VARIABLE -> SEGFAULT
 
 PARSING:
 
-syntax error -> exit = 2;
-$test -> SEGFAULT
+# syntax error -> exit = 2;
+# $test -> SEGFAULT

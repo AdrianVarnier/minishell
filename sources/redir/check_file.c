@@ -6,16 +6,17 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 18:46:15 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/28 09:46:50 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	send_err_msg(char *name, char mode)
+static void	send_err_msg(char *name, char mode, pid_t parent)
 {
 	char	*err_msg;
 
+	kill(parent, SIGUSR2);
 	if (mode == 'F')
 		err_msg = ft_strjoin3("minishell: ",
 				name, ": No such file or directory");
@@ -38,18 +39,18 @@ static int	check_infile(t_file *infile, t_cmd *cmd)
 
 	if (access(infile->name, F_OK) == -1)
 	{
-		send_err_msg(infile->name, 'F');
+		send_err_msg(infile->name, 'F', cmd->parent);
 		return (0);
 	}
 	if (access(infile->name, R_OK) == -1)
 	{
-		send_err_msg(infile->name, 'R');
+		send_err_msg(infile->name, 'R', cmd->parent);
 		return (0);
 	}
 	fd = open(infile->name, O_RDONLY);
 	if (fd == -1)
 	{
-		send_err_msg(infile->name, 'O');
+		send_err_msg(infile->name, 'O', cmd->parent);
 		return (0);
 	}
 	if (infile->next == NULL)
@@ -67,7 +68,7 @@ static int	check_outfile(t_file *outfile, t_cmd *cmd)
 	{
 		if (access(outfile->name, W_OK) == -1)
 		{
-			send_err_msg(outfile->name, 'W');
+			send_err_msg(outfile->name, 'W', cmd->parent);
 			return (0);
 		}
 	}

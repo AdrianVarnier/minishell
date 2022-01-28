@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 20:04:08 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 09:21:23 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ char		*ft_variables_heredoc(char *str);
 // signals
 
 void		ft_signal(int mode);
+void		ft_handler_child_error(int sig);
 
 //readline
 

@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:59:23 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 15:11:14 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 09:48:17 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	ft_handler_quit(int sig)
 {
-	if (sig == SIGQUIT && g_exit != -1)
+	if (sig == SIGQUIT && g_exit > 0)
 	{
 		rl_on_new_line();
 		rl_redisplay();
 		write(1, "  \b\b", 4);
 	}
-	else if (sig == SIGQUIT && g_exit == -1)
+	else if (sig == SIGQUIT && g_exit < 0)
 		return ;
 }
 
 void	ft_handler_int(int sig)
 {
-	if (sig == SIGINT && g_exit != -1)
+	if (sig == SIGINT && g_exit > 0)
 	{
 		rl_replace_line("", 1);
 		write(1, "\n", 1);
@@ -34,7 +34,7 @@ void	ft_handler_int(int sig)
 		rl_redisplay();
 		g_exit = 130;
 	}
-	else if (sig == SIGINT && g_exit == -1)
+	else if (sig == SIGINT && g_exit < 0)
 	{
 		rl_replace_line("", 1);
 		write(1, "\n", 1);
@@ -69,6 +69,8 @@ void	ft_signal(int mode)
 	{
 		signal(SIGINT, ft_handler_int);
 		signal(SIGQUIT, ft_handler_quit);
+		signal(SIGUSR1, ft_handler_child_error);
+		signal(SIGUSR2, ft_handler_child_error);
 	}
 	if (mode == 2)
 	{
