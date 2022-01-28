@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 11:11:48 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 16:19:59 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,12 @@ static char	check_path(char *name, char *path, pid_t parent)
 	return (1);
 }
 
-static char	*get_path(t_cmd *cmd, t_env *env)
+static char	*get_path(t_cmd *cmd, char **path)
 {
 	int		i;
 	char	*full_path;
-	char	**path;
 
 	i = 0;
-	path = ft_split(get_env("PATH", env), ':');
 	if (path == NULL)
 	{
 		send_err_msg(cmd->args[0], 'P', cmd->parent);
@@ -103,13 +101,16 @@ static char	*get_path(t_cmd *cmd, t_env *env)
 void	exec_cmd(t_cmd *cmd, t_env *env)
 {
 	char	*tmp;
+	char	**path;
 
+	path = ft_split(get_env("PATH", env), ':');
 	tmp = NULL;
 	create_all_heredoc(cmd, cmd->infile, env);
 	ft_signal(2);
 	redir(cmd);
 	if (is_builtin(cmd->args[0]) == 1)
 	{
+		free_char2(path);
 		exec_builtin(cmd, env, cmd->outfile);
 		free_shell(env, cmd);
 		exit(0);
@@ -120,6 +121,7 @@ void	exec_cmd(t_cmd *cmd, t_env *env)
 			tmp = ft_strdup(cmd->args[0]);
 	}
 	else
-		tmp = get_path(cmd, env);
+		tmp = get_path(cmd, path);
+	free_char2(path);
 	exec_path(tmp, cmd, env);
 }
