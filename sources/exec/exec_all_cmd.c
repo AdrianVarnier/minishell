@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 11:06:44 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 15:34:05 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env *env)
 {
 	int		exit_status;
 
+	exit_status = 0;
 	while (cmd != NULL)
 	{
 		if (cmd->next != NULL)

@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 15:26:48 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 18:54:43 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 15:45:00 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*ft_joinall(char **strs, int num, int size)
 		k++;
 	}
 	joined[k] = '\0';
-	free(strs);
+	free_char2(strs);
 	return (joined);
 }
 
