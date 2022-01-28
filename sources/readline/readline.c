@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:18:03 by ali               #+#    #+#             */
-/*   Updated: 2022/01/28 15:46:49 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 18:00:54 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,5 @@ void	ft_readline(t_env *env)
 		}
 		ret = readline("minishell>$");
 	}
-	//rl_clear_history();
+	rl_clear_history();
 }
