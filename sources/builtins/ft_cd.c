@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:27:50 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 06:49:05 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/28 22:07:09 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ static int	check_path(char *path)
 				": No such file or directory");
 		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
-		return (-1);
+		return (1);
 	}
 	else if (access(path, X_OK) == -1)
 	{
 		err_msg = ft_strjoin3("minishell: cd: ", path, ": Permission denied");
 		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
-		return (-1);
+		return (1);
 	}
 	return (0);
 }
@@ -81,8 +81,8 @@ int	ft_cd(char *path, t_env **env)
 	char	new_path[PATH_MAX];
 	char	old_path[PATH_MAX];
 
-	if (check_path(path) == -1)
-		return (-1);
+	if (check_path(path) == 1)
+		return (1);
 	getcwd(old_path, PATH_MAX);
 	if (chdir(path) == -1)
 		return (-1);

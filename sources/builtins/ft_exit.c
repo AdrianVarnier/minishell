@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 03:32:51 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 16:03:45 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/28 22:21:18 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 static void	ft_exit_no_arg(t_cmd *cmd, t_env *env)
 {
+	int		exit_status;
+	char	*value;
+
+	value = ft_strdup(get_env("?", env));
+	exit_status = ft_atoi(value);
+	free(value);
 	free_shell(env, cmd);
 	ft_putendl_fd("exit", 1);
-	exit(g_exit);
+	exit(exit_status);
 }
 
 static void	ft_exit_str(t_cmd *cmd, t_env *env)
