@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 22:44:54 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 00:41:17 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int			ft_exit(t_cmd *cmd, t_env *env);
 int			is_str(char *s);
 int			is_too_large(char *s);
 int			check_invalid(char *s, int mode);
+int			ft_cd_oldpwd_redir(t_cmd *cmd, t_env **env);
+int			ft_echo_redir(char **arg, int output, int mode);
+int			ft_env_redir(t_cmd *cmd, t_env *env);
+int			ft_pwd_redir(t_cmd *cmd);
 
 //env
 
@@ -66,6 +70,7 @@ void		exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile);
 void		exec_cmd(t_cmd *cmd, t_env **env);
 void		exec_all_cmd(t_cmd *cmd, t_env **env);
 void		exec_path(char *tmp, t_cmd *cmd, t_env *env);
+void		exec_builtin_redir(t_cmd *cmd, t_env **env);
 
 //redir
 

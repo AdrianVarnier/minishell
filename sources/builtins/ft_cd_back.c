@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 17:40:37 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 03:35:17 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 00:07:42 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,24 @@ int	ft_cd_too_many(void)
 {
 	ft_putendl_fd("minishell: cd: too many arguments", 2);
 	return (1);
+}
+
+int	ft_cd_oldpwd_redir(t_cmd *cmd, t_env **env)
+{
+	int		ret;
+	char	*path;
+
+	path = ft_strdup(get_env("OLDPWD", *env));
+	if (path == NULL)
+	{
+		ft_putendl_fd("minishell: cd: OLDPWD not set", 2);
+		return (1);
+	}
+	ret = ft_cd(path, env);
+	if (ret == 0)
+		ft_putendl_fd(path, cmd->output);
+	free(path);
+	return (ret);
 }
 
 int	get_path_size(char *path)

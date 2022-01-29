@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 22:39:39 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 00:42:20 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ static void	manage_cmd(t_cmd *cmd, t_env **env, int *builtin)
 	if (is_builtin(cmd->args[0]) == 1
 		&& cmd->next == NULL && cmd->prev == NULL)
 	{
-		exec_builtin(cmd, env, cmd->outfile);
+		if (cmd->outfile != NULL)
+			exec_builtin_redir(cmd, env);
+		else
+			exec_builtin(cmd, env, cmd->outfile);
 		*builtin = 1;
 	}
 	else

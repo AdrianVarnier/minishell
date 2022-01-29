@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_echo_redir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
+/*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 17:25:38 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 23:25:52 by avarnier         ###   ########.fr       */
+/*   Created: 2022/01/30 00:07:58 by avarnier          #+#    #+#             */
+/*   Updated: 2022/01/30 00:38:34 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_env *env)
+int	ft_echo_redir(char **arg, int output, int mode)
 {
-	while (env != NULL)
+	int	i;
+
+	i = 1;
+	if (mode == 1)
+		i = 2;
+	while (arg[i] != NULL)
 	{
-		if (ft_strcmp(env->key, "?") != 0)
-		{
-			ft_putstr_fd(env->key, 1);
-			ft_putstr_fd("=", 1);
-			if (env->value != NULL)
-				ft_putendl_fd(env->value, 1);
-			else
-				ft_putstr_fd("\n", 1);
-		}
-		env = env->next;
+		ft_putstr_fd(arg[i], output);
+		if (arg[i + 1] != NULL)
+			ft_putchar_fd(' ', output);
+		i++;
 	}
+	if (mode == 0)
+		ft_putchar_fd('\n', output);
 	return (0);
 }

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_pwd_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
+/*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 17:25:38 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 23:25:52 by avarnier         ###   ########.fr       */
+/*   Created: 2022/01/30 00:02:37 by avarnier          #+#    #+#             */
+/*   Updated: 2022/01/30 00:23:54 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_env(t_env *env)
+int	ft_pwd_redir(t_cmd *cmd)
 {
-	while (env != NULL)
+	char	path[PATH_MAX];
+
+	if (getcwd(path, PATH_MAX) == NULL)
 	{
-		if (ft_strcmp(env->key, "?") != 0)
-		{
-			ft_putstr_fd(env->key, 1);
-			ft_putstr_fd("=", 1);
-			if (env->value != NULL)
-				ft_putendl_fd(env->value, 1);
-			else
-				ft_putstr_fd("\n", 1);
-		}
-		env = env->next;
+		ft_putendl_fd("minishell: pwd: error retrieving current directory", 2);
+		return (1);
 	}
+	ft_putendl_fd(path, cmd->output);
 	return (0);
 }

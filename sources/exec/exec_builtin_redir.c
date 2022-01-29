@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_builtin.c                                     :+:      :+:    :+:   */
+/*   exec_builtin_redir.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 23:39:43 by avarnier         ###   ########.fr       */
+/*   Created: 2022/01/29 23:38:29 by avarnier          #+#    #+#             */
+/*   Updated: 2022/01/30 00:39:32 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	exec_cd(t_cmd *cmd, t_env **env)
 	if (check_too_many(cmd->args) == 1)
 		ret = ft_cd_too_many();
 	else if (ft_strcmp(cmd->args[1], "-") == 0)
-		ret = ft_cd_oldpwd(env);
+		ret = ft_cd_oldpwd_redir(cmd, env);
 	else if (ft_strcmp(cmd->args[1], "..") == 0)
 		ret = ft_cd_back(env);
 	else if (ft_strcmp(cmd->args[1], ".") == 0)
@@ -63,17 +63,17 @@ static int	exec_echo(t_cmd *cmd)
 
 	if (!cmd->args[1])
 	{
-		write(1, "\n", 1);
+		write(cmd->output, "\n", 1);
 		return (0);
 	}
 	if (is_n(cmd->args[1]) == 1)
-		ret = ft_echo(cmd->args, 1);
+		ret = ft_echo_redir(cmd->args, cmd->output, 1);
 	else
-		ret = ft_echo(cmd->args, 0);
+		ret = ft_echo_redir(cmd->args, cmd->output, 0);
 	return (ret);
 }
 
-void	exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile)
+void	exec_builtin_redir(t_cmd *cmd, t_env **env)
 {
 	int		ret;
 
@@ -82,22 +82,14 @@ void	exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile)
 	if (ft_strcmp(cmd->args[0], "cd") == 0)
 		ret = exec_cd(cmd, env);
 	if (ft_strcmp(cmd->args[0], "pwd") == 0)
-		ret = ft_pwd();
+		ret = ft_pwd_redir(cmd);
 	if (ft_strcmp(cmd->args[0], "export") == 0)
 		ret = ft_export(cmd->args, env);
 	if (ft_strcmp(cmd->args[0], "unset") == 0)
 		ret = ft_unset(cmd->args, env);
 	if (ft_strcmp(cmd->args[0], "env") == 0)
-		ret = ft_env(*env);
+		ret = ft_env_redir(cmd, *env);
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 		ret = ft_exit(cmd, *env);
-	if (outfile != NULL)
-		while (outfile->next != NULL)
-			outfile = outfile->next;
-	if (cmd->next != NULL || cmd->prev != NULL)
-	{
-		free_shell(*env, cmd);
-		exit(ret);
-	}
 	g_exit = ret;
 }
