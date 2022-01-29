@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:35:32 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 12:01:34 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 22:36:14 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,19 @@ static void	del_from_env(t_env **env)
 	free((*env)->key);
 	free((*env)->value);
 	free(*env);
-	while (tmp2->prev != NULL)
-		tmp2 = tmp2->prev;
-	*env = tmp2;
+	if (tmp1 == NULL && tmp2 == NULL)
+		*env = NULL;
+	else if (tmp1 != NULL)
+		*env = first_env(tmp1);
+	else if (tmp2 != NULL)
+		*env = first_env(tmp2);
 }
 
 int	ft_unset(char **arg, t_env **env)
 {
 	int		i;
 	int		ret;
+	t_env	*tmp;
 
 	i = 1;
 	ret = 0;
@@ -56,12 +60,14 @@ int	ft_unset(char **arg, t_env **env)
 				if (ft_strcmp(arg[i], (*env)->key) == 0)
 				{
 					del_from_env(env);
+					tmp = *env;
 					break ;
 				}
+				tmp = *env;
 				*env = (*env)->next;
 			}
 		}
-		*env = first_env(*env);
+		*env = first_env(tmp);
 		i++;
 	}
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 21:10:03 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 21:28:48 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 21:47:01 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,36 @@ int	is_str(char *s)
 	return (0);
 }
 
+static int	is_ll_max(char *s)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
+		i++;
+	if (s[i] == '-' || s[i] == '+')
+		i++;
+	while (ft_isdigit(s[i]) == 1)
+	{
+		i++;
+		j++;
+	}
+	if (j > 19)
+		return (1);
+	return (0);
+}
+
+static int	check_limits(unsigned long long n, int signe)
+{
+	if (signe == -1 && n > 9223372036854775808uLL)
+		return (1);
+	if (signe == 1 && n > 9223372036854775807uLL)
+		return (1);
+	return (0);
+}
+
 int	is_too_large(char *s)
 {
 	int					i;
@@ -41,6 +71,8 @@ int	is_too_large(char *s)
 	i = 0;
 	signe = 1;
 	n = 0;
+	if (is_ll_max(s) == 1)
+		return (1);
 	while (s[i] == ' ' || (s[i] >= 9 && s[i] <= 13))
 		i++;
 	if (s[i] == '-' || s[i] == '+')
@@ -54,9 +86,7 @@ int	is_too_large(char *s)
 		n = 10 * n + s[i] - '0';
 		i++;
 	}
-	if (signe == -1 && n > 9223372036854775808uLL)
-		return (1);
-	if (signe == 1 && n > 9223372036854775807uLL)
+	if (check_limits(n, signe) == 1)
 		return (1);
 	return (0);
 }
