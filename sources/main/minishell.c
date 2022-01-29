@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 16:38:12 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 07:47:29 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/29 22:45:15 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av, char **envp)
 	env = ft_parse_env(envp);
 	add_to_env("?", "0", &env);
 	ft_signal(1);
-	ft_readline(env);
+	ft_readline(&env);
 	free_env(env);
 	write(1, "exit\n", 5);
 	exit(g_exit);

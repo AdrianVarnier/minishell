@@ -6,13 +6,13 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:18:03 by ali               #+#    #+#             */
-/*   Updated: 2022/01/28 18:00:54 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/29 22:44:30 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exec_line(t_cmd *cmd, t_env *env)
+void	ft_exec_line(t_cmd *cmd, t_env **env)
 {
 	t_cmd	*to_free;
 
@@ -28,25 +28,25 @@ void	ft_exec_line(t_cmd *cmd, t_env *env)
 	free_cmd(to_free);
 }
 
-void	ft_readline(t_env *env)
+void	ft_readline(t_env **env)
 {
 	t_cmd	*cmd;
 	char	*ret;
 
-	ret = readline("minishell>$");
+	ret = readline("minishell>$ ");
 	while (ret)
 	{
 		add_history(ret);
 		if (ret[0])
 		{
-			cmd = ft_parse_line(ret, &env);
+			cmd = ft_parse_line(ret, env);
 			if (cmd)
 				ft_exec_line(cmd, env);
 			else
 				g_exit = 2;
 			wait(NULL);
 		}
-		ret = readline("minishell>$");
+		ret = readline("minishell>$ ");
 	}
 	rl_clear_history();
 }

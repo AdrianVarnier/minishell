@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 21:41:49 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 22:41:15 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,14 @@ static char	*get_path(t_cmd *cmd, char **path)
 	return (NULL);
 }
 
-void	exec_cmd(t_cmd *cmd, t_env *env)
+void	exec_cmd(t_cmd *cmd, t_env **env)
 {
 	char	*tmp;
 	char	**path;
 
-	path = ft_split(get_env("PATH", env), ':');
+	path = ft_split(get_env("PATH", *env), ':');
 	tmp = NULL;
-	create_all_heredoc(cmd, cmd->infile, env);
+	create_all_heredoc(cmd, cmd->infile, *env);
 	ft_signal(2);
 	redir(cmd);
 	if (is_builtin(cmd->args[0]) == 1)
@@ -121,5 +121,5 @@ void	exec_cmd(t_cmd *cmd, t_env *env)
 	else
 		tmp = get_path(cmd, path);
 	free_char2(path);
-	exec_path(tmp, cmd, env);
+	exec_path(tmp, cmd, *env);
 }

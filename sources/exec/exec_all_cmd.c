@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 22:17:36 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 22:39:39 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	manage_cmd(t_cmd *cmd, t_env *env, int *builtin)
+static void	manage_cmd(t_cmd *cmd, t_env **env, int *builtin)
 {
 	if (is_builtin(cmd->args[0]) == 1
 		&& cmd->next == NULL && cmd->prev == NULL)
@@ -47,7 +47,7 @@ void	ft_exit_status(int exit_status, int builtin)
 		g_exit = exit_status >> 8;
 }
 
-void	exec_all_cmd(t_cmd *cmd, t_env *env)
+void	exec_all_cmd(t_cmd *cmd, t_env **env)
 {
 	int		exit_status;
 	int		builtin;

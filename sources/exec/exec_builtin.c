@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 22:35:44 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 22:46:22 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	check_too_many(char **args)
 	return (0);
 }
 
-static int	exec_cd(t_cmd *cmd, t_env *env)
+static int	exec_cd(t_cmd *cmd, t_env **env)
 {
 	int	ret;
 
@@ -46,15 +46,15 @@ static int	exec_cd(t_cmd *cmd, t_env *env)
 	if (check_too_many(cmd->args) == 1)
 		ret = ft_cd_too_many();
 	else if (ft_strcmp(cmd->args[1], "-") == 0)
-		ret = ft_cd_oldpwd(&env);
+		ret = ft_cd_oldpwd(env);
 	else if (ft_strcmp(cmd->args[1], "..") == 0)
-		ret = ft_cd_back(&env);
+		ret = ft_cd_back(env);
 	else if (ft_strcmp(cmd->args[1], ".") == 0)
-		ret = ft_cd_here(&env);
+		ret = ft_cd_here(env);
 	else if (cmd->args[1] == NULL || ft_strcmp(cmd->args[1], "~") == 0)
-		ret = ft_cd_home(&env);
+		ret = ft_cd_home(env);
 	else
-		ret = ft_cd(cmd->args[1], &env);
+		ret = ft_cd(cmd->args[1], env);
 	return (ret);
 }
 
@@ -74,7 +74,7 @@ static int	exec_echo(t_cmd *cmd)
 	return (ret);
 }
 
-void	exec_builtin(t_cmd *cmd, t_env *env, t_file *outfile)
+void	exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile)
 {
 	int		ret;
 
@@ -85,19 +85,19 @@ void	exec_builtin(t_cmd *cmd, t_env *env, t_file *outfile)
 	if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		ret = ft_pwd();
 	if (ft_strcmp(cmd->args[0], "export") == 0)
-		ret = ft_export(cmd->args, &env);
+		ret = ft_export(cmd->args, env);
 	if (ft_strcmp(cmd->args[0], "unset") == 0)
-		ret = ft_unset(cmd->args, &env);
+		ret = ft_unset(cmd->args, env);
 	if (ft_strcmp(cmd->args[0], "env") == 0)
-		ret = ft_env(env);
+		ret = ft_env(*env);
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
-		ret = ft_exit(cmd, env);
+		ret = ft_exit(cmd, *env);
 	if (outfile != NULL)
 		while (outfile->next != NULL)
 			outfile = outfile->next;
 	if (cmd->next != NULL || cmd->prev != NULL)
 	{
-		free_shell(env, cmd);
+		free_shell(*env, cmd);
 		exit(ret);
 	}
 	g_exit = ret;

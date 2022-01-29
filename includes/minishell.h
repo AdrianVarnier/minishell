@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 22:35:56 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 22:44:54 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ t_env		*ft_parse_env(char **envp);
 //exec
 
 int			is_builtin(char *name);
-void		exec_builtin(t_cmd *cmd, t_env *env, t_file *outfile);
-void		exec_cmd(t_cmd *cmd, t_env *env);
-void		exec_all_cmd(t_cmd *cmd, t_env *env);
+void		exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile);
+void		exec_cmd(t_cmd *cmd, t_env **env);
+void		exec_all_cmd(t_cmd *cmd, t_env **env);
 void		exec_path(char *tmp, t_cmd *cmd, t_env *env);
 
 //redir
@@ -153,7 +153,7 @@ void		ft_handler_child_error(int sig);
 
 //readline
 
-void		ft_readline(t_env *env);
+void		ft_readline(t_env **env);
 
 //debug
 
