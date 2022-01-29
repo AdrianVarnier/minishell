@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 09:21:23 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/29 03:35:52 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int			ft_cd(char *path, t_env **env);
 int			ft_cd_here(t_env **env);
 int			ft_cd_oldpwd(t_env **env);
 int			ft_cd_home(t_env **env);
+int			ft_cd_too_many(void);
 int			ft_cd_back(t_env **env);
 int			ft_env(t_env *env);
 int			ft_unset(char **arg, t_env **env);

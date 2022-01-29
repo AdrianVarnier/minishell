@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 16:38:54 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 05:12:03 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,22 @@ static int	is_n(char *s)
 	return (0);
 }
 
+static int	check_too_many(char **args)
+{
+	if (args[1] != NULL)
+		if (args[2] != NULL)
+			return (1);
+	return (0);
+}
+
 static int	exec_cd(t_cmd *cmd, t_env *env)
 {
 	int	ret;
 
-	if (ft_strcmp(cmd->args[1], "-") == 0)
+	ret = 666;
+	if (check_too_many(cmd->args) == 1)
+		ret = ft_cd_too_many();
+	else if (ft_strcmp(cmd->args[1], "-") == 0)
 		ret = ft_cd_oldpwd(&env);
 	else if (ft_strcmp(cmd->args[1], "..") == 0)
 		ret = ft_cd_back(&env);

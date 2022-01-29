@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:12:10 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 08:45:35 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 03:17:50 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static char	*get_key(char *s)
 	while (s[i] != '=')
 		i++;
 	key = (char *)malloc(sizeof(char) * (i + 1));
+	if (key == NULL)
+		return (NULL);
 	i = 0;
 	while (s[i] != '=')
 	{
@@ -57,7 +59,11 @@ static char	*get_value(char *s)
 		i++;
 	while (s[j] != '\0')
 		j++;
+	if (j - (i + 1) == 0)
+		return (NULL);
 	value = (char *)malloc(sizeof(char) * (j - i + 1));
+	if (value == NULL)
+		return (NULL);
 	i++;
 	j = 0;
 	while (s[i] != '\0')

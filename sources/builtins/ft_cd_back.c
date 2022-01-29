@@ -6,11 +6,17 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 17:40:37 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 06:37:07 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/29 03:35:17 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_cd_too_many(void)
+{
+	ft_putendl_fd("minishell: cd: too many arguments", 2);
+	return (1);
+}
 
 int	get_path_size(char *path)
 {
