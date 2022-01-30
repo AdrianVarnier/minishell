@@ -7,23 +7,23 @@ EXEC:
 
 BUILTINS:
 
-exit wrong_cmd -> exit = 2
-exit -9223372036854775810 -> error msg + exit = 2
-exit 42 53 68 -> exit = 1
+# exit wrong_cmd -> exit = 2
+# exit -9223372036854775810 -> error msg + exit = 2
+# exit 42 53 68 -> exit = 1
 
-cd wrong_path -> exit = 1
+# cd wrong_path -> exit = 1
 
-echo test > outfile -> l'output doit être redirigé dans outfile
-echo -n -n -n test -> ne doit afficher que test
-echo -n -n test -n -> doit afficher test -n
+# echo test > outfile -> l'output doit être redirigé dans outfile
+# echo -n -n -n test -> ne doit afficher que test
+# echo -n -n test -n -> doit afficher test -n
 
-export -> doit afficher qqch
+# export -> doit afficher qqch
 export VARIABLE+=test -> doit ajouter "test" à la variable VARIABLE
 export TE+S=T="" -> error msg + exit = 1
 export ""="" -> un seul error msg + exit = 1
-export 1TEST= -> exit = 1
+# export 1TEST= -> exit = 1
 
-unset NON_EXISTANT_VARIABLE -> SEGFAULT
+# unset NON_EXISTANT_VARIABLE -> SEGFAULT
 
 
 PARSING:
