@@ -6,29 +6,11 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 23:38:29 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 00:39:32 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 01:03:29 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_n(char *s)
-{
-	int	i;
-
-	i = 1;
-	if (s[0] && s[0] == '-')
-	{
-		while (s[i] != '\0')
-		{
-			if (s[i] != 'n')
-				return (0);
-			i++;
-		}
-		return (1);
-	}
-	return (0);
-}
 
 static int	check_too_many(char **args)
 {

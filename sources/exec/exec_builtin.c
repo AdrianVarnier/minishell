@@ -6,13 +6,13 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 23:39:43 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 01:02:15 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_n(char *s)
+int	is_n(char *s)
 {
 	int	i;
 

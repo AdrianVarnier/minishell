@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 00:41:17 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 01:01:53 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int			ft_cd_back(t_env **env);
 int			ft_env(t_env *env);
 int			ft_unset(char **arg, t_env **env);
 int			ft_export(char **arg, t_env **env);
+int			is_n(char *arg);
 int			ft_echo(char **arg, int mode);
 int			ft_exit(t_cmd *cmd, t_env *env);
 int			is_str(char *s);
