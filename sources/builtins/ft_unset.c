@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:35:32 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 22:36:14 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 06:25:04 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,21 @@ static void	del_from_env(t_env **env)
 		*env = first_env(tmp2);
 }
 
+static void	find_to_del(char *arg, t_env **env, t_env **tmp)
+{
+	while (*env != NULL)
+	{
+		if (ft_strcmp(arg, (*env)->key) == 0)
+		{
+			del_from_env(env);
+			*tmp = *env;
+			break ;
+		}
+		*tmp = *env;
+		*env = (*env)->next;
+	}
+}
+
 int	ft_unset(char **arg, t_env **env)
 {
 	int		i;
@@ -54,19 +69,7 @@ int	ft_unset(char **arg, t_env **env)
 		if (check_invalid(arg[i], 2) == 1)
 			ret = 1;
 		else
-		{
-			while (*env != NULL)
-			{
-				if (ft_strcmp(arg[i], (*env)->key) == 0)
-				{
-					del_from_env(env);
-					tmp = *env;
-					break ;
-				}
-				tmp = *env;
-				*env = (*env)->next;
-			}
-		}
+			find_to_del(arg[i], env, &tmp);
 		*env = first_env(tmp);
 		i++;
 	}

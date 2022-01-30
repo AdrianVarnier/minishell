@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:27:50 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 04:56:21 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 05:45:55 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	ft_cd(char *path, t_env **env)
 		add_to_env("OLDPWD", old_path, env);
 	else
 		set_env("OLDPWD", old_path, *env);
-	if (old_path == NULL)
+	if (old_path != NULL)
 		free(old_path);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 01:01:53 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/30 06:46:11 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int			ft_cd_oldpwd_redir(t_cmd *cmd, t_env **env);
 int			ft_echo_redir(char **arg, int output, int mode);
 int			ft_env_redir(t_cmd *cmd, t_env *env);
 int			ft_pwd_redir(t_cmd *cmd);
+int			ft_cd_path(char *path, t_env **env);
+int			ft_cd_path_redir(char *path, t_env **env, int output);
 
 //env
 

@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 01:02:15 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/30 05:11:49 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	exec_cd(t_cmd *cmd, t_env **env)
 	else if (cmd->args[1] == NULL || ft_strcmp(cmd->args[1], "~") == 0)
 		ret = ft_cd_home(env);
 	else
-		ret = ft_cd(cmd->args[1], env);
+		ret = ft_cd_path(cmd->args[1], env);
 	return (ret);
 }
 

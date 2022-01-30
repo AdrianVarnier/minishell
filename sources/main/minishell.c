@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 16:38:12 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 00:58:45 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/30 06:15:02 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_exit;
 
-void	ft_up_shlvl(t_env * env)
+void	ft_up_shlvl(t_env *env)
 {
 	int	lvl;
 
