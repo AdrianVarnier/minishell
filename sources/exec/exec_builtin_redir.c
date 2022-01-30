@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 23:38:29 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 06:43:32 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:53:25 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	exec_builtin_redir(t_cmd *cmd, t_env **env)
 	if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		ret = ft_pwd_redir(cmd);
 	if (ft_strcmp(cmd->args[0], "export") == 0)
-		ret = ft_export(cmd->args, env);
+		ret = ft_export_redir(cmd->args, env, cmd->output);
 	if (ft_strcmp(cmd->args[0], "unset") == 0)
 		ret = ft_unset(cmd->args, env);
 	if (ft_strcmp(cmd->args[0], "env") == 0)

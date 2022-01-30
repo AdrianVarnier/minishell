@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 06:46:11 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 18:21:48 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ int			ft_cd_back(t_env **env);
 int			ft_env(t_env *env);
 int			ft_unset(char **arg, t_env **env);
 int			ft_export(char **arg, t_env **env);
+void		ft_sort_env_export(char **strs);
+char		*ft_strjoinenv(t_env *env);
+int			ft_export_redir(char **arg, t_env **env, int output);
+void		ft_export_noarg(t_env *env, int	output);
+int			ft_export_arg(char **arg, t_env **env);
 int			is_n(char *arg);
 int			ft_echo(char **arg, int mode);
 int			ft_exit(t_cmd *cmd, t_env *env);
@@ -140,7 +145,6 @@ int			ft_sub(char *sub, char *str, t_env **env);
 void		ft_fill_sub(char *str, char *sub, int size, t_env **env);
 char		*ft_replace(char *str, t_env **env);
 void		ft_variables(char **strs, t_env **env);
-int			ft_strcmp(char *s1, char *s2);
 char		*ft_get_varname(char *str);
 char		*ft_get_var(char *str, t_env **env);
 int			ft_variable_size(char *str, t_env **env);

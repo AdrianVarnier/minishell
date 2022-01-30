@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:12:10 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 03:17:50 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:55:53 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	*get_value(char *s)
 	return (value);
 }
 
-int	ft_export(char **arg, t_env **env)
+int	ft_export_arg(char **arg, t_env **env)
 {
 	int		i;
 	int		ret;
@@ -102,5 +102,17 @@ int	ft_export(char **arg, t_env **env)
 		}
 		i++;
 	}
+	return (ret);
+}
+
+int	ft_export(char **arg, t_env **env)
+{
+	int		ret;
+
+	ret = 0;
+	if (!arg[1])
+		ft_export_noarg(*env, 1);
+	else
+		ret = ft_export_arg(arg, env);
 	return (ret);
 }
