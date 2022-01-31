@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/31 13:00:49 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/31 13:15:18 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,19 @@ void	set_last_cmd(t_cmd *cmd, t_env **env)
 	free_char2(path);
 	if (full_path)
 	{
-		set_env("_", full_path, *env);
+		if (is_in_env("_", *env))
+			set_env("_", full_path, *env);
+		else
+			add_to_env("_", full_path, env);
 		free(full_path);
 	}
 	else
-		set_env("_", cmd->args[0], *env);
+	{
+		if (is_in_env("_", *env))
+			set_env("_", cmd->args[0], *env);
+		else
+			add_to_env("_", cmd->args[0], env);
+	}
 }
 
 static void	manage_cmd(t_cmd *cmd, t_env **env, int *builtin)
