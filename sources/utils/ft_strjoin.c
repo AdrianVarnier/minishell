@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 04:31:01 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/31 04:31:26 by avarnier         ###   ########.fr       */
+/*   Created: 2022/01/31 04:54:07 by avarnier          #+#    #+#             */
+/*   Updated: 2022/01/31 04:59:34 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_export(char **arg, t_env **env)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	int		ret;
+	char	*s;
 
-	ret = 0;
-	if (!arg[1])
-		ft_export_noarg(*env, 1);
-	else
-		ret = ft_export_arg(arg, env);
-	return (ret);
+	s = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (s == NULL)
+		return (NULL);
+	ft_strlcpy(s, s1, ft_strlen(s1) + 1);
+	ft_strlcat(s, s2, ft_strlen(s) + ft_strlen(s2) + 1);
+	return (s);
 }

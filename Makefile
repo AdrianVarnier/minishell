@@ -6,7 +6,7 @@
 #    By: ali <ali@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/26 14:50:00 by ali               #+#    #+#              #
-#    Updated: 2022/01/30 18:11:32 by ali              ###   ########.fr        #
+#    Updated: 2022/01/31 04:58:59 by avarnier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ sources/parsing/ft_variables_heredoc.c	sources/signals/signals2.c	\
 sources/builtins/ft_pwd_redir.c	sources/builtins/ft_env_redir.c \
 sources/builtins/ft_echo_redir.c	sources/exec/exec_builtin_redir.c \
 sources/builtins/ft_cd_path.c	sources/builtins/ft_cd_path_redir.c \
-sources/builtins/ft_export_noarg.c sources/builtins/ft_export_utils.c 
+sources/builtins/ft_export_noarg.c sources/builtins/ft_export_utils.c \
+sources/builtins/ft_export_arg.c	sources/utils/ft_strjoin.c 
 HEADER = ./includes/
 OBJS = $(SRCS:.c=.o)
 CC = gcc

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 18:21:48 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/31 04:58:34 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,27 @@ int			ft_cd_home(t_env **env);
 int			ft_cd_too_many(void);
 int			ft_cd_back(t_env **env);
 int			ft_env(t_env *env);
-int			ft_unset(char **arg, t_env **env);
 int			ft_export(char **arg, t_env **env);
+int			ft_unset(char **arg, t_env **env);
 void		ft_sort_env_export(char **strs);
 char		*ft_strjoinenv(t_env *env);
 int			ft_export_redir(char **arg, t_env **env, int output);
 void		ft_export_noarg(t_env *env, int	output);
-int			ft_export_arg(char **arg, t_env **env);
+int			ft_export_arg(char **args, t_env **env);
 int			is_n(char *arg);
 int			ft_echo(char **arg, int mode);
 int			ft_exit(t_cmd *cmd, t_env *env);
 int			is_str(char *s);
 int			is_too_large(char *s);
-int			check_invalid(char *s, int mode);
+int			check_invalid_export(char *s);
+int			check_invalid_unset(char *s);
 int			ft_cd_oldpwd_redir(t_cmd *cmd, t_env **env);
 int			ft_echo_redir(char **arg, int output, int mode);
 int			ft_env_redir(t_cmd *cmd, t_env *env);
 int			ft_pwd_redir(t_cmd *cmd);
 int			ft_cd_path(char *path, t_env **env);
 int			ft_cd_path_redir(char *path, t_env **env, int output);
+int			is_export_add(char *s);
 
 //env
 
@@ -113,6 +115,7 @@ char		**char2_dup(char **arg);
 long long	ft_atoi(char *s);
 int			ft_isdigit(int c);
 char		*ft_itoa(int n);
+char		*ft_strjoin(char *s1, char *s2);
 
 //parsing
 

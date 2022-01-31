@@ -6,70 +6,93 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 08:14:07 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 11:58:00 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/31 05:01:54 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*get_name(char *s)
+static void	send_err_msg_export(char *s)
 {
-	int		i;
-	char	*name;
-
-	i = 0;
-	while (s[i] != '\0' && s[i] != '=')
-		i++;
-	name = malloc(sizeof(char) * i + 1);
-	if (name == NULL)
-		return (NULL);
-	i = 0;
-	while (s[i] != '\0' && s[i] != '=')
-	{
-		name[i] = s[i];
-		i++;
-	}
-	name[i] = '\0';
-	return (name);
-}
-
-static void	send_err_msg(char *s, int mode)
-{
-	char	*name;
 	char	*err_msg;
 
-	name = get_name(s);
-	if (mode == 1)
-		err_msg = ft_strjoin3("minishell: export: ",
-				name, ": not a valid identifier");
-	if (mode == 2)
-		err_msg = ft_strjoin3("minishell: unset: ",
-				name, ": not a valid identifier");
+	err_msg = ft_strjoin3("minishell: export: ",
+			s, ": not a valid identifier");
 	ft_putendl_fd(err_msg, 2);
-	free(name);
 	free(err_msg);
 }
 
-int	check_invalid(char *s, int mode)
+int	check_invalid_export(char *s)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (!((s[0] <= 'z' && s[0] >= 'a') || (s[0] <= 'Z' && s[0] >= 'A')
 			|| s[0] == '_'))
 	{
-		send_err_msg(s, mode);
+		send_err_msg_export(s);
 		return (1);
 	}
 	while (s[i] != '\0' && s[i] != '=')
 	{
-		if (!((s[0] <= 'z' && s[0] >= 'a') || (s[0] <= 'Z' && s[0] >= 'A')
-				|| (s[i] <= '9' && s[i] >= '0') || s[0] == '_'))
+		if (!((s[i] <= 'z' && s[i] >= 'a') || (s[i] <= 'Z' && s[i] >= 'A')
+				|| (s[i] <= '9' && s[i] >= '0') || s[i] == '_'))
 		{
-			send_err_msg(s, mode);
+			if (!(s[i] == '+' && s[i + 1] == '='))
+			{
+				send_err_msg_export(s);
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+static void	send_err_msg_unset(char *s)
+{
+	char	*err_msg;
+
+	err_msg = ft_strjoin3("minishell: unset: ",
+			s, ": not a valid identifier");
+	ft_putendl_fd(err_msg, 2);
+	free(err_msg);
+}
+
+int	check_invalid_unset(char *s)
+{
+	int	i;
+
+	i = 1;
+	if (!((s[0] <= 'z' && s[0] >= 'a') || (s[0] <= 'Z' && s[0] >= 'A')
+			|| s[0] == '_'))
+	{
+		send_err_msg_unset(s);
+		return (1);
+	}
+	while (s[i] != '\0')
+	{
+		if (!((s[i] <= 'z' && s[i] >= 'a') || (s[i] <= 'Z' && s[i] >= 'A')
+				|| (s[i] <= '9' && s[i] >= '0') || s[i] == '_'))
+		{
+			send_err_msg_unset(s);
 			return (1);
 		}
 		i++;
 	}
+	return (0);
+}
+
+int	is_export_add(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '=' && s[i] != '\0')
+		i++;
+	if (s[i] == '=')
+		if (i != 0)
+			if (s[i - 1] == '+')
+				return (1);
 	return (0);
 }

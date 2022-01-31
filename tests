@@ -18,9 +18,9 @@ BUILTINS:
 # echo -n -n test -n -> doit afficher test -n
 
 # export -> doit afficher qqch
-export VARIABLE+=test -> doit ajouter "test" à la variable VARIABLE
-export TE+S=T="" -> error msg + exit = 1
-export ""="" -> un seul error msg + exit = 1
+#export VARIABLE+=test -> doit ajouter "test" à la variable VARIABLE
+#export TE+S=T="" -> error msg + exit = 1
+export ""="" (parsing: export recois 3 arg au lieu de 2) -> un seul error msg + exit = 1
 # export 1TEST= -> exit = 1
 
 # unset NON_EXISTANT_VARIABLE -> SEGFAULT

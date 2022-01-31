@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 17:35:32 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 06:25:04 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/31 04:13:42 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ int	ft_unset(char **arg, t_env **env)
 
 	i = 1;
 	ret = 0;
+	tmp = *env;
 	while (arg[i] != NULL)
 	{
-		if (check_invalid(arg[i], 2) == 1)
+		if (check_invalid_unset(arg[i]) == 1)
 			ret = 1;
 		else
 			find_to_del(arg[i], env, &tmp);
