@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/31 13:15:18 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/31 18:27:46 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,30 @@ void	ft_exit_status(int exit_status, int builtin)
 
 static void	close_fd(t_cmd *cmd)
 {
-	if (cmd->prev != NULL)
+	while (cmd != NULL)
 	{
-		close(cmd->pipe_input);
-		close(cmd->prev->pipe_output);
+		if (cmd->prev != NULL)
+		{
+			close(cmd->pipe_input);
+			close(cmd->prev->pipe_output);
+		}
+		if (cmd->input != 0)
+			close(cmd->input);
+		if (cmd->output != 1)
+			close(cmd->output);
+		cmd = cmd->next;
 	}
-	if (cmd->input != 0)
-		close(cmd->input);
-	if (cmd->output != 1)
-		close(cmd->output);
 }
 
 void	exec_all_cmd(t_cmd *cmd, t_env **env)
 {
 	int		exit_status;
 	int		builtin;
+	t_cmd	*tmp;
 
 	exit_status = 0;
 	builtin = 0;
+	tmp = cmd;
 	while (cmd != NULL)
 	{
 		cmd->parent = getpid();
@@ -107,11 +113,11 @@ void	exec_all_cmd(t_cmd *cmd, t_env **env)
 			g_exit = -1;
 			manage_cmd(cmd, env, &builtin);
 			ft_signal(1);
-			close_fd(cmd);
 		}
 		cmd = cmd->next;
 	}
 	while (waitpid(-1, &exit_status, 0) > 0)
 		;
 	ft_exit_status(exit_status, builtin);
+	close_fd(tmp);
 }
