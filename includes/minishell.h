@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/31 04:58:34 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/31 09:15:43 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			ft_unset(char **arg, t_env **env);
 void		ft_sort_env_export(char **strs);
 char		*ft_strjoinenv(t_env *env);
 int			ft_export_redir(char **arg, t_env **env, int output);
-void		ft_export_noarg(t_env *env, int	output);
+void		ft_export_noarg(t_env *env, int output);
 int			ft_export_arg(char **args, t_env **env);
 int			is_n(char *arg);
 int			ft_echo(char **arg, int mode);
@@ -142,6 +142,7 @@ int			ft_is_separator(char c);
 int			ft_pass_sep(char *str);
 int			ft_next_word(char *str);
 int			ft_pass_quote(char *str);
+int			ft_pass_quote_word(char *str);
 int			ft_pass_word(char *str);
 int			ft_size_sub(char *str, t_env **env);
 int			ft_sub(char *sub, char *str, t_env **env);

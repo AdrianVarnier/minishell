@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:33:17 by ali               #+#    #+#             */
-/*   Updated: 2022/01/30 18:24:21 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/31 09:14:37 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	**env_to_char2_export(t_env *env)
 	return (ret);
 }
 
-void	ft_export_noarg(t_env *env, int	output)
+void	ft_export_noarg(t_env *env, int output)
 {
 	char	**strs;
 	int		i;
@@ -55,7 +55,7 @@ void	ft_export_noarg(t_env *env, int	output)
 	while (strs[i])
 	{
 		write(output, "declare -x ", 11);
-		ft_putendl_fd(strs[i], output);	   
+		ft_putendl_fd(strs[i], output);
 		i++;
 	}
 	free_char2(strs);

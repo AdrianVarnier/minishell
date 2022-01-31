@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 16:38:12 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 06:15:02 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/31 09:04:39 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ int	g_exit;
 
 void	ft_up_shlvl(t_env *env)
 {
-	int	lvl;
+	int		lvl;
+	char	*next_lvl;
 
 	lvl = ft_atoi(get_env("SHLVL", env));
 	lvl++;
-	set_env("SHLVL", ft_itoa(lvl), env);
+	next_lvl = ft_itoa(lvl);
+	set_env("SHLVL", next_lvl, env);
+	free(next_lvl);
 }
 
 int	main(int ac, char **av, char **envp)

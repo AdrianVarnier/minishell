@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 17:41:41 by ali               #+#    #+#             */
-/*   Updated: 2022/01/30 18:23:01 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/31 09:15:18 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_strjoinenv(t_env *env)
 	char	*joined;
 
 	joined = malloc(sizeof(char) *(ft_strlen(env->key)
-			+ ft_strlen(env->value) + 4));
+				+ ft_strlen(env->value) + 4));
 	if (!joined)
 		return (NULL);
 	ft_fill_joinenv(joined, env->key, env->value);
