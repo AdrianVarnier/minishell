@@ -6,17 +6,44 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/31 12:03:59 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/31 13:15:18 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	set_last_cmd(t_cmd *cmd, t_env **env)
+{
+	char	**path;
+	char	*full_path;
+
+	path = ft_split(get_env("PATH", *env), ':');
+	full_path = get_path(cmd, path);
+	free_char2(path);
+	if (full_path)
+	{
+		if (is_in_env("_", *env))
+			set_env("_", full_path, *env);
+		else
+			add_to_env("_", full_path, env);
+		free(full_path);
+	}
+	else
+	{
+		if (is_in_env("_", *env))
+			set_env("_", cmd->args[0], *env);
+		else
+			add_to_env("_", cmd->args[0], env);
+	}
+}
+
 static void	manage_cmd(t_cmd *cmd, t_env **env, int *builtin)
 {
+	cmd->pid = 1;
 	if (is_builtin(cmd->args[0]) == 1
 		&& cmd->next == NULL && cmd->prev == NULL)
 	{
+		set_last_cmd(cmd, env);
 		if (cmd->outfile != NULL)
 			exec_builtin_redir(cmd, env);
 		else
@@ -25,6 +52,7 @@ static void	manage_cmd(t_cmd *cmd, t_env **env, int *builtin)
 	}
 	else
 	{
+		set_last_cmd(cmd, env);
 		cmd->pid = fork();
 		if (cmd->pid == 0)
 		{
