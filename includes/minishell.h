@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/31 09:15:43 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/31 12:41:02 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_env		*ft_parse_env(char **envp);
 //exec
 
 int			is_builtin(char *name);
+char		*get_path(t_cmd *cmd, char **path);
 void		exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile);
 void		exec_cmd(t_cmd *cmd, t_env **env);
 void		exec_all_cmd(t_cmd *cmd, t_env **env);

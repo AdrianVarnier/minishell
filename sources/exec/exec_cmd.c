@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/29 22:41:15 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/31 12:56:24 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ static int	is_path(char *arg)
 	return (0);
 }
 
-static void	send_err_msg(char *name, char mode, pid_t parent)
+static void	send_err_msg(char *name, char mode, pid_t parent, pid_t pid)
 {
 	char	*err_msg;
 
+	if (pid != 0)
+		return ;
 	if (mode == 'X')
 		kill(parent, SIGUSR1);
 	else
@@ -50,28 +52,28 @@ static void	send_err_msg(char *name, char mode, pid_t parent)
 	}
 }
 
-static char	check_path(char *name, char *path, pid_t parent)
+static char	check_path(char *name, char *path, pid_t parent, pid_t pid)
 {
 	if (path == NULL)
 		return (0);
 	if (access(path, F_OK) != 0)
 	{
 		if (name == NULL)
-			send_err_msg(path, 'F', parent);
+			send_err_msg(path, 'F', parent, pid);
 		return (0);
 	}
 	if (access(path, X_OK) != 0)
 	{
 		if (name == NULL)
-			send_err_msg(path, 'X', parent);
+			send_err_msg(path, 'X', parent, pid);
 		else
-			send_err_msg(name, 'X', parent);
+			send_err_msg(name, 'X', parent, pid);
 		return (-1);
 	}
 	return (1);
 }
 
-static char	*get_path(t_cmd *cmd, char **path)
+char	*get_path(t_cmd *cmd, char **path)
 {
 	int		i;
 	char	*full_path;
@@ -79,22 +81,22 @@ static char	*get_path(t_cmd *cmd, char **path)
 	i = 0;
 	if (path == NULL)
 	{
-		send_err_msg(cmd->args[0], 'P', cmd->parent);
+		send_err_msg(cmd->args[0], 'P', cmd->parent, cmd->pid);
 		return (NULL);
 	}
 	while (path[i] != NULL)
 	{
 		full_path = ft_strjoin3(path[i++], "/", cmd->args[0]);
-		if (check_path(cmd->args[0], full_path, cmd->parent) == -1)
+		if (check_path(cmd->args[0], full_path, cmd->parent, cmd->pid) == -1)
 		{
 			free(full_path);
 			return (NULL);
 		}
-		if (check_path(cmd->args[0], full_path, cmd->parent) == 1)
+		if (check_path(cmd->args[0], full_path, cmd->parent, cmd->pid) == 1)
 			return (full_path);
 		free(full_path);
 	}
-	send_err_msg(cmd->args[0], 'C', cmd->parent);
+	send_err_msg(cmd->args[0], 'C', cmd->parent, cmd->pid);
 	return (NULL);
 }
 
@@ -115,7 +117,7 @@ void	exec_cmd(t_cmd *cmd, t_env **env)
 	}
 	if (is_path(cmd->args[0]) == 1)
 	{
-		if (check_path(NULL, cmd->args[0], cmd->parent) == 1)
+		if (check_path(NULL, cmd->args[0], cmd->parent, cmd->pid) == 1)
 			tmp = ft_strdup(cmd->args[0]);
 	}
 	else
