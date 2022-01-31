@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/31 04:10:45 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/01/31 12:03:59 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ void	ft_exit_status(int exit_status, int builtin)
 		g_exit = exit_status >> 8;
 }
 
+static void	close_fd(t_cmd *cmd)
+{
+	if (cmd->prev != NULL)
+	{
+		close(cmd->pipe_input);
+		close(cmd->prev->pipe_output);
+	}
+	if (cmd->input != 0)
+		close(cmd->input);
+	if (cmd->output != 1)
+		close(cmd->output);
+}
+
 void	exec_all_cmd(t_cmd *cmd, t_env **env)
 {
 	int		exit_status;
@@ -66,11 +79,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env **env)
 			g_exit = -1;
 			manage_cmd(cmd, env, &builtin);
 			ft_signal(1);
-			if (cmd->prev != NULL)
-			{
-				close(cmd->pipe_input);
-				close(cmd->prev->pipe_output);
-			}
+			close_fd(cmd);
 		}
 		cmd = cmd->next;
 	}
