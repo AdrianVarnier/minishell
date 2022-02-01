@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 17:18:57 by ali               #+#    #+#             */
-/*   Updated: 2022/01/26 18:27:41 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:44:17 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_end_error(char **strs)
 	i = 0;
 	while (strs[i] && strs[i + 1])
 		i++;
-	if (strs[i][0] == '>' || strs[i][0] == '<' || strs[i][0] == '|')
+	if (strs[i] && (strs[i][0] == '>' || strs[i][0] == '<' || strs[i][0] == '|'))
 		return (1);
 	return (0);
 }
@@ -35,7 +35,7 @@ int	ft_pipe_nocmd(char **strs)
 			return (0);
 		i++;
 	}
-	if (strs[i][0] == '|')
+	if (strs[i] && strs[i][0] == '|')
 		return (1);
 	return (0);
 }
