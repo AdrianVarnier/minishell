@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 07:45:02 by ali               #+#    #+#             */
-/*   Updated: 2022/02/01 08:25:57 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 09:42:01 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	ft_prep_heredoc(t_cmd *cmd)
 {
+	t_file *begin;
+
 	while (cmd != NULL)
 	{
+		begin = cmd->infile;
 		create_all_heredoc(cmd->infile);
+		cmd->infile = begin;
 		cmd = cmd->next;
 	}
 }
@@ -24,9 +28,11 @@ void	ft_prep_heredoc(t_cmd *cmd)
 void	ft_destroy_heredoc(t_cmd *cmd)
 {
 	int	fd;
+	t_file *begin;
 
 	while (cmd != NULL)
 	{
+		begin = cmd->infile;
 		while (cmd->infile)
 		{
 			if (cmd->infile->type == HEREDOC)
@@ -40,6 +46,7 @@ void	ft_destroy_heredoc(t_cmd *cmd)
 			}
 			cmd->infile = cmd->infile->next;
 		}
+		cmd->infile = begin;
 		cmd = cmd->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 08:31:52 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 09:29:59 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static void	send_heredoc(char *heredoc, t_file *infile)
 	close(fd);
 	free(heredoc);
 	free(infile->name);
-	infile->name = name;
+	infile->name = ft_strdup(name);
+	free(name);
 	nb++;
 }
 

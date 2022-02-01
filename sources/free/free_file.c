@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 17:07:43 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 06:59:22 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/01 09:43:58 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	free_file(t_file *file)
 {
 	t_file	*tmp;
 
+	if (file == NULL)
+		return ;
+	while (file->prev)
+		file = file->prev;
 	while (file != NULL)
 	{
 		tmp = file->next;
