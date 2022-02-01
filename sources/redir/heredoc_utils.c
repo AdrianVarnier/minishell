@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 07:45:02 by ali               #+#    #+#             */
-/*   Updated: 2022/02/01 16:44:38 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 17:09:21 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_read_heredoc(t_file *file)
 	return (heredoc);
 }
 
-void	ft_prep_heredoc(t_cmd *cmd, int *exit_status)
+int	ft_prep_heredoc(t_cmd *cmd, int *exit_status)
 {
 	t_file	*begin;
 	int		status;
@@ -73,7 +73,11 @@ void	ft_prep_heredoc(t_cmd *cmd, int *exit_status)
 		cmd = cmd->next;
 	}
 	if (g_exit != 130)
+	{
 		g_exit = status;
+		return (1);
+	}
+	return (0);
 }
 
 void	ft_destroy_heredoc(t_cmd *cmd)

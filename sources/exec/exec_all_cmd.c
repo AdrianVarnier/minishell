@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 16:43:17 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 17:08:31 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ void	exec_all_cmd(t_cmd *cmd, t_env **env)
 	begin = cmd;
 	exit_status = 0;
 	builtin = 0;
-	ft_prep_heredoc(cmd, &exit_status);
+	if (ft_prep_heredoc(cmd, &exit_status) == 0)
+		return ;
 	while (cmd != NULL)
 	{
 		cmd->parent = getpid();
@@ -109,7 +110,6 @@ void	exec_all_cmd(t_cmd *cmd, t_env **env)
 		{
 			g_exit = -1;
 			manage_cmd(cmd, env, &builtin);
-			ft_signal(1);
 			close_fd(cmd);
 		}
 		cmd = cmd->next;
