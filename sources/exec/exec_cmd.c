@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 07:56:09 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 18:20:28 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ char	*get_path(t_cmd *cmd, char **path)
 	if (path == NULL)
 	{
 		send_err_msg(cmd->args[0], 'P', cmd->parent, cmd->pid);
+		return (NULL);
+	}
+	if (ft_strcmp(cmd->args[0], "\0") == 0)
+	{
+		send_err_msg(NULL, 'C', cmd->parent, cmd->pid);
 		return (NULL);
 	}
 	while (path[i] != NULL)
