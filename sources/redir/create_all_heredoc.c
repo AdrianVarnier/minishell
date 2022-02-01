@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/27 17:53:20 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:28:13 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ static void	send_heredoc(char *heredoc, t_cmd *cmd, t_env *env)
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		ft_putstr_fd(heredoc, STDOUT_FILENO);
+		close(cmd->pipe_output);
+		if (cmd->next)
+			close(cmd->next->pipe_input);
 		free(heredoc);
 		free_shell(env, cmd);
 		exit(0);
