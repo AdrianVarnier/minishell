@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 16:47:46 by ali               #+#    #+#             */
-/*   Updated: 2022/02/01 16:49:41 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 23:27:57 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,29 @@ void	ft_exec_read_heredoc(t_file *infile, int *fd)
 	write(fd[1], heredoc, ft_strlen(heredoc));
 	close(fd[1]);
 	exit (0);
+}
+
+char	*get_heredoc_name(void)
+{
+	int		nb;
+	int 	loop;
+	char	*name;
+	char	*num;
+
+	loop = 1;
+	nb = 0;
+	while (loop == 1)
+	{
+		num = ft_itoa(nb);
+		name = ft_strjoin("heredoc_", num);
+		free(num);
+		if (access(name, F_OK) != 0)
+			loop = 0;
+		else
+		{
+			nb++;
+			free(name);
+		}
+	}
+	return (name);
 }

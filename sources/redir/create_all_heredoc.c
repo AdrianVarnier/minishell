@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 16:52:43 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 23:26:09 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,10 @@ char	*ft_join(char *s1, char *s2)
 
 static void	send_heredoc(char *heredoc, t_file *infile)
 {
-	int			fd;
-	char		*num;
-	char		*name;
-	int			nb;
+	int		fd;
+	char	*name;
 
-	nb = 0;
-	num = ft_itoa(nb);
-	name = ft_strjoin("heredoc_", num);
-	free(num);
-	while (access(name, F_OK) == 0)
-		nb++;
+	name = get_heredoc_name();
 	fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR
 			| S_IRGRP | S_IROTH);
 	write(fd, heredoc, ft_strlen(heredoc));
