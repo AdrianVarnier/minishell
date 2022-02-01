@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 15:11:59 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:52:43 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_dup(char *s)
+char	*ft_dup(char *s)
 {
 	int		len;
 	char	*cpy;
@@ -29,7 +29,7 @@ static char	*ft_dup(char *s)
 	return (cpy);
 }
 
-static char	*ft_join(char *s1, char *s2)
+char	*ft_join(char *s1, char *s2)
 {
 	int		size;
 	char	*new;
@@ -50,24 +50,16 @@ static char	*ft_join(char *s1, char *s2)
 static void	send_heredoc(char *heredoc, t_file *infile)
 {
 	int			fd;
-	static int	nb = 0;
 	char		*num;
 	char		*name;
+	int			nb;
 
-	fd = 1;
-	while (fd == 1)
-	{
-		num = ft_itoa(nb);
-		name = ft_strjoin("heredoc_", num);
-		free(num);
-		if (access(name, F_OK) != 0)
-			fd = 0;
-		else
-		{
-			nb++;
-			free(name);
-		}
-	}
+	nb = 0;
+	num = ft_itoa(nb);
+	name = ft_strjoin("heredoc_", num);
+	free(num);
+	while (access(name, F_OK) == 0)
+		nb++;
 	fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR
 			| S_IRGRP | S_IROTH);
 	write(fd, heredoc, ft_strlen(heredoc));
@@ -76,29 +68,24 @@ static void	send_heredoc(char *heredoc, t_file *infile)
 	free(infile->name);
 	infile->name = ft_strdup(name);
 	free(name);
-	nb++;
 }
 
-static void	create_heredoc(t_file *infile, int mode)
+static void	create_heredoc(t_file *infile, int mode, int *exit_status)
 {
-	char	*line;
 	char	*heredoc;
-	char	*tmp;
+	int		fd[2];
+	int		pid;
 
-	heredoc = NULL;
-	line = readline("> ");
-	while (line != NULL)
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
+		ft_exec_read_heredoc(infile, fd);
+	else
 	{
-		if (ft_strcmp(line, infile->name) == 0)
-		{
-			free(line);
-			break ;
-		}
-		tmp = ft_join(heredoc, line);
-		free(heredoc);
-		heredoc = tmp;
-		free(line);
-		line = readline("> ");
+		close(fd[1]);
+		waitpid(pid, exit_status, 0);
+		heredoc = ft_get_heredoc(fd[0]);
+		close(fd[0]);
 	}
 	if (mode == 1)
 		send_heredoc(heredoc, infile);
@@ -106,19 +93,19 @@ static void	create_heredoc(t_file *infile, int mode)
 		free(heredoc);
 }
 
-void	create_all_heredoc(t_file *infile)
+void	create_all_heredoc(t_file *infile, int *exit_status)
 {
 	while (infile != NULL)
 	{
 		if (infile->type == HEREDOC && infile->next == NULL)
-			create_heredoc(infile, 1);
+			create_heredoc(infile, 1, exit_status);
 		else if (infile->next != NULL)
 		{
 			if (infile->type == HEREDOC && infile->next->type == PIPE)
-				create_heredoc(infile, 1);
+				create_heredoc(infile, 1, exit_status);
 			else if (infile->type == HEREDOC && (infile->next->type == HEREDOC
 					|| infile->next->type == INFILE))
-				create_heredoc(infile, 0);
+				create_heredoc(infile, 0, exit_status);
 		}
 		infile = infile->next;
 	}

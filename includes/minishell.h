@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 07:40:24 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 16:51:14 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,15 @@ void		exec_builtin_redir(t_cmd *cmd, t_env **env);
 void		create_pipe(t_cmd *cmd);
 void		redir(t_cmd *cmd);
 int			check_file(t_file *infile, t_file *outfile, t_cmd *cmd);
-void		create_all_heredoc(t_file *file);
+void		create_all_heredoc(t_file *file, int *exit_status);
 void		ft_destroy_heredoc(t_cmd *cmd);
-void		ft_prep_heredoc(t_cmd *cmd);
+void		ft_prep_heredoc(t_cmd *cmd, int *exit_status);
 int			stock_fd(int fd, t_cmd *cmd, t_file *outfile);
+char		*ft_get_heredoc(int fd);
+char		*ft_read_heredoc(t_file *file);
+char		*ft_dup(char *s);
+char		*ft_join(char *s1, char *s2);
+void		ft_exec_read_heredoc(t_file *infile, int *fd);
 
 //free
 
