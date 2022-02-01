@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 08:29:19 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 13:16:02 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,15 @@ void	ft_exit_status(int exit_status, int builtin)
 
 static void	close_fd(t_cmd *cmd)
 {
-		if (cmd->prev != NULL)
-		{
-			close(cmd->pipe_input);
-			close(cmd->prev->pipe_output);
-		}
-		if (cmd->input != 0)
-			close(cmd->input);
-		if (cmd->output != 1)
-			close(cmd->output);
+	if (cmd->prev != NULL)
+	{
+		close(cmd->pipe_input);
+		close(cmd->prev->pipe_output);
+	}
+	if (cmd->input != 0)
+		close(cmd->input);
+	if (cmd->output != 1)
+		close(cmd->output);
 }
 
 void	exec_all_cmd(t_cmd *cmd, t_env **env)
