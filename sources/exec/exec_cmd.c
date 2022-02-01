@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/31 22:03:51 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 07:56:09 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ void	exec_cmd(t_cmd *cmd, t_env **env)
 
 	path = ft_split(get_env("PATH", *env), ':');
 	tmp = NULL;
-	create_all_heredoc(cmd, cmd->infile, *env);
 	ft_signal(2);
 	redir(cmd);
 	if (is_builtin(cmd->args[0]) == 1)

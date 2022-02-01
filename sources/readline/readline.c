@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 12:18:03 by ali               #+#    #+#             */
-/*   Updated: 2022/01/29 22:44:30 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/01 04:02:07 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_readline(t_env **env)
 				ft_exec_line(cmd, env);
 			else
 				g_exit = 2;
-			wait(NULL);
+			waitpid(-1, NULL, 0);
 		}
 		ret = readline("minishell>$ ");
 	}

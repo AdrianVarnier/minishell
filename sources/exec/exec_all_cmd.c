@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 02:20:19 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 08:29:19 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,16 @@ static void	close_fd(t_cmd *cmd)
 			close(cmd->output);
 }
 
-
 void	exec_all_cmd(t_cmd *cmd, t_env **env)
 {
 	int		exit_status;
 	int		builtin;
+	t_cmd	*begin;
 
+	begin = cmd;
 	exit_status = 0;
 	builtin = 0;
+	ft_prep_heredoc(cmd);
 	while (cmd != NULL)
 	{
 		cmd->parent = getpid();
@@ -114,5 +116,6 @@ void	exec_all_cmd(t_cmd *cmd, t_env **env)
 	}
 	while (waitpid(-1, &exit_status, 0) > 0)
 		;
+	ft_destroy_heredoc(begin);
 	ft_exit_status(exit_status, builtin);
 }

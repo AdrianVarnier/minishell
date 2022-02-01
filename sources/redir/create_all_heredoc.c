@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 02:28:13 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 08:31:52 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,41 +44,34 @@ static char	*ft_join(char *s1, char *s2)
 	ft_strlcat(new, s2, ft_strlen(new) + ft_strlen(s2) + 1);
 	new[size - 2] = '\n';
 	new[size - 1] = '\0';
-	free(s1);
 	return (new);
 }
 
-static void	send_heredoc(char *heredoc, t_cmd *cmd, t_env *env)
+static void	send_heredoc(char *heredoc, t_file *infile)
 {
-	int		fd[2];
-	pid_t	pid;
+	int			fd;
+	static int	nb = 0;
+	char		*num;
+	char		*name;
 
-	pipe(fd);
-	cmd->input = fd[0];
-	pid = fork();
-	if (pid == 0)
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-		ft_putstr_fd(heredoc, STDOUT_FILENO);
-		close(cmd->pipe_output);
-		if (cmd->next)
-			close(cmd->next->pipe_input);
-		free(heredoc);
-		free_shell(env, cmd);
-		exit(0);
-	}
-	if (pid > 0)
-		free(heredoc);
-	waitpid(pid, NULL, 0);
-	close(fd[1]);
+	num = ft_itoa(nb);
+	name = ft_strjoin("heredoc_", num);
+	free(num);
+	fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR
+			| S_IRGRP | S_IROTH);
+	write(fd, heredoc, ft_strlen(heredoc));
+	close(fd);
+	free(heredoc);
+	free(infile->name);
+	infile->name = name;
+	nb++;
 }
 
-static void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env, int mode)
+static void	create_heredoc(t_file *infile, int mode)
 {
 	char	*line;
 	char	*heredoc;
+	char	*tmp;
 
 	heredoc = NULL;
 	line = readline("> ");
@@ -89,29 +82,31 @@ static void	create_heredoc(t_cmd *cmd, t_file *infile, t_env *env, int mode)
 			free(line);
 			break ;
 		}
-		heredoc = ft_join(heredoc, line);
+		tmp = ft_join(heredoc, line);
+		free(heredoc);
+		heredoc = tmp;
 		free(line);
 		line = readline("> ");
 	}
 	if (mode == 1)
-		send_heredoc(heredoc, cmd, env);
+		send_heredoc(heredoc, infile);
 	else
 		free(heredoc);
 }
 
-void	create_all_heredoc(t_cmd *cmd, t_file *infile, t_env *env)
+void	create_all_heredoc(t_file *infile)
 {
 	while (infile != NULL)
 	{
 		if (infile->type == HEREDOC && infile->next == NULL)
-			create_heredoc(cmd, infile, env, 1);
+			create_heredoc(infile, 1);
 		else if (infile->next != NULL)
 		{
 			if (infile->type == HEREDOC && infile->next->type == PIPE)
-				create_heredoc(cmd, infile, env, 1);
+				create_heredoc(infile, 1);
 			else if (infile->type == HEREDOC && (infile->next->type == HEREDOC
 					|| infile->next->type == INFILE))
-				create_heredoc(cmd, infile, env, 0);
+				create_heredoc(infile, 0);
 		}
 		infile = infile->next;
 	}
