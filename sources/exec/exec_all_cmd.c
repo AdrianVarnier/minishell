@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 13:16:02 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/01 14:38:58 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	manage_cmd(t_cmd *cmd, t_env **env, int *builtin)
 			exec_builtin(cmd, env, cmd->outfile);
 		*builtin = 1;
 	}
-	else
+	else if (cmd->args[0] != NULL)
 	{
 		set_last_cmd(cmd, env);
 		cmd->pid = fork();

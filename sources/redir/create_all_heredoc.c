@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 02:57:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 09:29:59 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/01 15:11:59 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,20 @@ static void	send_heredoc(char *heredoc, t_file *infile)
 	char		*num;
 	char		*name;
 
-	num = ft_itoa(nb);
-	name = ft_strjoin("heredoc_", num);
-	free(num);
+	fd = 1;
+	while (fd == 1)
+	{
+		num = ft_itoa(nb);
+		name = ft_strjoin("heredoc_", num);
+		free(num);
+		if (access(name, F_OK) != 0)
+			fd = 0;
+		else
+		{
+			nb++;
+			free(name);
+		}
+	}
 	fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, S_IRUSR | S_IWUSR
 			| S_IRGRP | S_IROTH);
 	write(fd, heredoc, ft_strlen(heredoc));
