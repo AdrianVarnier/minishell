@@ -6,27 +6,11 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 20:14:21 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 21:41:26 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_path(char *arg)
-{
-	int	i;
-
-	if (!arg)
-		return (0);
-	i = 0;
-	while (arg[i] != '\0')
-	{
-		if (arg[i] == '/')
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 char	*send_err_msg(char *name, char mode, pid_t parent, pid_t pid)
 {
@@ -57,7 +41,32 @@ char	*send_err_msg(char *name, char mode, pid_t parent, pid_t pid)
 	return (NULL);
 }
 
-static char	check_path(char *name, char *path, pid_t parent, pid_t pid)
+static int	is_path(t_cmd *cmd, t_env **env)
+{
+	int	i;
+	int	c;
+
+	if (!cmd->args[0])
+		return (0);
+	i = 0;
+	c = 0;
+	while (cmd->args[0][i] != '\0')
+	{
+		if (cmd->args[0][i] == '/')
+			return (1);
+		if (cmd->args[0][i] == '.')
+			c++;
+		i++;
+	}
+	if (ft_strlen(cmd->args[0]) == c)
+	{
+		send_err_msg(cmd->args[0], 'C', cmd->parent, cmd->pid);
+		exit_wrong_path(cmd, env, 127);
+	}
+	return (0);
+}
+
+static int	check_path(char *name, char *path, pid_t parent, pid_t pid)
 {
 	if (path == NULL)
 		return (0);
@@ -125,10 +134,12 @@ void	exec_cmd(t_cmd *cmd, t_env **env)
 		free_char2(path);
 		exec_builtin(cmd, env, cmd->outfile);
 	}
-	if (is_path(cmd->args[0]) == 1)
+	if (is_path(cmd, env) == 1)
 	{
 		if (check_path(NULL, cmd->args[0], cmd->parent, cmd->pid) == 1)
 			tmp = ft_strdup(cmd->args[0]);
+		else
+			exit_wrong_path(cmd, env, 0);
 	}
 	else
 		tmp = get_path(cmd, path);

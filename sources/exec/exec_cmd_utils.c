@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:05:48 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 20:18:23 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 21:52:17 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,19 @@ int	is_dir(char *path)
 		return (1);
 	}
 	return (0);
+}
+
+void	exit_wrong_path(t_cmd *cmd, t_env **env, int status)
+{
+	int	exit_status;
+
+	exit_status = 1;
+	if (status == 127)
+		exit_status = 127;
+	else if (is_dir(cmd->args[0]) == 1)
+		exit_status = 126;
+	free_shell(*env, cmd);
+	exit(exit_status);
 }
 
 void	exec_path(char *tmp, t_cmd *cmd, t_env *env)

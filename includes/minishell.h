@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 20:13:21 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 21:33:44 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void		exec_all_cmd(t_cmd *cmd, t_env **env);
 void		exec_path(char *tmp, t_cmd *cmd, t_env *env);
 void		exec_builtin_redir(t_cmd *cmd, t_env **env);
 int			is_dir(char *path);
+void		exit_wrong_path(t_cmd *cmd, t_env **env, int status);
 
 //redir
 
