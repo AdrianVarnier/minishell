@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 06:39:58 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 07:00:21 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:36:39 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	check_path_exist(char *path)
 	if (access(path, F_OK) == -1)
 		return (1);
 	if (access(path, X_OK) == -1)
+		return (1);
+	if (is_dir(path) == 0)
 		return (1);
 	return (0);
 }
