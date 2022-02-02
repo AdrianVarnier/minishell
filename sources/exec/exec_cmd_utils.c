@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:05:48 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 22:21:15 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 22:31:19 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	exit_wrong_path(t_cmd *cmd, t_env **env, int status)
 	exit_status = 1;
 	if (status == 127)
 		exit_status = 127;
+	else if (status == 2)
+		exit_status = 2;
 	else if (is_dir(cmd->args[0]) == 1)
 		exit_status = 126;
 	free_shell(*env, cmd);

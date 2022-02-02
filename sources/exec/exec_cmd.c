@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 21:41:26 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 22:34:58 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,17 @@ static int	is_path(t_cmd *cmd, t_env **env)
 		return (0);
 	i = 0;
 	c = 0;
+	if (ft_strcmp(cmd->args[0], ".") == 0)
+	{
+		ft_putendl_fd("minishell: syntax error", 2);
+		exit_wrong_path(cmd, env, 2);
+	}
 	while (cmd->args[0][i] != '\0')
 	{
 		if (cmd->args[0][i] == '/')
 			return (1);
-		if (cmd->args[0][i] == '.')
+		if (cmd->args[0][i++] == '.')
 			c++;
-		i++;
 	}
 	if (ft_strlen(cmd->args[0]) == c)
 	{
