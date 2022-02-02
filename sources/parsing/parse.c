@@ -6,37 +6,11 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
-/*   Updated: 2022/02/02 16:29:41 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/02 21:34:53 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_unquoted_var(char *str, t_env **env)
-{
-	int		i;
-	char	c;
-
-	i = 0;
-	c = '\0';
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
-		{
-			c = str[i];
-			i++;
-			while (str[i] && str[i] != c)
-				i++;
-		}
-		if (str[i] && str[i] == c)
-			i++;
-		if (ft_is_variable(&str[i]))
-			str = ft_replace(str, env);
-		if (str[i])
-			i++;
-	}
-	return (str);
-}
 
 int	ft_check_variable_error(char *str)
 {
@@ -108,7 +82,6 @@ t_cmd	*ft_parse_line(char *line, t_env **env)
 		return (NULL);
 	}
 	line = ft_variables_heredoc(line);
-	line = ft_unquoted_var(line, env);
 	strs = ft_splitline(line);
 	free(line);
 	if (ft_parse_error(strs))
