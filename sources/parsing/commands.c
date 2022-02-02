@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:42:46 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 20:08:20 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/02 17:57:39 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,29 @@ void	ft_add_cmd(t_cmd **cmd, char **strs)
 	ft_place_cmd(cmd, new);
 }
 
+void	ft_remove_cmdquote(t_cmd *cmd)
+{
+	int		i;
+	t_cmd	*begin;
+	char	**args;
+
+	begin = cmd;
+	while (cmd != NULL)
+	{
+		i = 0;
+		while (cmd->args[i])
+		{
+			args = cmd->args;
+			if ((args[i][0] == '\"' || args[i][0] == '\'')
+				&& args[i][1] && ft_is_separator(args[i][1]))
+				args[i] = ft_remove_quote(args[i], 0);
+			i++;
+		}
+		cmd = cmd->next;
+	}
+	cmd = begin;
+}
+
 t_cmd	*ft_stock_cmd(char **strs)
 {
 	t_cmd	*cmd;
@@ -85,5 +108,6 @@ t_cmd	*ft_stock_cmd(char **strs)
 		if (strs[i])
 			i++;
 	}
+	ft_remove_cmdquote(cmd);
 	return (cmd);
 }

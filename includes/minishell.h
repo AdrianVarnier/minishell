@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 23:29:34 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:28:33 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int			ft_pipe_nocmd(char **strs);
 int			ft_conjoin_error(char **strs);
 int			ft_parse_error(char **strs);
 int			ft_quote_closed(char *str);
-char		*ft_remove_quote(char *str);
+char		*ft_remove_quote(char *str, int index);
 int			ft_count_words_line(char *str);
 int			ft_wordlen_line(char *str);
 char		*ft_copy_word(char *str);
@@ -170,6 +170,7 @@ int			ft_nospaces_size(char *str);
 int			ft_has_no_quotes(char *str);
 void		ft_quotes(char **strs);
 char		*ft_variables_heredoc(char *str);
+void		ft_increment(int *i, int *j);
 
 // signals
 

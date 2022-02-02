@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   signals_back.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:59:23 by ali               #+#    #+#             */
-/*   Updated: 2022/01/28 18:41:36 by ali              ###   ########.fr       */
+/*   Updated: 2022/01/28 18:42:55 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 void	ft_handler_quit(int sig)
 {
 	if (sig == SIGQUIT && g_exit >= 0)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		write(1, "  \b\b", 4);
-	}
+		write(1, "\b\b  \b\b", 6);
 	else if (sig == SIGQUIT && g_exit < 0)
 		return ;
 }
@@ -54,11 +50,7 @@ void	ft_handler_child(int sig)
 void	ft_handler_heredoc(int sig)
 {
 	if (sig == SIGQUIT)
-	{
-		rl_on_new_line();
-		rl_redisplay();
-		write(1, "  \b\b", 4);
-	}
+		write(1, "\b\b  \b\b", 6);
 	if (sig == SIGINT)
 		exit(130);
 }
