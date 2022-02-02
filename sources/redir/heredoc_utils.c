@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 07:45:02 by ali               #+#    #+#             */
-/*   Updated: 2022/02/01 17:18:34 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/02 02:36:28 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ char	*ft_get_heredoc(int fd)
 	char	buffer[4097];
 	char	*heredoc;
 	char	*tmp;
-	
+
 	heredoc = NULL;
-	bytes = read(fd, buffer, 4096);	
+	bytes = read(fd, buffer, 4096);
 	while (bytes)
 	{
 		if (bytes == -1)

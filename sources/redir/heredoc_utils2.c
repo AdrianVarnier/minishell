@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 16:47:46 by ali               #+#    #+#             */
-/*   Updated: 2022/02/01 23:27:57 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 02:35:24 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_exec_read_heredoc(t_file *infile, int *fd)
 char	*get_heredoc_name(void)
 {
 	int		nb;
-	int 	loop;
+	int		loop;
 	char	*name;
 	char	*num;
 

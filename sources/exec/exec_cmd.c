@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 18:20:28 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 02:40:42 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static int	is_path(char *arg)
 	return (0);
 }
 
-static void	send_err_msg(char *name, char mode, pid_t parent, pid_t pid)
+char	*send_err_msg(char *name, char mode, pid_t parent, pid_t pid)
 {
 	char	*err_msg;
 
 	if (pid != 0)
-		return ;
+		return (NULL);
 	if (mode == 'X')
 		kill(parent, SIGUSR1);
 	else
@@ -52,6 +52,7 @@ static void	send_err_msg(char *name, char mode, pid_t parent, pid_t pid)
 		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
 	}
+	return (NULL);
 }
 
 static char	check_path(char *name, char *path, pid_t parent, pid_t pid)
@@ -82,15 +83,9 @@ char	*get_path(t_cmd *cmd, char **path)
 
 	i = 0;
 	if (path == NULL)
-	{
-		send_err_msg(cmd->args[0], 'P', cmd->parent, cmd->pid);
-		return (NULL);
-	}
+		return (send_err_msg(cmd->args[0], 'P', cmd->parent, cmd->pid));
 	if (ft_strcmp(cmd->args[0], "\0") == 0)
-	{
-		send_err_msg(NULL, 'C', cmd->parent, cmd->pid);
-		return (NULL);
-	}
+		return (send_err_msg(NULL, 'C', cmd->parent, cmd->pid));
 	while (path[i] != NULL)
 	{
 		full_path = ft_strjoin3(path[i++], "/", cmd->args[0]);
@@ -103,8 +98,7 @@ char	*get_path(t_cmd *cmd, char **path)
 			return (full_path);
 		free(full_path);
 	}
-	send_err_msg(cmd->args[0], 'C', cmd->parent, cmd->pid);
-	return (NULL);
+	return (send_err_msg(cmd->args[0], 'C', cmd->parent, cmd->pid));
 }
 
 void	exec_cmd(t_cmd *cmd, t_env **env)
