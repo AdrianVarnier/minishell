@@ -6,13 +6,13 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:05:48 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 19:06:35 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 19:09:03 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void close_fd(void)
+static void	close_fd(void)
 {
 	close(0);
 	close(1);
