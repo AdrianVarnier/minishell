@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
-/*   Updated: 2022/01/27 20:08:56 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/02 21:51:00 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,35 @@ char	*ft_get_var(char *str, t_env **env)
 	varname = ft_get_varname(str + 1);
 	if (!varname)
 		return (NULL);
-	value = get_env(varname, *env);
+	value = ft_strdup(get_env(varname, *env));
+	if (value && ft_has_quote(value))
+		value = ft_quote_value(value);
 	free(varname);
 	return (value);
 }
 
-int	ft_variable_size(char *str, t_env **env)
+int	ft_variable_size(char *str, t_env **env, int nospace)
 {
 	char	*var;
 	int		i;
+	int		size;
 
 	var = ft_get_var(str, env);
 	i = 0;
+	size = 0;
 	if (!var)
 		return (i);
 	while (var[i])
-		i++;
+	{
+		while (var[i] == ' ' && var[i + 1] && var[i + 1] == ' ' && nospace)
+			i++;
+		if (var[i])
+		{
+			i++;
+			size++;
+		}
+	}
+	free(var);
 	return (i);
 }
 

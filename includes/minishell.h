@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 21:33:44 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 22:02:45 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,14 +157,14 @@ int			ft_next_word(char *str);
 int			ft_pass_quote(char *str);
 int			ft_pass_quote_word(char *str);
 int			ft_pass_word(char *str);
-int			ft_size_sub(char *str, t_env **env);
-int			ft_sub(char *sub, char *str, t_env **env);
-void		ft_fill_sub(char *str, char *sub, int size, t_env **env);
-char		*ft_replace(char *str, t_env **env);
+int			ft_size_sub(char *str, t_env **env, int nospace);
+int			ft_sub(char *sub, char *str, t_env **env, int nospace);
+void		ft_fill_sub(char *str, char *sub, int *size, t_env **env);
+char		*ft_replace(char *str, t_env **env, int nospace);
 void		ft_variables(char **strs, t_env **env);
 char		*ft_get_varname(char *str);
 char		*ft_get_var(char *str, t_env **env);
-int			ft_variable_size(char *str, t_env **env);
+int			ft_variable_size(char *str, t_env **env, int nospace);
 int			ft_pass_variable(char *str);
 t_cmd		*ft_parse_line(char *line, t_env **env);
 int			ft_is_variable(char *str);
@@ -175,6 +175,8 @@ int			ft_has_no_quotes(char *str);
 void		ft_quotes(char **strs);
 char		*ft_variables_heredoc(char *str);
 void		ft_increment(int *i, int *j);
+char		*ft_quote_value(char *str);
+int			ft_has_quote(char *str);
 
 // signals
 
@@ -184,9 +186,5 @@ void		ft_handler_child_error(int sig);
 //readline
 
 void		ft_readline(t_env **env);
-
-//debug
-
-void		ft_print_cmd(t_cmd *cmd);
 
 #endif
