@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 17:28:33 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/02 19:00:34 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void		free_env(t_env *env);
 void		free_cmd(t_cmd *cmd);
 void		free_char2(char **to_free);
 void		free_shell(t_env *env, t_cmd *cmd);
+void		free_shell_execve(t_env *env, t_cmd *cmd);
 void		free_file(t_file *file);
 
 //utils
