@@ -6,7 +6,7 @@
 #    By: ali <ali@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/26 14:50:00 by ali               #+#    #+#              #
-#    Updated: 2022/02/01 16:53:14 by ali              ###   ########.fr        #
+#    Updated: 2022/02/02 09:53:28 by ali              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ sources/redir/heredoc_utils2.c
 HEADER = ./includes/
 OBJS = $(SRCS:.c=.o)
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -I $(HEADER) -g
+CFLAGS = -Wall -Werror -Wextra -I $(HEADER) -g -fsanitize=address
 RM = rm -f
 
 all:		$(NAME)
