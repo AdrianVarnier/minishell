@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
-/*   Updated: 2022/02/02 21:28:29 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/02 21:51:00 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	ft_variable_size(char *str, t_env **env, int nospace)
 		return (i);
 	while (var[i])
 	{
-		while (var[i] == ' ' && var[i + 1] &&  var[i + 1] == ' ' && nospace)
+		while (var[i] == ' ' && var[i + 1] && var[i + 1] == ' ' && nospace)
 			i++;
 		if (var[i])
 		{
