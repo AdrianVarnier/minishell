@@ -6,7 +6,7 @@
 #    By: ali <ali@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/26 14:50:00 by ali               #+#    #+#              #
-#    Updated: 2022/02/02 19:02:45 by avarnier         ###   ########.fr        #
+#    Updated: 2022/02/02 19:13:36 by avarnier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 SRCS = \
 sources/builtins/ft_cd_back.c     sources/parsing/parse.c \
 sources/builtins/ft_cd.c          sources/parsing/parse_error.c \
-sources/builtins/ft_echo.c        sources/parsing/print_cmd.c \
+sources/builtins/ft_echo.c \
 sources/builtins/ft_env.c         sources/parsing/quotes.c \
 sources/builtins/ft_exit.c        sources/parsing/split.c \
 sources/builtins/ft_exit_utils.c  sources/parsing/split_utils.c \

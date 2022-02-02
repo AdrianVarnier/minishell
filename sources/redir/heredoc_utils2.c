@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 16:47:46 by ali               #+#    #+#             */
-/*   Updated: 2022/02/02 02:35:24 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/02 19:17:57 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	ft_exec_read_heredoc(t_file *infile, int *fd)
 	heredoc = ft_read_heredoc(infile);
 	write(fd[1], heredoc, ft_strlen(heredoc));
 	close(fd[1]);
+	close(0);
+	close(1);
+	close(2);
 	exit (0);
 }
 
