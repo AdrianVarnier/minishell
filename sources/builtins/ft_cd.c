@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:27:50 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 05:45:55 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:17:05 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,16 @@ static int	check_path(char *path)
 		free(err_msg);
 		return (1);
 	}
-	else if (access(path, X_OK) == -1)
+	if (access(path, X_OK) == -1)
 	{
 		err_msg = ft_strjoin3("minishell: cd: ", path, ": Permission denied");
+		ft_putendl_fd(err_msg, 2);
+		free(err_msg);
+		return (1);
+	}
+	if (is_dir(path) == 0)
+	{
+		err_msg = ft_strjoin3("minishell: cd: ", path, ": is not a directory");
 		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
 		return (1);

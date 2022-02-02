@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 19:00:34 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:13:21 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include "define.h"
 # include "struct.h"
+# include <dirent.h>
 
 //exit status
 
@@ -82,6 +83,7 @@ void		exec_cmd(t_cmd *cmd, t_env **env);
 void		exec_all_cmd(t_cmd *cmd, t_env **env);
 void		exec_path(char *tmp, t_cmd *cmd, t_env *env);
 void		exec_builtin_redir(t_cmd *cmd, t_env **env);
+int			is_dir(char *path);
 
 //redir
 

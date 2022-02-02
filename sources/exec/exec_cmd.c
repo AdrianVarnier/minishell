@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 02:40:42 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/02 20:14:21 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*send_err_msg(char *name, char mode, pid_t parent, pid_t pid)
 		err_msg = ft_strjoin3("minishell: ", name, ": permission denied");
 	if (mode == 'P')
 		err_msg = ft_strjoin3("minishell: ", name, ": PATH not set");
+	if (mode == 'D')
+		err_msg = ft_strjoin3("minishell: ", name, ": is a directory");
 	if (err_msg != NULL)
 	{
 		ft_putendl_fd(err_msg, 2);
@@ -71,6 +73,14 @@ static char	check_path(char *name, char *path, pid_t parent, pid_t pid)
 			send_err_msg(path, 'X', parent, pid);
 		else
 			send_err_msg(name, 'X', parent, pid);
+		return (-1);
+	}
+	if (is_dir(path) == 1)
+	{
+		if (name == NULL)
+			send_err_msg(path, 'D', parent, pid);
+		else
+			send_err_msg(name, 'D', parent, pid);
 		return (-1);
 	}
 	return (1);

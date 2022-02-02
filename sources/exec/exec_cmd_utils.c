@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:05:48 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 19:09:03 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/02 20:18:23 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@ static void	close_fd(void)
 	close(0);
 	close(1);
 	close(2);
+}
+
+int	is_dir(char *path)
+{
+	DIR	*dir;
+
+	dir = opendir(path);
+	if (dir != NULL)
+	{
+		closedir(dir);
+		return (1);
+	}
+	return (0);
 }
 
 void	exec_path(char *tmp, t_cmd *cmd, t_env *env)
