@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 15:37:40 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 16:44:51 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int	check_infile(t_file *infile, t_cmd *cmd)
 {
 	int	fd;
 
+	if (already_open(cmd, infile->name) == 1)
+		return (stock_fd(get_fd(cmd, infile->name), cmd, infile));
 	if (access(infile->name, F_OK) == -1 && infile->type != HEREDOC)
 	{
 		send_err_msg(infile->name, 'F');
@@ -64,6 +66,8 @@ static int	check_outfile(t_file *outfile, t_cmd *cmd)
 {
 	int	fd;
 
+	if (already_open(cmd, outfile->name) == 1)
+		return (stock_fd(get_fd(cmd, outfile->name), cmd, outfile));
 	if (access(outfile->name, F_OK) == 0)
 	{
 		if (access(outfile->name, W_OK) == -1)

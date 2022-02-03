@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 15:19:01 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 17:16:49 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ char		*ft_dup(char *s);
 char		*ft_join(char *s1, char *s2);
 void		ft_exec_read_heredoc(t_file *infile, int *fd);
 char		*get_heredoc_name(void);
+int			already_open(t_cmd *cmd, char *name);
+int			get_fd(t_cmd *cmd, char *name);
 
 //free
 
