@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 11:53:24 by ali               #+#    #+#             */
-/*   Updated: 2022/02/03 13:25:20 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 23:18:07 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	ft_check_quotes(char c, int *indic)
 {
-	if (c == '\'' && indic[0] == 0)
+	if (c == '\'' && indic[0] == 0 && indic[1] == 1)
 		indic[0] = 1;
-	else if (c == '\'' && indic[0] == 1)
+	else if (c == '\'' && indic[0] == 1 && indic[1] == 1)
 		indic[0] = 0;
-	if (c == '\"' && indic[1] == 1)
+	if (c == '\"' && indic[1] == 1 && indic[0] == 0)
 		indic[1] = 0;
-	else if (c == '\"' && indic[1] == 0)
+	else if (c == '\"' && indic[1] == 0 && indic[0] == 0)
 		indic[1] = 1;
 }
 

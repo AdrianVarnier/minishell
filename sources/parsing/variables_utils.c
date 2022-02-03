@@ -6,6 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
+/*   Updated: 2022/02/03 21:08:18 by ali              ###   ########.fr       */
 /*   Updated: 2022/02/03 19:31:29 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -59,7 +60,7 @@ char	*ft_get_var(char *str, t_env **env, int nospace)
 		return (NULL);
 	value = ft_strdup(get_env(varname, *env));
 	if (value == NULL && !nospace)
-		value = ft_strdup(" ");
+		value = ft_strdup("");
 	else if (value == NULL)
 		value = ft_strdup("");
 	if (value && ft_has_quote(value))

@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 20:36:32 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 23:22:03 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int			is_dir(char *path);
 void		exit_wrong_path(t_cmd *cmd, t_env **env, int status);
 void		exit_redir_error(t_cmd *cmd, t_env **emv);
 void		close_and_destroy(t_cmd *cmd);
+int			is_loop(char *key, char *value);
+int			ft_pass_loop(char *str, t_env **env, int *indic);
 
 //redir
 
@@ -162,10 +164,10 @@ int			ft_next_word(char *str);
 int			ft_pass_quote(char *str);
 int			ft_pass_quote_word(char *str);
 int			ft_pass_word(char *str);
-int			ft_size_sub(char *str, t_env **env, int nospace);
+int			ft_size_sub(char *str, t_env **env);
 int			ft_sub(char *sub, char *str, t_env **env, int nospace);
-void		ft_fill_sub(char *str, char *sub, int *size, t_env **env);
-char		*ft_replace(char *str, t_env **env, int nospace);
+void		ft_fill_sub(char *str, char *sub, t_env **env);
+char		*ft_replace(char *str, t_env **env);
 char		**ft_variables(char **strs, t_env **env);
 char		*ft_get_varname(char *str);
 char		*ft_get_var(char *str, t_env **env, int nospace);
@@ -185,6 +187,8 @@ int			ft_has_quote(char *str);
 void		ft_check_quotes(char c, int *indic);
 char		**remove_empty(char **strs, int null);
 int			ft_redir_error(char **strs);
+int			next_var(char *str, int *nospace);
+int			fill_no_var(char *str, char *sub, int *nospace);
 
 // signals
 

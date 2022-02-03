@@ -6,27 +6,28 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:23:13 by ali               #+#    #+#             */
-/*   Updated: 2022/02/03 13:25:01 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 23:21:38 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_size_sub(char *str, t_env **env, int nospace)
+int	ft_size_sub(char *str, t_env **env)
 {
 	int	size;
 	int	i;
+	int	nospace;
+	int	incr;
 
+	nospace = 1;
 	size = 0;
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_is_variable(&str[i]))
-		{
-			i++;
-			size++;
-		}
-		else
+		incr = next_var(&str[i], &nospace);
+		i += incr;
+		size += incr;
+		if (str[i])
 		{
 			size += ft_variable_size(&str[i], env, nospace);
 			i += ft_pass_variable(&str[i]);
@@ -62,41 +63,40 @@ int	ft_sub(char *sub, char *str, t_env **env, int nospace)
 	return (i);
 }
 
-void	ft_fill_sub(char *str, char *sub, int *size, t_env **env)
+void	ft_fill_sub(char *str, char *sub, t_env **env)
 {
 	int	i;
 	int	j;
+	int	incr;
+	int	nospace;
 
 	i = 0;
 	j = 0;
-	while (j < size[0])
+	nospace = 1;
+	while (str[i])
 	{
-		if (!ft_is_variable(&str[i]))
+		incr = fill_no_var(&str[i], &sub[j], &nospace);
+		i += incr;
+		j += incr;
+		if (str[i])
 		{
-			sub[j] = str[i];
-			i++;
-			j++;
-		}
-		else
-		{
-			j += ft_sub(&sub[j], &str[i], env, size[1]);
+			j += ft_sub(&sub[j], &str[i], env, nospace);
 			i += ft_pass_variable(&str[i]);
 		}
 	}
 	sub[j] = '\0';
 }
 
-char	*ft_replace(char *str, t_env **env, int nospace)
+char	*ft_replace(char *str, t_env **env)
 {
 	char	*sub;
-	int		size[2];
+	int		size;
 
-	size[0] = ft_size_sub(str, env, nospace);
-	size[1] = nospace;
-	sub = malloc(sizeof(char) * (size[0] + 1));
+	size = ft_size_sub(str, env);
+	sub = malloc(sizeof(char) * (size + 1));
 	if (!sub)
 		return (NULL);
-	ft_fill_sub(str, sub, size, env);
+	ft_fill_sub(str, sub, env);
 	if (str)
 		free (str);
 	if (sub[0] == '\0')
@@ -122,13 +122,12 @@ char	**ft_variables(char **strs, t_env **env)
 		j = 0;
 		while (strs[i] && strs[i][j])
 		{
-			ft_check_quotes(strs[i][j], indic);
 			if (indic[0] == 0 && strs[i][j] && ft_is_variable(&strs[i][j]))
-				strs[i] = ft_replace(strs[i], env, indic[1]);
+				strs[i] = ft_replace(strs[i], env);
 			if (strs[i] == NULL)
 				indic[2] = 1;
-			if (strs[i] && strs[i][j])
-				j++;
+			if (strs[i])
+				j += ft_pass_loop(&strs[i][j], env, indic);
 		}
 		i++;
 	}
