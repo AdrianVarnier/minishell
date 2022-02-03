@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 15:01:37 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 16:59:57 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_file
 {
 	int				type;
 	char			*name;
+	int				fd;
 	struct s_file	*next;
 	struct s_file	*prev;
 }	t_file;
