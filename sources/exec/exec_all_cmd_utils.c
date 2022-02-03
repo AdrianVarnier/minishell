@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:16:50 by ali               #+#    #+#             */
-/*   Updated: 2022/02/03 19:23:24 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 19:37:23 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_redir_error(t_cmd *cmd)
 	return (0);
 }
 
-void	close_all_files(t_cmd *cmd)
+static void	close_all_files(t_cmd *cmd)
 {
 	while (cmd != NULL)
 	{
@@ -33,4 +33,10 @@ void	close_all_files(t_cmd *cmd)
 			close(cmd->output);
 		cmd = cmd->next;
 	}
+}
+
+void	close_and_destroy(t_cmd *cmd)
+{
+	close_all_files(cmd);
+	ft_destroy_heredoc(cmd);
 }

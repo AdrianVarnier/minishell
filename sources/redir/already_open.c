@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:21:57 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 19:16:29 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 19:30:28 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ int	already_open(t_cmd *cmd, char *name)
 	return (0);
 }
 
-static int get_outfile_fd(char *name)
+static int	get_outfile_fd(char *name)
 {
 	int	fd;
 
 	fd = open(name, O_WRONLY | O_APPEND | O_CREAT,
-		S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	return (fd);
 }
 
@@ -51,7 +51,7 @@ int	get_fd(t_cmd *cmd, char *name)
 	while (cmd != NULL)
 	{
 		if (already_open_file(cmd->outfile, name) == 1)
-				return (get_outfile_fd(name));
+			return (get_outfile_fd(name));
 		cmd = cmd->prev;
 	}
 	return (0);
