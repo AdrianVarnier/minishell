@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
-/*   Updated: 2022/02/03 11:07:46 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 12:51:42 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_cmd	*ft_parse_line(char *line, t_env **env)
 	char	**strs;
 	t_cmd	*cmd;
 	char	*exit;
+	char	**new;
 
 	cmd = NULL;
 	exit = ft_itoa(g_exit);
@@ -87,9 +88,9 @@ t_cmd	*ft_parse_line(char *line, t_env **env)
 	free(line);
 	if (ft_parse_error(strs))
 		return (ft_exit_parse(strs));
-	ft_variables(strs, env);
-	ft_quotes(strs);
-	cmd = ft_stock_cmd(strs);
-	free_char2(strs);
+	new = ft_variables(strs, env);
+	ft_quotes(new);
+	cmd = ft_stock_cmd(new);
+	free_char2(new);
 	return (cmd);
 }

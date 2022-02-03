@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:23:13 by ali               #+#    #+#             */
-/*   Updated: 2022/02/02 21:41:27 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 13:25:01 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_sub(char *sub, char *str, t_env **env, int nospace)
 
 	i = 0;
 	j = 0;
-	var = ft_get_var(str, env);
+	var = ft_get_var(str, env, nospace);
 	if (!var)
 		return (0);
 	while (var[i])
@@ -99,34 +99,38 @@ char	*ft_replace(char *str, t_env **env, int nospace)
 	ft_fill_sub(str, sub, size, env);
 	if (str)
 		free (str);
+	if (sub[0] == '\0')
+	{
+		free(sub);
+		return (NULL);
+	}
 	return (sub);
 }
 
-void	ft_variables(char **strs, t_env **env)
+char	**ft_variables(char **strs, t_env **env)
 {
 	int	i;
 	int	j;
-	int	novar;
-	int	nospace;
+	int	indic[3];
 
-	novar = 0;
-	nospace = 1;
-	i = -1;
-	while (strs[++i])
+	indic[0] = 0;
+	indic[1] = 1;
+	i = 0;
+	indic[2] = 0;
+	while (strs[i])
 	{
-		j = -1;
-		while (strs[i][++j])
+		j = 0;
+		while (strs[i] && strs[i][j])
 		{
-			if (strs[i][j] == '\'' && novar == 0)
-				novar = 1;
-			else if (strs[i][j] == '\'' && novar == 1)
-				novar = 0;
-			if (strs[i][j] == '\"' && nospace == 1)
-				nospace = 0;
-			else if (strs[i][j] == '\"' && nospace == 0)
-				nospace = 1;
-			if (novar == 0 && strs[i][j] && ft_is_variable(&strs[i][j]))
-				strs[i] = ft_replace(strs[i], env, nospace);
+			ft_check_quotes(strs[i][j], indic);
+			if (indic[0] == 0 && strs[i][j] && ft_is_variable(&strs[i][j]))
+				strs[i] = ft_replace(strs[i], env, indic[1]);
+			if (strs[i] == NULL)
+				indic[2] = 1;
+			if (strs[i] && strs[i][j])
+				j++;
 		}
+		i++;
 	}
+	return (remove_empty(strs, indic[2]));
 }

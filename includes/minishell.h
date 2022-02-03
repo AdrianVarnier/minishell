@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 22:02:45 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 13:15:34 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,9 @@ int			ft_size_sub(char *str, t_env **env, int nospace);
 int			ft_sub(char *sub, char *str, t_env **env, int nospace);
 void		ft_fill_sub(char *str, char *sub, int *size, t_env **env);
 char		*ft_replace(char *str, t_env **env, int nospace);
-void		ft_variables(char **strs, t_env **env);
+char		**ft_variables(char **strs, t_env **env);
 char		*ft_get_varname(char *str);
-char		*ft_get_var(char *str, t_env **env);
+char		*ft_get_var(char *str, t_env **env, int nospace);
 int			ft_variable_size(char *str, t_env **env, int nospace);
 int			ft_pass_variable(char *str);
 t_cmd		*ft_parse_line(char *line, t_env **env);
@@ -177,6 +177,8 @@ char		*ft_variables_heredoc(char *str);
 void		ft_increment(int *i, int *j);
 char		*ft_quote_value(char *str);
 int			ft_has_quote(char *str);
+void		ft_check_quotes(char c, int *indic);
+char		**remove_empty(char **strs, int null);
 
 // signals
 

@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
-/*   Updated: 2022/02/02 21:51:00 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 11:48:45 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,20 @@ char	*ft_get_varname(char *str)
 	return (varname);
 }
 
-char	*ft_get_var(char *str, t_env **env)
+char	*ft_get_var(char *str, t_env **env, int nospace)
 {
 	char	*varname;
 	char	*value;
 
+	(void)nospace;
 	varname = ft_get_varname(str + 1);
 	if (!varname)
 		return (NULL);
 	value = ft_strdup(get_env(varname, *env));
+	if (value == NULL && !nospace)
+		value = ft_strdup(" ");
+	else if (value == NULL)
+		value = ft_strdup("");
 	if (value && ft_has_quote(value))
 		value = ft_quote_value(value);
 	free(varname);
@@ -70,7 +75,7 @@ int	ft_variable_size(char *str, t_env **env, int nospace)
 	int		i;
 	int		size;
 
-	var = ft_get_var(str, env);
+	var = ft_get_var(str, env, nospace);
 	i = 0;
 	size = 0;
 	if (!var)
