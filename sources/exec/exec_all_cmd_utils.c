@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 15:16:50 by ali               #+#    #+#             */
-/*   Updated: 2022/02/03 15:18:26 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 17:13:33 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,29 @@ int	check_redir_error(t_cmd *cmd)
 		return (1);
 	}
 	return (0);
+}
+
+void	close_all_files(t_cmd *cmd)
+{
+	t_file	*infile;
+	t_file	*outfile;
+
+	while (cmd)
+	{
+		infile = cmd->infile;
+		while (infile)
+		{
+			if (infile->fd > 2)
+				close(infile->fd);
+			infile = infile->next;
+		}
+		outfile = cmd->outfile;
+		while (outfile)
+		{
+			if (outfile->fd > 2)
+				close(outfile->fd);
+			outfile = outfile->next;
+		}
+		cmd = cmd->next;
+	}
 }
