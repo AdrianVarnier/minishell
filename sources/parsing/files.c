@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 16:44:05 by ali               #+#    #+#             */
-/*   Updated: 2022/02/03 16:59:36 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 19:22:55 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_add_file(t_file **files, int type, char *name)
 		return ;
 	new->type = type;
 	new->name = ft_strdup(name);
-	new->fd = 0;
 	if (*files == NULL)
 	{
 		new->next = NULL;

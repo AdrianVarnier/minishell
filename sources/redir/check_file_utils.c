@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:31:53 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 17:44:46 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 19:21:46 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ int	stock_fd(int fd, t_cmd *cmd, t_file *outfile)
 		return (0);
 	}
 	if (outfile->next == NULL)
-	{
 		cmd->output = fd;
-		outfile->fd = fd;
-	}
 	else
 		close(fd);
 	return (1);
