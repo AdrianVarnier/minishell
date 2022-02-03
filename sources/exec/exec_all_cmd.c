@@ -6,11 +6,20 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 18:18:50 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 18:39:12 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	close_fd(t_cmd *cmd)
+{
+	if (cmd->prev != NULL)
+	{
+		close(cmd->pipe_input);
+		close(cmd->prev->pipe_output);
+	}
+}
 
 void	set_last_cmd(t_cmd *cmd, t_env **env)
 {
@@ -72,15 +81,6 @@ void	ft_exit_status(int exit_status, int builtin)
 		g_exit = 131;
 	else if (builtin == 0)
 		g_exit = exit_status >> 8;
-}
-
-static void	close_fd(t_cmd *cmd)
-{
-	if (cmd->prev != NULL)
-	{
-		close(cmd->pipe_input);
-		close(cmd->prev->pipe_output);
-	}
 }
 
 void	exec_all_cmd(t_cmd *cmd, t_env **env)

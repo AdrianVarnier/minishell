@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 13:35:01 by ali               #+#    #+#             */
-/*   Updated: 2022/02/03 11:48:45 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 18:15:15 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ char	*ft_get_var(char *str, t_env **env, int nospace)
 	else if (value == NULL)
 		value = ft_strdup("");
 	if (value && ft_has_quote(value))
+		value = ft_quote_value(value);
+	if (value && (value[0] == '>' || value[0] == '<' || value[0] == '|'))
 		value = ft_quote_value(value);
 	free(varname);
 	return (value);
