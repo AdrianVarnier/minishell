@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 18:26:23 by ali               #+#    #+#             */
-/*   Updated: 2022/02/02 21:50:39 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 18:09:01 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ char	*ft_quote_value(char *str)
 	i = 0;
 	while (str[i] && str[i] != '\'' && str[i] != '\"')
 		i++;
+	if (!str[i])
+		c = '\"';
 	c = str[i];
 	ft_fill_quote_value(str, sub, c);
 	free(str);
