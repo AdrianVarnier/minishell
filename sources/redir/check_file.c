@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 10:11:02 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 15:37:40 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ static void	send_err_msg(char *name, char mode)
 		err_msg = ft_strjoin3("minishell: ",
 				name, ": No such file or directory");
 	if (mode == 'R')
-		err_msg = ft_strjoin3("minishell: ", name, ": Read permission denied");
+		err_msg = ft_strjoin3("minishell: ", name, ": Permission denied");
 	if (mode == 'W')
-		err_msg = ft_strjoin3("minishell: ", name, ": Write permission denied");
+		err_msg = ft_strjoin3("minishell: ", name, ": Permission denied");
 	if (mode == 'O')
-		err_msg = ft_strjoin3("minishell: ", name, ": Open failure");
+		err_msg = ft_strjoin3("minishell: ", name, ": Permission denied");
 	if (err_msg != NULL)
 	{
+		g_exit = 1;
 		ft_putendl_fd(err_msg, 2);
 		free(err_msg);
 	}
