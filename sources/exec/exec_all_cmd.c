@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 17:13:45 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 18:18:50 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,6 @@ static void	close_fd(t_cmd *cmd)
 		close(cmd->pipe_input);
 		close(cmd->prev->pipe_output);
 	}
-	if (cmd->input != 0)
-		close(cmd->input);
-	if (cmd->output != 1)
-		close(cmd->output);
 }
 
 void	exec_all_cmd(t_cmd *cmd, t_env **env)
@@ -110,6 +106,7 @@ void	exec_all_cmd(t_cmd *cmd, t_env **env)
 			waitpid(cmd->pid, &exit_status, 0);
 			ft_exit_status(exit_status, builtin);
 		}
+		close_fd(cmd);
 		cmd = cmd->next;
 	}
 	ft_destroy_heredoc(begin);
