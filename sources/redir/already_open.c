@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 16:21:57 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 17:16:01 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:20:04 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,26 @@ int	already_open(t_cmd *cmd, char *name)
 	while (cmd != NULL)
 	{
 		if (cmd->outfile != NULL)
-			if (already_open_file(cmd->outfile) == 1)
+			if (already_open_file(cmd->outfile, name) == 1)
 				return (1);
 		if (cmd->infile != NULL)
-			if (already_open_file(cmd->infile) == 1)
+			if (already_open_file(cmd->infile, name) == 1)
 				return (1);
 		cmd = cmd->prev;
 	}
 	return (0);
 }
 
-static int	get_file_fd(t_file *file, name)
+static int	get_file_fd(t_file *file, char *name)
 {
 	while (file != NULL)
 	{
 		if (file->type == APPEND || file->type == REPLACE || file->type == INFILE)
-			if (ft_strcmp(name, file->name) == 0 && file->fd != 0)
+			if (ft_strcmp(name, file->name) == 0)
 				return (file->fd);
 		file = file->next;
 	}
+	return (0);
 }
 
 int	get_fd(t_cmd *cmd, char *name)
