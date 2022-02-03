@@ -6,22 +6,18 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/02 22:34:58 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 11:12:05 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*send_err_msg(char *name, char mode, pid_t parent, pid_t pid)
+char	*send_err_msg(char *name, char mode, pid_t pid)
 {
 	char	*err_msg;
 
 	if (pid != 0)
 		return (NULL);
-	if (mode == 'X')
-		kill(parent, SIGUSR1);
-	else
-		kill(parent, SIGILL);
 	if (mode == 'C')
 		err_msg = ft_strjoin3("minishell: ", name, ": command not found");
 	if (mode == 'F')
@@ -64,36 +60,36 @@ static int	is_path(t_cmd *cmd, t_env **env)
 	}
 	if (ft_strlen(cmd->args[0]) == c)
 	{
-		send_err_msg(cmd->args[0], 'C', cmd->parent, cmd->pid);
+		send_err_msg(cmd->args[0], 'C', cmd->pid);
 		exit_wrong_path(cmd, env, 127);
 	}
 	return (0);
 }
 
-static int	check_path(char *name, char *path, pid_t parent, pid_t pid)
+static int	check_path(char *name, char *path, pid_t pid)
 {
 	if (path == NULL)
 		return (0);
 	if (access(path, F_OK) != 0)
 	{
 		if (name == NULL)
-			send_err_msg(path, 'F', parent, pid);
+			send_err_msg(path, 'F', pid);
 		return (0);
 	}
 	if (access(path, X_OK) != 0)
 	{
 		if (name == NULL)
-			send_err_msg(path, 'X', parent, pid);
+			send_err_msg(path, 'X', pid);
 		else
-			send_err_msg(name, 'X', parent, pid);
+			send_err_msg(name, 'X', pid);
 		return (-1);
 	}
 	if (is_dir(path) == 1)
 	{
 		if (name == NULL)
-			send_err_msg(path, 'D', parent, pid);
+			send_err_msg(path, 'D', pid);
 		else
-			send_err_msg(name, 'D', parent, pid);
+			send_err_msg(name, 'D', pid);
 		return (-1);
 	}
 	return (1);
@@ -106,22 +102,22 @@ char	*get_path(t_cmd *cmd, char **path)
 
 	i = 0;
 	if (path == NULL)
-		return (send_err_msg(cmd->args[0], 'P', cmd->parent, cmd->pid));
+		return (send_err_msg(cmd->args[0], 'P', cmd->pid));
 	if (ft_strcmp(cmd->args[0], "\0") == 0)
-		return (send_err_msg(NULL, 'C', cmd->parent, cmd->pid));
+		return (send_err_msg(NULL, 'C', cmd->pid));
 	while (path[i] != NULL)
 	{
 		full_path = ft_strjoin3(path[i++], "/", cmd->args[0]);
-		if (check_path(cmd->args[0], full_path, cmd->parent, cmd->pid) == -1)
+		if (check_path(cmd->args[0], full_path, cmd->pid) == -1)
 		{
 			free(full_path);
 			return (NULL);
 		}
-		if (check_path(cmd->args[0], full_path, cmd->parent, cmd->pid) == 1)
+		if (check_path(cmd->args[0], full_path, cmd->pid) == 1)
 			return (full_path);
 		free(full_path);
 	}
-	return (send_err_msg(cmd->args[0], 'C', cmd->parent, cmd->pid));
+	return (send_err_msg(cmd->args[0], 'C', cmd->pid));
 }
 
 void	exec_cmd(t_cmd *cmd, t_env **env)
@@ -140,7 +136,7 @@ void	exec_cmd(t_cmd *cmd, t_env **env)
 	}
 	if (is_path(cmd, env) == 1)
 	{
-		if (check_path(NULL, cmd->args[0], cmd->parent, cmd->pid) == 1)
+		if (check_path(NULL, cmd->args[0], cmd->pid) == 1)
 			tmp = ft_strdup(cmd->args[0]);
 		else
 			exit_wrong_path(cmd, env, 0);

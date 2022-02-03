@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_back.c                                     :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:59:23 by ali               #+#    #+#             */
-/*   Updated: 2022/01/28 18:42:55 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 11:06:48 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,6 @@ void	ft_signal(int mode)
 	{
 		signal(SIGINT, ft_handler_int);
 		signal(SIGQUIT, ft_handler_quit);
-		signal(SIGUSR1, ft_handler_child_error);
-		signal(SIGILL, ft_handler_child_error);
-		signal(SIGUSR2, ft_handler_child_error);
 	}
 	if (mode == 2)
 	{

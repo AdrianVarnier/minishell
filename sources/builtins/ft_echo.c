@@ -6,11 +6,25 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 09:05:24 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 01:05:29 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 11:21:51 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	is_not_spaces(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (arg[i] != ' ')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_echo(char **arg, int mode)
 {
@@ -22,7 +36,7 @@ int	ft_echo(char **arg, int mode)
 	while (arg[i] != NULL)
 	{
 		ft_putstr_fd(arg[i], 1);
-		if (arg[i + 1] != NULL)
+		if (arg[i + 1] != NULL && is_not_spaces(arg[i]))
 			ft_putchar_fd(' ', 1);
 		i++;
 	}

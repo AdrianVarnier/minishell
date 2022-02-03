@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 17:41:58 by ali               #+#    #+#             */
-/*   Updated: 2022/02/02 21:34:53 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 11:07:46 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	ft_variable_error(char *str)
 
 t_cmd	*ft_exit_parse(char **strs)
 {
+	g_exit = 2;
 	free_char2(strs);
 	return (NULL);
 }

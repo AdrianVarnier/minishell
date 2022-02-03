@@ -6,17 +6,16 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:55:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/01 08:31:09 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 10:11:02 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	send_err_msg(char *name, char mode, pid_t parent)
+static void	send_err_msg(char *name, char mode)
 {
 	char	*err_msg;
 
-	kill(parent, SIGUSR2);
 	if (mode == 'F')
 		err_msg = ft_strjoin3("minishell: ",
 				name, ": No such file or directory");
@@ -39,18 +38,18 @@ static int	check_infile(t_file *infile, t_cmd *cmd)
 
 	if (access(infile->name, F_OK) == -1 && infile->type != HEREDOC)
 	{
-		send_err_msg(infile->name, 'F', cmd->parent);
+		send_err_msg(infile->name, 'F');
 		return (0);
 	}
 	if (access(infile->name, R_OK) == -1 && infile->type != HEREDOC)
 	{
-		send_err_msg(infile->name, 'R', cmd->parent);
+		send_err_msg(infile->name, 'R');
 		return (0);
 	}
 	fd = open(infile->name, O_RDONLY);
 	if (infile->type != HEREDOC && fd == -1)
 	{
-		send_err_msg(infile->name, 'O', cmd->parent);
+		send_err_msg(infile->name, 'O');
 		return (0);
 	}
 	if (infile->next == NULL)
@@ -68,7 +67,7 @@ static int	check_outfile(t_file *outfile, t_cmd *cmd)
 	{
 		if (access(outfile->name, W_OK) == -1)
 		{
-			send_err_msg(outfile->name, 'W', cmd->parent);
+			send_err_msg(outfile->name, 'W');
 			return (0);
 		}
 	}
