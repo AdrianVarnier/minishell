@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 15:19:01 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 17:12:27 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void		exec_builtin_redir(t_cmd *cmd, t_env **env);
 int			is_dir(char *path);
 void		exit_wrong_path(t_cmd *cmd, t_env **env, int status);
 void		exit_redir_error(t_cmd *cmd, t_env **emv);
+void		close_all_files(t_cmd *cmd);
 
 //redir
 
