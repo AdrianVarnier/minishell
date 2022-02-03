@@ -6,11 +6,26 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 14:03:09 by ali               #+#    #+#             */
-/*   Updated: 2022/01/19 17:25:35 by avarnier         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:47:27 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_redir_error(char **strs)
+{
+	int	i;
+
+	i = 0;
+	while (strs[i] && strs[i][0] != '|')
+	{
+		if ((strs[i][0] == '>' || strs[i][0] == '<')
+			&& (!strs[i + 1] || strs[i + 1][0] == '|'))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	ft_is_file(char **strs, int index)
 {

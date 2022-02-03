@@ -6,7 +6,7 @@
 /*   By: ali <ali@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:42:46 by ali               #+#    #+#             */
-/*   Updated: 2022/02/02 17:57:39 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 15:02:38 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	ft_add_cmd(t_cmd **cmd, char **strs)
 	new->output = 1;
 	new->pipe_input = 0;
 	new->pipe_output = 1;
+	new->redir_error = 0;
+	new->redir_error = ft_redir_error(strs);
 	ft_place_cmd(cmd, new);
 }
 

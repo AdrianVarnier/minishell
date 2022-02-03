@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:05:48 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 11:25:46 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 15:07:36 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ void	exit_wrong_path(t_cmd *cmd, t_env **env, int status)
 		exit_status = 126;
 	free_shell(*env, cmd);
 	exit(exit_status);
+}
+
+void	exit_redir_error(t_cmd *cmd, t_env **env)
+{
+	ft_putendl_fd("minishell: ambiguous redirect", 2);
+	free_shell(*env, cmd);
+	exit (1);
 }
 
 void	exec_path(char *tmp, t_cmd *cmd, t_env *env)

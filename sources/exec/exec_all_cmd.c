@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 22:16:04 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 11:10:53 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 15:25:16 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ static void	manage_cmd(t_cmd *cmd, t_env **env, int *builtin)
 	if (is_builtin(cmd->args[0]) == 1
 		&& cmd->next == NULL && cmd->prev == NULL)
 	{
+		*builtin = 1;
+		if (check_redir_error(cmd))
+			return ;
 		set_last_cmd(cmd, env);
 		if (cmd->outfile != NULL)
 			exec_builtin_redir(cmd, env);
 		else
 			exec_builtin(cmd, env, cmd->outfile);
-		*builtin = 1;
 	}
 	else if (cmd->args[0] != NULL)
 	{
@@ -105,10 +107,10 @@ void	exec_all_cmd(t_cmd *cmd, t_env **env)
 			g_exit = -1;
 			manage_cmd(cmd, env, &builtin);
 			close_fd(cmd);
+			waitpid(cmd->pid, &exit_status, 0);
+			ft_exit_status(exit_status, builtin);
 		}
-		waitpid(cmd->pid, &exit_status, 0);
 		cmd = cmd->next;
 	}
 	ft_destroy_heredoc(begin);
-	ft_exit_status(exit_status, builtin);
 }

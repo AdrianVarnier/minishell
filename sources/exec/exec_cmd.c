@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:48:19 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 11:12:05 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 15:04:34 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ void	exec_cmd(t_cmd *cmd, t_env **env)
 	char	*tmp;
 	char	**path;
 
+	if (cmd->redir_error == 1)
+		exit_redir_error(cmd, env);
 	path = ft_split(get_env("PATH", *env), ':');
 	tmp = NULL;
 	ft_signal(2);

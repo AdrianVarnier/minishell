@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:10:49 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 09:22:39 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 15:01:37 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_cmd
 	int				output;
 	int				pipe_input;
 	int				pipe_output;
+	int				redir_error;
 	struct s_file	*infile;
 	struct s_file	*outfile;
 	pid_t			pid;

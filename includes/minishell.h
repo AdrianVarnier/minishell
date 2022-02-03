@@ -6,7 +6,7 @@
 /*   By: avarnier <avarnier@stduent.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 12:11:56 by avarnier          #+#    #+#             */
-/*   Updated: 2022/02/03 13:15:34 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 15:19:01 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_env		*ft_parse_env(char **envp);
 
 //exec
 
+int			check_redir_error(t_cmd *cmd);
 int			is_builtin(char *name);
 char		*get_path(t_cmd *cmd, char **path);
 void		exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile);
@@ -85,6 +86,7 @@ void		exec_path(char *tmp, t_cmd *cmd, t_env *env);
 void		exec_builtin_redir(t_cmd *cmd, t_env **env);
 int			is_dir(char *path);
 void		exit_wrong_path(t_cmd *cmd, t_env **env, int status);
+void		exit_redir_error(t_cmd *cmd, t_env **emv);
 
 //redir
 
@@ -179,6 +181,7 @@ char		*ft_quote_value(char *str);
 int			ft_has_quote(char *str);
 void		ft_check_quotes(char c, int *indic);
 char		**remove_empty(char **strs, int null);
+int			ft_redir_error(char **strs);
 
 // signals
 

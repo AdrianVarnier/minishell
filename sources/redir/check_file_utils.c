@@ -6,17 +6,16 @@
 /*   By: avarnier <avarnier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:31:53 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/28 09:46:48 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 15:32:35 by ali              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	send_err_msg(char *name, char mode, pid_t parent)
+static void	send_err_msg(char *name, char mode)
 {
 	char	*err_msg;
 
-	kill(parent, SIGUSR2);
 	if (mode == 'F')
 		err_msg = ft_strjoin3("minishell: ",
 				name, ": No such file or directory");
@@ -37,7 +36,7 @@ int	stock_fd(int fd, t_cmd *cmd, t_file *outfile)
 {
 	if (fd == -1)
 	{
-		send_err_msg(outfile->name, 'O', cmd->parent);
+		send_err_msg(outfile->name, 'O');
 		return (0);
 	}
 	if (outfile->next == NULL)
