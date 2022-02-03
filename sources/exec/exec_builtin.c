@@ -6,7 +6,7 @@
 /*   By: avarnier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/11 16:15:26 by avarnier          #+#    #+#             */
-/*   Updated: 2022/01/30 17:53:52 by ali              ###   ########.fr       */
+/*   Updated: 2022/02/03 20:39:30 by avarnier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	exec_echo(t_cmd *cmd)
 	return (ret);
 }
 
-void	exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile)
+void	exec_builtin(t_cmd *cmd, t_env **env)
 {
 	int		ret;
 
@@ -91,11 +91,9 @@ void	exec_builtin(t_cmd *cmd, t_env **env, t_file *outfile)
 		ret = ft_env(*env);
 	if (ft_strcmp(cmd->args[0], "exit") == 0)
 		ret = ft_exit(cmd, *env);
-	if (outfile != NULL)
-		while (outfile->next != NULL)
-			outfile = outfile->next;
 	if (cmd->next != NULL || cmd->prev != NULL)
 	{
+		close(5);
 		free_shell(*env, cmd);
 		exit(ret);
 	}
